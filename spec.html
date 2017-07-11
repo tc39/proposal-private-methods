@@ -169,7 +169,7 @@ emu-example pre {
       ClassBody : ClassElementList
     </emu-grammar>
     <ul>
-      <li>It is a Syntax Error if PrivateBoundNames of |ClassBody| contains any duplicate entries, unless the name is used once for a getter and once for a setter.</li>
+      <li>It is a Syntax Error if PrivateBoundNames of |ClassBody| contains any duplicate entries, unless the name is used once for a getter and once for a setter and in no other entries.</li>
     </ul>
 
     <emu-grammar>ClassElement : `static` FieldDefinitionList `;`</emu-grammar>
@@ -202,7 +202,7 @@ emu-example pre {
 
     <emu-grammar>PropertyDefinition : MethodDefinition</emu-grammar>
     <ul>
-      <li>It is a Syntax Error if PrivateBoundNames of |MethodDefinition| is non-empty</li>
+      <li>It is a Syntax Error if PrivateBoundNames of |MethodDefinition| is non-empty.</li>
     </ul>
     <emu-note editor>In a follow-on proposal, object literals may be permitted to have private methods, fields and accessors.</emu-note>
 
@@ -1004,7 +1004,7 @@ emu-example pre {
   <emu-note>
     <p>The Reference type is used to explain the behaviour of such operators as `delete`, `typeof`, the assignment operators, the `super` keyword and other language features. For example, the left-hand operand of an assignment is expected to produce a reference.</p>
   </emu-note>
-  <p>A <dfn>Reference</dfn> is a resolved name or property binding. A Reference consists of <ins>four</ins> components, the <em>base</em> value, the <em>referenced name</em>, the Boolean valued <em>strict reference</em> flag, <ins>and the Boolean valued <em>private reference</em> flag</ins>. The <em>base</em> value is either *undefined*, an Object, a Boolean, a String, a Symbol, a Number, or an Environment Record (<emu-xref href="#sec-environment-records"></emu-xref>). A _base_ value of *undefined* indicates that the Reference could not be resolved to a binding. The <em>referenced name</em> is a String value or a Symbol value.</p>
+  <p>A <dfn>Reference</dfn> is a resolved name or property binding. A Reference consists of <del>three</del><ins>four</ins> components, the <em>base</em> value, the <em>referenced name</em>, the Boolean valued <em>strict reference</em> flag, <ins>and the Boolean valued <em>private reference</em> flag</ins>. The <em>base</em> value is either *undefined*, an Object, a Boolean, a String, a Symbol, a Number, or an Environment Record (<emu-xref href="#sec-environment-records"></emu-xref>). A _base_ value of *undefined* indicates that the Reference could not be resolved to a binding. The <em>referenced name</em> is a String value or a Symbol value.</p>
   <p>A Super Reference is a Reference that is used to represent a name binding that was expressed using the super keyword. A Super Reference has an additional _thisValue_ component and its _base_ value will never be an Environment Record.</p>
   <p>The following abstract operations are used in this specification to access the components of references:</p>
   <ul>
