@@ -89,7 +89,6 @@ class Counter extends HTMLElement {
 
   #clicked() {
     #x++;
-    window.requestAnimationFrame(#render.bind(this));
   }
 
   constructor() {
