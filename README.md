@@ -86,7 +86,7 @@ class Counter extends HTMLElement {
   get #x() { return #xValue; }
   set #x(value) {
     this.#xValue = value; 
-    window.requestAnimationFrame(#render.bind(this));
+    window.requestAnimationFrame(this.#render.bind(this));
   }
 
   #clicked() {
