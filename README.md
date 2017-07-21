@@ -6,6 +6,8 @@ Keeping state and behavior private to a class lets library authors present a cle
 
 Decorators aren't part of this proposal, but it's designed to allow decorators to work on top of it. See [unified class features](https://github.com/littledan/proposal-unified-class-features) for an explanation of how they would work together.
 
+For discussion about semantic details, see [DETAILS.md](https://github.com/littledan/proposal-private-methods/blob/master/DETAILS.md). This document focuses more on the end user experience and intuition.
+
 ## A guiding example: Custom elements with classes
 
 To define a counter widget which increments when clicked, you can define the following with ES2015:
@@ -83,29 +85,29 @@ class Counter extends HTMLElement {
 
   get #x() { return #xValue; }
   set #x(value) {
-    #xValue = value; 
+    this.#xValue = value; 
     window.requestAnimationFrame(#render.bind(this));
   }
 
   #clicked() {
-    #x++;
+    this.#x++;
   }
 
   constructor() {
     super();
-    this.onclick = #clicked.bind(this);
+    this.onclick = this.#clicked.bind(this);
   }
 
-  connectedCallback() { #render(); }
+  connectedCallback() { this.#render(); }
 
   #render() {
-    this.textContent = #x.toString();
+    this.textContent = this.#x.toString();
   }
 }
 window.customElements.define('num-counter', Counter);
 ```
 
-To make methods, getter/setters or fields private, just give them a name starting with `#`. A shorthand for `this.#x` is simply `#x`.
+To make methods, getter/setters or fields private, just give them a name starting with `#`.
 
 With all of its implementation kept internal to the class, this custom element can present an interface which is basically just like a built-in HTML element. Users of the custom element don't have the power to mess around with any of its internals.
 
