@@ -2,6 +2,8 @@
 
 Daniel Ehrenberg
 
+Stage 2
+
 Keeping state and behavior private to a class lets library authors present a clear, stable interface, while changing their code over time behind the scenes. The [class fields](https://github.com/tc39/proposal-class-fields) proposal provides private fields for classes and instances, and this proposal builds on that by adding private methods and accessors (getter/setters) to JavaScript. With this proposal, any class element can be private.
 
 Decorators aren't part of this proposal, but it's designed to allow decorators to work on top of it. See [unified class features](https://github.com/littledan/proposal-unified-class-features) for an explanation of how they would work together.
