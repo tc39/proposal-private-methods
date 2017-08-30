@@ -183,7 +183,7 @@ emu-example pre {
   <h1>DefineClassElement(_receiver_, _element_)</h1>
   <emu-alg>
     1. Assert: Type(_receiver_) is Object.
-    1. Assert: _element_ is a Record as created by ElementEvaluation.
+    1. Assert: _element_ is a Record as created by ClassElementEvaluation.
     1. Let _key_ be _element_.[[Key]].
     1. Let _descriptor_ be _element_.[[Descriptor]].
     1. If _element_.[[Kind]] is `"field"`,
@@ -345,7 +345,7 @@ emu-example pre {
           1. <del>Let _status_ be the result of performing PropertyDefinitionEvaluation for _m_ with arguments _proto_ and *false*.</del>
         1. <del>Else,</del>
           1. <del>Let _status_ be the result of performing PropertyDefinitionEvaluation for _m_ with arguments _F_ and *false*.</del>
-        1. <ins>Let _newElements_ be the result of performing ElementEvaluation for _d_ with arguments _F_, _true_, and ~empty~.</ins>
+        1. <ins>Let _newElements_ be the result of performing ClassElementEvaluation for _d_ with arguments _F_, _true_, and ~empty~.</ins>
         1. If <del>_status_</del><ins>_newElements_</ins> is an abrupt completion, then
           1. Set the running execution context's LexicalEnvironment to _lex_.
           1. <ins>Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.</ins>
@@ -381,17 +381,17 @@ emu-example pre {
   </emu-clause>
 
   <emu-clause id="sec-method-definitions-runtime-semantics-propertydefinitionevaluation">
-    <h1>Runtime Semantics: ElementEvaluation</h1>
+    <h1>Runtime Semantics: ClassElementEvaluation</h1>
     <p>With parameters _homeObject_, _enumerable_ and _placement_.</p>
-    <p>ElementEvaluation returns a List of Records of the form { [[Kind]]: `"method"` or `"field"`, [[Key]]: Property Key or Private Name, [[Descriptor]]: a Property Descriptor, [[Placement]]: `"static"`, `"prototype"` or `"own"`, [[Initializer]]: optional function for initial value which exists only for fields }.</p>
+    <p>ClassElementEvaluation returns a List of Records of the form { [[Kind]]: `"method"` or `"field"`, [[Key]]: Property Key or Private Name, [[Descriptor]]: a Property Descriptor, [[Placement]]: `"static"`, `"prototype"` or `"own"`, [[Initializer]]: optional function for initial value which exists only for fields }.</p>
     <emu-see-also-para op="PropertyDefinitionEvaluation"></emu-see-also-para>
     <emu-grammar>ClassElement : MethodDefinition</emu-grammar>
     <emu-alg>
-      1. Return ElementEvaluation of |MethodDefinition| with arguments ! Get(_homeObject_, `"prototype"`),_enumerable_, and `"prototype"`.
+      1. Return ClassElementEvaluation of |MethodDefinition| with arguments ! Get(_homeObject_, `"prototype"`),_enumerable_, and `"prototype"`.
     </emu-alg>
     <emu-grammar>ClassElement : `static` MethodDefinition</emu-grammar>
     <emu-alg>
-      1. Return ElementEvaluation of |MethodDefinition| with arguments _homeObject_, _enumerable_ and `"static"`.
+      1. Return ClassElementEvaluation of |MethodDefinition| with arguments _homeObject_, _enumerable_ and `"static"`.
     </emu-alg>
     <emu-grammar>MethodDefinition : PropertyName `(` UniqueFormalParameters `)` `{` FunctionBody `}`</emu-grammar>
     <emu-alg>
