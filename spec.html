@@ -347,7 +347,7 @@ emu-example pre {
           1. <del>Let _status_ be the result of performing PropertyDefinitionEvaluation for _m_ with arguments _proto_ and *false*.</del>
         1. <del>Else,</del>
           1. <del>Let _status_ be the result of performing PropertyDefinitionEvaluation for _m_ with arguments _F_ and *false*.</del>
-        1. <ins>Let _newElements_ be the result of performing ClassElementEvaluation for _d_ with arguments _F_, _true_, and ~empty~.</ins>
+        1. <ins>Let _newElements_ be the result of performing ClassElementEvaluation for _d_ with arguments _F_, *false*, and ~empty~.</ins>
         1. If <del>_status_</del><ins>_newElements_</ins> is an abrupt completion, then
           1. Set the running execution context's LexicalEnvironment to _lex_.
           1. <ins>Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.</ins>
@@ -382,7 +382,7 @@ emu-example pre {
     </emu-alg>
   </emu-clause>
 
-  <emu-clause id="sec-method-definitions-runtime-semantics-propertydefinitionevaluation">
+  <emu-clause id="sec-method-definitions-runtime-semantics-classelementevaluation" aoid=ClassElementEvaluation>
     <h1>Runtime Semantics: ClassElementEvaluation</h1>
     <p>With parameters _homeObject_, _enumerable_ and _placement_.</p>
     <p>ClassElementEvaluation returns a List of Records of the form { [[Kind]]: `"method"` or `"field"`, [[Key]]: Property Key or Private Name, [[Descriptor]]: a Property Descriptor, [[Placement]]: `"static"`, `"prototype"` or `"own"`, [[Initializer]]: optional function for initial value which exists only for fields }.</p>
