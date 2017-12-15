@@ -119,6 +119,15 @@ emu-example pre {
     </ul>
     <emu-note type=editor>In a follow-on proposal, object literals may be permitted to have private methods, fields and accessors.</emu-note>
 
+    <emu-grammar>
+      ClassElement : `static` MethodDefinition
+    </emu-grammar>
+    <ul>
+      <li>It is a Syntax Error if PrivateBoundNames of |MethodDefinition| is non-empty.</li>
+    </ul>
+    <emu-note type=editor>In this specification, private static methods are not supported. This support may be provided by a follow-on proposal <a href="https://github.com/tc39/proposal-static-class-features/">static class features</a>.</emu-note>
+
+
   </emu-clause>
 </emu-clause>
 
@@ -210,7 +219,7 @@ emu-example pre {
     1. Assert: _proto_ is ! Get(_C_, `"prototype"`).
     1. Let _elements_ be the value of _F_'s [[Elements]] internal slot.
     1. For each item _element_ in order from _elements_,
-      1. Assert: If _element_.[[Placement]] is `"prototype"`, then _element_.[[Key]] is not a Private Name.
+      1. Assert: If _element_.[[Placement]] is `"prototype"` or `"static"`, then _element_.[[Key]] is not a Private Name.
       1. If _element_.[[Kind]] is `"method"`,
         1. Let _receiver_ be _F_ if _element_.[[Placement]] is `"static"`, else let _receiver_ be _proto_.
         1. Perform ? DefineClassElement(_receiver_, _element_).
