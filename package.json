@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "proposal-private-methods",
+  "version": "1.0.0",
+  "description": "ECMAScript BigInt proposal",
+  "repository": "tc39/proposal-private-methods",
+  "author": "ECMA TC39",
+  "license": "SEE LICENSE IN https://tc39.github.io/ecma262/#sec-copyright-and-software-license",
+  "homepage": "https://tc39.github.io/proposal-private-methods/",
+  "dependencies": {
+    "ecmarkup": "^3.12.0"
+  },
+  "devDependencies": {
+    "@alrra/travis-scripts": "^3.0.0"
+  }
+}
