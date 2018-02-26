@@ -217,7 +217,7 @@ emu-example pre {
   <emu-alg>
     1. Assert: Type(_F_) is Object and Type(_proto_) is Object.
     1. Assert: _F_ is an ECMAScript function object.
-    1. Assert: _proto_ is ! Get(_C_, `"prototype"`).
+    1. Assert: _proto_ is ! Get(_F_, `"prototype"`).
     1. Let _elements_ be the value of _F_'s [[Elements]] internal slot.
     1. For each item _element_ in order from _elements_,
       1. Assert: If _element_.[[Placement]] is `"prototype"` or `"static"`, then _element_.[[Key]] is not a Private Name.
