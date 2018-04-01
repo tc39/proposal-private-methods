@@ -221,7 +221,7 @@ emu-example pre {
     1. Let _elements_ be the value of _F_'s [[Elements]] internal slot.
     1. For each item _element_ in order from _elements_,
       1. Assert: If _element_.[[Placement]] is `"prototype"` or `"static"`, then _element_.[[Key]] is not a Private Name.
-      1. If _element_.[[Kind]] is `"method"`,
+      1. If _element_.[[Kind]] is `"method"` and _element_.[[Placement]] is `"static"` or `"prototype"`,
         1. Let _receiver_ be _F_ if _element_.[[Placement]] is `"static"`, else let _receiver_ be _proto_.
         1. Perform ? DefineClassElement(_receiver_, _element_).
     1. For each item _element_ in order from _elements_,
