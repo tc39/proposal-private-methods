@@ -6,8 +6,6 @@ Stage 3
 
 Keeping state and behavior private to a class lets library authors present a clear, stable interface, while changing their code over time behind the scenes. The [class fields](https://github.com/tc39/proposal-class-fields) proposal provides private fields for classes and instances, and this proposal builds on that by adding private methods and accessors (getter/setters) to JavaScript. With this proposal, any class element can be private.
 
-Decorators aren't part of this proposal, but it's designed to allow decorators to work on top of it. See [unified class features](https://github.com/littledan/proposal-unified-class-features) for an explanation of how they would work together.
-
 For discussion about semantic details, see [DETAILS.md](https://github.com/littledan/proposal-private-methods/blob/master/DETAILS.md). This document focuses more on the end user experience and intuition.
 
 ## A guiding example: Custom elements with classes
@@ -114,3 +112,10 @@ To make methods, getter/setters or fields private, just give them a name startin
 With all of its implementation kept internal to the class, this custom element can present an interface which is basically just like a built-in HTML element. Users of the custom element don't have the power to mess around with any of its internals.
 
 Note that this proposal provides private fields and methods only as declared up-front in a field declaration; private fields cannot be created later, ad-hoc, through assigning to them, the way that normal properties can. You also can't declare private fields or methods in object literals; for example, if you implement your class based on object literals, or adding individual methods to the prototype, or using a class framework, you cannot use private methods, fields or accessors.
+
+## Relationship to other proposals
+
+
+Decorators aren't part of this proposal, but it's designed to allow decorators to work on top of it. See [unified class features](https://github.com/littledan/proposal-unified-class-features) for an explanation of how they would work together.
+
+This proposal adds only private *instance* methods, omitting private `static` methods, which are under consideration in [the static class features proposal](https://github.com/tc39/proposal-static-class-features/).
