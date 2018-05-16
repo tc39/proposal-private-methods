@@ -506,14 +506,9 @@ emu-example pre {
       1. <ins>Return DefaultMethodDescriptor(_propKey_, _closure_, _enumerable_, _placement_).</ins>
     </emu-alg>
 
-  <emu-grammar>ClassElement : `static` FieldDefinitionList `;`</emu-grammar>
+  <emu-grammar>ClassElement : FieldDefinition `;`</emu-grammar>
   <emu-alg>
-    1. Return ClassFieldDefinitionEvaluation of FieldDefinitionList with parameters `"static"` and _homeObject_.
-  </emu-alg>
-
-  <emu-grammar>ClassElement : FieldDefinitionList `;`</emu-grammar>
-  <emu-alg>
-    1. Return ClassFieldDefinitionEvaluation of FieldDefinitionList with parameters `"own"` and ! Get(_homeObject_, `"prototype"`).
+    1. Return ClassFieldDefinitionEvaluation of FieldDefinition with parameters `"own"` and ! Get(_homeObject_, `"prototype"`).
   </emu-alg>
 </emu-clause>
 
