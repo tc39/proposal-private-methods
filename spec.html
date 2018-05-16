@@ -512,6 +512,35 @@ emu-example pre {
   </emu-alg>
 </emu-clause>
 
+<emu-clause id="runtime-semantics-class-field-definition-evaluation">
+  <h1>Runtime Semantics: ClassFieldDefinitionEvaluation</h1>
+
+  <p>With parameters _placement_ and _homeObject_.</p>
+
+  <emu-grammar>
+    FieldDefinition : ClassElementName Initializer?
+  </emu-grammar>
+  <emu-alg>
+    1. Let _fieldName_ be the result of evaluating |ClassElementName|.
+    1. ReturnIfAbrupt(_fieldName_).
+    1. If |Initializer_opt| is present,
+      1. Let _lex_ be the Lexical Environment of the running execution context.
+      1. Let _formalParameterList_ be an instance of the production <emu-grammar>FormalParameters : [empty]</emu-grammar>.
+      1. Let _initializer_ be FunctionCreate(~Method~, _formalParameterList_, |Initializer|, _lex_, *true*).
+      1. Perform MakeMethod(_initializer_, _homeObject_).
+      1. Let _isAnonymousFunctionDefinition_ be IsAnonymousFunctionDefinition(|Initializer|).
+    1. Else,
+      1. Let _initializer_ be ~empty~.
+      1. Let _isAnonymousFunctionDeclaration_ be *false*.
+    1. Return a List containing Record {
+         [[Name]]: _fieldName_,
+         [[Initializer]]: _initializer_,
+         [[Placement]]: _placement_,
+         [[IsAnonymousFunctionDefinition]]: _isAnonymousFunctionDefinition_
+       }.
+  </emu-alg>
+</emu-clause>
+
 <emu-clause id="the-super-keyword">
   <h1>The `super` Keyword</h1>
 
