@@ -645,12 +645,12 @@ emu-example pre {
     1. <del>Set _entry_.[[PrivateFieldValue]] to _value_.</del>
     1. <ins>Let _desc_ be _entry_.[[PrivateFieldDescriptor]].</ins>
     1. <ins>If IsDataDescriptor(_desc_) is *true*,</ins>
-      1. <ins>If _desc_.[[Writable]] is *false*, return *false*.</ins>
+      1. <ins>If _desc_.[[Writable]] is *false*, throw a *TypeError* exception.</ins>
       1. <ins>Set _desc_.[[Value]] to _value_.</ins>
     1. <ins>Else,</ins>
       1. <ins>Assert: IsAccessorDescriptor(_desc_) is *true*.</ins>
       1. <ins>Let _setter_ be _desc_.[[Set]].</ins>
-      1. <ins>If _setter_ is *undefined*, return *false*.</ins>
+      1. <ins>If _setter_ is *undefined*, throw a *TypeError* exception.</ins>
       1. <ins>Perform ? Call(_setter_, _O_, _value_).</ins>
   </emu-alg>
 </emu-clause>
