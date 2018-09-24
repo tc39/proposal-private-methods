@@ -564,9 +564,19 @@ emu-example pre {
     1. Else,
       1. Let _initializer_ be ~empty~.
       1. Let _isAnonymousFunctionDeclaration_ be *false*.
+    1. If _key_ is a Private Name,
+      1. Let _enumerable_ be *false*.
+      1. Let _configurable_ be *false*.
+      1. Let _writable_ be *false*.
+    1. Else,
+      1. Let _enumerable_ be *true*.
+      1. Let _configurable_ be *true*.
+      1. Let _writable_ be *true*.
+    1. Let _desc_ be the PropertyDescriptor{[[Value]]: _closure_, [[Writable]]: _writable_, [[Enumerable]]: _enumerable_, [[Configurable]]: _configurable_}.
     1. Return a List containing Record {
          [[Name]]: _fieldName_,
          [[Initializer]]: _initializer_,
+         [[Descriptor]]: _desc_
          [[Placement]]: _placement_,
          [[IsAnonymousFunctionDefinition]]: _isAnonymousFunctionDefinition_
        }.
