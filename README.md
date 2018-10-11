@@ -119,3 +119,34 @@ Note that this proposal provides private fields and methods only as declared up-
 Decorators aren't part of this proposal, but it's designed to allow decorators to work on top of it. See [unified class features](https://github.com/littledan/proposal-unified-class-features) for an explanation of how they would work together.
 
 This proposal adds only private *instance* methods, omitting private `static` methods, which are under consideration in [the static class features proposal](https://github.com/tc39/proposal-static-class-features/).
+
+## Status
+
+### Consensus in TC39
+
+This proposal reached [Stage 3](https://tc39.github.io/process-document/) in September 2017. Since that time, there has been extensive thought and lengthy discussion about various alternatives, including:
+- [JS Classes 1.1](https://github.com/zenparsing/js-classes-1.1)
+- [Reconsideration of "static private"](https://github.com/tc39/proposal-static-class-features)
+- [Additional use of the `private` keyword](https://gist.github.com/rauschma/a4729faa65b30a6fda46a5799016458a)
+- [Private Symbols](https://github.com/zenparsing/proposal-private-symbols)
+
+In considering each proposal, TC39 delegates looked deeply into the motivation, JS developer feedback, and the implications on the future of the language design. In the end, this thought process and continued community engagement led to renewed consensus on the proposal in this repository. Based on that consensus, implementations are moving forward on this proposal.
+
+### Implementations
+
+Several implementations are under development:
+ 
+- [In progress](https://github.com/babel/babel/pull/8654) in Babel by Tim McClure
+- [In progress](https://github.com/bloomberg/TypeScript/pull/6) in TypeScript by Bloomberg
+- [Additional tooling support](https://github.com/tc39/proposal-private-methods/issues/32)
+- Planned by Igalia in V8
+- Planned by Igalia in JSC
+
+### Activity welcome in this repository
+
+You are encouraged to file issues and PRs this repository to
+- Ask questions about the proposal, how the syntax works, what the semantics mean, etc.
+- Propose and discuss small syntactic or semantic tweaks, especially those motivated by experience implementing or using the proposal.
+- Develop improved documentation, sample code, and other ways to introduce programmers at all levels to this feature.
+
+If you have any additional ideas on how to improve JavaScript, see ecma262's [CONTRIBUTING.md](https://github.com/tc39/ecma262/blob/master/CONTRIBUTING.md) for how to get involved.
