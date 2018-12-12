@@ -78,7 +78,7 @@ emu-example pre {
 
 <emu-intro id=sec-intro>
   <h1>Introduction</h1>
-  <p>This document adds to the <a href="https://tc39.github.io/proposal-class-fields">class fields</a> proposal by introducing private methods and accessors.  See <a href="https://github.com/littledan/proposal-private-methods">the explainer</a> for an overview.</p>
+  <p>This document adds to the <a href="https://tc39.github.io/proposal-class-fields">class fields</a> proposal by introducing private methods and accessors.  See <a href="https://github.com/tc39/proposal-private-methods">the explainer</a> for an overview.</p>
   <p>This specification draft is phrased as a diff against the class fields proposal.</p>
 </emu-intro>
 
@@ -194,67 +194,20 @@ emu-example pre {
 
 </emu-clause>
 
-<emu-clause id="sec-define-class-element" aoid="DefineClassElement">
-  <h1>DefineClassElement(_receiver_, _element_)</h1>
-  <emu-alg>
-    1. Assert: Type(_receiver_) is Object.
-    1. Assert: _element_ is a Record as created by ClassElementEvaluation.
-    1. Let _key_ be _element_.[[Key]].
-    1. Let _descriptor_ be _element_.[[Descriptor]].
-    1. If _element_.[[Kind]] is `"field"`,
-      1. Let _initializer_ be _element_.[[Initializer]].
-      1. If _initializer_ is ~empty~, let _value_ be *undefined*.
-      1. Otherwise, _value_ be ? Call(_initializer_, _receiver_).
-      1. Let _descriptor_ be a new Property Descriptor identical to _descriptor_ but with the [[Value]] slot replaced by _value_.
-    1. If _key_ is a Private Name,
-      1. Perform ? PrivateFieldDefine(_receiver_, _key_, _descriptor_).
-    1. Otherwise, _key_ is a Property Key,
-      1. Perform ? DefinePropertyOrThrow(_receiver_, _key_, _descriptor_).
-  <emu-alg>
-<!-- TODO: Make sure function name inference works -->
-</emu-clause>
-
-
-<emu-clause id="initialize-class-elements" aoid="InitializeClassElements">
-  <h1>InitializeClassElements(_F_, _proto_)</h1>
-
-  <emu-alg>
-    1. Assert: Type(_F_) is Object and Type(_proto_) is Object.
-    1. Assert: _F_ is an ECMAScript function object.
-    1. Assert: _proto_ is ! Get(_F_, `"prototype"`).
-    1. Let _elements_ be the value of _F_'s [[Elements]] internal slot.
-    1. For each item _element_ in order from _elements_,
-      1. Assert: If _element_.[[Placement]] is `"prototype"` or `"static"`, then _element_.[[Key]] is not a Private Name.
-      1. If _element_.[[Kind]] is `"method"` and _element_.[[Placement]] is `"static"` or `"prototype"`,
-        1. Let _receiver_ be _F_ if _element_.[[Placement]] is `"static"`, else let _receiver_ be _proto_.
-        1. Perform ? DefineClassElement(_receiver_, _element_).
-    1. For each item _element_ in order from _elements_,
-      1. If _element_.[[Kind]] is `"field"` and _element_.[[Placement]] is `"static"` or `"prototype"`,
-        1. Assert: _element_.[[Descriptor]] does not have a [[Value]], [[Get]] or [[Set]] slot.
-        1. Let _receiver_ be _F_ if _element_.[[Placement]] is `"static"`, else let _receiver_ be _proto_.
-        1. Perform ? DefineClassElement(_receiver_, _element_).
-    1. Return.
-  </emu-alg>
-  <emu-note type=editor>Value properties are added before initializers so that all methods are visible from all initializers</emu-note>
-</emu-clause>
-
-<emu-clause id="initialize-public-instance-elements" aoid="InitializeInstanceFields">
-  <h1>InitializeInstanceElements ( _O_, _constructor_ )</h1>
+<emu-clause id="initialize-instance-elements">
+  <h1>InitializeInstance<del>Fields</del><ins>Elements</ins> ( _O_, _constructor_ )</h1>
 
   <emu-alg>
     1. Assert: Type ( _O_ ) is Object.
     1. Assert: Assert _constructor_ is an ECMAScript function object.
-    1. Let _elements_ be the value of _F_'s [[Elements]] internal slot.
-    1. For each item _element_ in order from _elements_,
-      1. If _element_.[[Placement]] is `"own"` and _element_.[[Kind]] is `"method"`,
-        1. Perform ? DefineClassElement(_O_, _element_).
-    1. For each item _element_ in order from _elements_,
-      1. If _element_.[[Placement]] is `"own"` and _element_.[[Kind]] is `"field"`,
-        1. Assert: _element_.[[Descriptor]] does not have a [[Value]], [[Get]] or [[Set]] slot.
-        1. Perform ? DefineClassElement(_O_, _element_).
+    1. <ins>If _constructor_.[[PrivateBrand]] is not *undefined*,</ins>
+      1. <ins>Perform ? PrivateBrandAdd(_O_, _constructor_.[[PrivateBrand]]).</ins>
+    1. Let _fieldRecords_ be the value of _constructor_'s [[Fields]] internal slot.
+    1. For each item _fieldRecord_ in order from _fieldRecords_,
+      1. Perform ? DefineField(_O_, _fieldRecord_).
     1. Return.
   </emu-alg>
-  <emu-note type=editor>Value properties are added before initializers so that private methods are visible from all initializers.</emu-note>
+  <emu-note type=editor>The PrivateBrand enables the use of private methods on the instance. It is added before the fields so that the private methods may be called from field initializers.</emu-note>
   <emu-note type=editor>Private fields are added to the object one by one, interspersed with evaluation of the initializers, following the construction of the receiver. These semantics allow for a later initializer to refer to a previously private field.</emu-note>
 </emu-clause>
 
@@ -320,17 +273,18 @@ emu-example pre {
       1. Let _classScopeEnvRec_ be _classScope_'s EnvironmentRecord.
       1. If _className_ is not *undefined*, then
         1. Perform _classScopeEnvRec_.CreateImmutableBinding(_className_, *true*).
-      1. <ins>Let _outerPrivateEnvironment_ be the PrivateNameEnvironment of the running execution context.</ins>
-      1. <ins>Let _classPrivateEnvironment_ be NewDeclarativeEnvironment(_outerPrivateEnvironment_).</ins>
-      1. <ins>Let _classPrivateEnvRec_ be _classPrivateEnvironment_'s EnvironmentRecord.</ins>
-      1. <ins>If |ClassBody_opt| is present, then</ins>
-        1. <ins>For each element _dn_ of the PrivateBoundNames of |ClassBody_opt|,</ins>
-          1. <ins>Perform _classPrivateEnvRec_.CreateImmutableBinding(_dn_, *true*).</ins>
+      1. Let _outerPrivateEnvironment_ be the PrivateNameEnvironment of the running execution context.
+      1. Let _classPrivateEnvironment_ be NewDeclarativeEnvironment(_outerPrivateEnvironment_).
+      1. Let _classPrivateEnvRec_ be _classPrivateEnvironment_'s EnvironmentRecord.
+      1. If |ClassBody_opt| is present, then
+        1. For each element _dn_ of the PrivateBoundNames of |ClassBody_opt|,
+          1. Perform _classPrivateEnvRec_.CreateImmutableBinding(_dn_, *true*).
       1. If |ClassHeritage_opt| is not present, then
         1. Let _protoParent_ be the intrinsic object %ObjectPrototype%.
         1. Let _constructorParent_ be the intrinsic object %FunctionPrototype%.
       1. Else,
         1. Set the running execution context's LexicalEnvironment to _classScope_.
+        1. NOTE: The running execution context's PrivateNameEnvironment is _outerPrivateEnvironment_ when evaluating |ClassHeritage|.
         1. Let _superclass_ be the result of evaluating |ClassHeritage|.
         1. Set the running execution context's LexicalEnvironment to _lex_.
         1. ReturnIfAbrupt(_superclass_).
@@ -355,7 +309,7 @@ emu-example pre {
             <pre><code class="javascript">constructor( ){ }</code></pre>
             using the syntactic grammar with the goal symbol |MethodDefinition[~Yield]|.
       1. Set the running execution context's LexicalEnvironment to _classScope_.
-      1. <ins>Set the running execution context's PrivateNameEnvironment to _classPrivateEnvironment_.</ins>
+      1. Set the running execution context's PrivateNameEnvironment to _classPrivateEnvironment_.
       1. Let _constructorInfo_ be the result of performing DefineMethod for _constructor_ with arguments _proto_ and _constructorParent_ as the optional _functionPrototype_ argument.
       1. Assert: _constructorInfo_ is not an abrupt completion.
       1. Let _F_ be _constructorInfo_.[[Closure]].
@@ -363,71 +317,49 @@ emu-example pre {
       1. Perform MakeConstructor(_F_, *false*, _proto_).
       1. Perform MakeClassConstructor(_F_).
       1. Perform CreateMethodProperty(_proto_, `"constructor"`, _F_).
-      1. If |ClassBody_opt| is not present, let <del>_methods_</del><ins>_elements_</ins> be a new empty List.
-      1. Else, let <del>_methods_</del><ins>_definitions_</ins> be <del>NonConstructorMethodDefinitions</del><ins>NonConstructorElementDefinitions</ins> of |ClassBody|. <ins>NOTE: Simply renaming this internal algorithm will be enough; it includes fields.</ins>
-      1. <ins>Let _elements_ be a new empty List.</ins>
-      1. For each |ClassElement| <del>_m_</del><ins>_d_</ins> in order from <del>_methods_</del><ins>_definitions_</ins>,
-        1. <del>If IsStatic of _m_ is *false*, then</del>
-          1. <del>Let _status_ be the result of performing PropertyDefinitionEvaluation for _m_ with arguments _proto_ and *false*.</del>
-        1. <del>Else,</del>
-          1. <del>Let _status_ be the result of performing PropertyDefinitionEvaluation for _m_ with arguments _F_ and *false*.</del>
-        1. <ins>Let _newElements_ be the result of performing ClassElementEvaluation for _d_ with arguments _F_, *false*, and ~empty~.</ins>
-        1. If <del>_status_</del><ins>_newElements_</ins> is an abrupt completion, then
+      1. If |ClassBody_opt| is not present, let _methods_ be a new empty List.
+      1. Else, let _elements_ be NonConstructorMethodDefinitions of |ClassBody|.
+      1. Let _instanceFields_ be a new empty List.
+      1. For each |ClassElement| _e_ in order from _elements_,
+        1. If IsStatic of _e_ is *false*, then
+          1. Let _field_ be the result of performing ClassElementEvaluation for _e_ with arguments _proto_ and *false*.
+        1. Else,
+          1. Let _field_ be the result of performing PropertyDefinitionEvaluation for _m_ClassElementEvaluation for _e_ with arguments _F_ and *false*.
+        1. If _field_ is an abrupt completion, then
           1. Set the running execution context's LexicalEnvironment to _lex_.
-          1. <ins>Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.</ins>
-          1. Return Completion(_status_).
-        1. <ins>Append _newElements_ to _elements_</ins>
-      1. <ins>Let _elements_ be CoalescePrivateAccessors(_elements_).</ins>
+          1. Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.
+          1. Return Completion(_field_).
+        1. If _field_ is not ~empty~, append _field_ to _instanceFields_.
       1. Set the running execution context's LexicalEnvironment to _lex_.
-      1. <ins>Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.</ins>
       1. If _className_ is not *undefined*, then
         1. Perform _classScopeEnvRec_.InitializeBinding(_className_, _F_).
-      1. <ins>Set the value of _F_'s [[Elements]] internal slot to _elements_.</ins>
-      1. <ins>Perform ? InitializeClassElements(_F_, _proto_).</ins>
+      1. Set _F_.[[Fields]] to _instanceFields_.
+      1. <ins>If PrivateBoundNames of |ClassBody| contains a Private Name _P_ such that the [[Type]] field of _P_'s [[Descriptor]] is either ~method~ or ~accessor~,</ins>
+        1. <ins>Set _F_.[[PrivateBrand]] to _proto_.</ins>
+      1. Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.
       1. Return _F_.
     </emu-alg>
   </emu-clause>
 
-  <emu-clause id="sec-default-method-descriptor" aoid="DefaultMethodDescriptor">
-    <h1>DefaultMethodDescriptor ( key, closure, enumerable, placement )</h1>
+  <emu-clause id="sec-define-ordinary-method" aoid="DefineOrdinaryMethod">
+    <h1>DefineOrdinaryMethod ( _key_, _homeObject_, _closure_, _enumerable_ )</h1>
     <emu-alg>
       1. Perform SetFunctionName(_closure_, _key_).
       1. If _key_ is a Private Name,
-        1. Set _enumerable_ to *false*.
-        1. Let _configurable_ be *false*.
-        1. Let _writable_ be *false*.
-        1. If _placement_ is `"prototype"`, set _placement_ to `"own"`.
+        1. Let _descriptor_ be _key_'s associated [[Descriptor]]
+        1. Assert: _descriptor_ does not have a [[Type]] field.
+        1. Set _descriptor_.[[Type]] to ~method~.
+        1. Set _descriptor_.[[Value]] to _closure.
+        1. Set _descriptor_.[[Brand]] to _homeObject_.
       1. Else,
-        1. Let _configurable_ be *true*.
-        1. Let _writable_ be *true*.
-      1. Let _desc_ be the PropertyDescriptor{[[Value]]: _closure_, [[Writable]]: _writable_, [[Enumerable]]: _enumerable_, [[Configurable]]: _configurable_}.
-      1. Let _element_ be the Record { [[Kind]]: `"method"`, [[Key]]: _key_, [[Descriptor]]: _desc_, [[Placement]]: _placement_ }
-      1. Return a List containing _element_.
-    </emu-alg>
-  </emu-clause>
-
-  <emu-clause id="sec-coalesce-private-accessors" aoid="CoalescePrivateAccessors">
-    <h1>CoalescePrivateAccessors ( elements )</h1>
-    <emu-alg>
-      1. Let _newElements_ be an empty List.
-      1. For _element_ in _elements_,
-        1. If _element_.[[Key]] is a Private Name and _newElements_ contains a Record _other_ where _other_.[[Key]] is _element_.[[Key]],
-          1. Assert: _element_.[[Kind]] is `"method"`.
-          1. If _element_.[[Descriptor]] has a [[Get]] field,
-            1. Assert: _other_.[[Descriptor]] has a [[Set]] field.
-            1. Set _other_.[[Descriptor]].[[Get]] to _element_.[[Descriptor]].[[Get]].
-          1. Otherwise,
-            1. Assert: _element_.[[Descriptor]] has a [[Set]] field.
-            1. Assert: _other_.[[Descriptor]] has a [[Get]] field.
-            1. Set _other_.[[Descriptor]].[[Set]] to _element_.[[Descriptor]].[[Set]].
-        1. Otherwise, append _element_ to _newElements_.
-      1. Return _newElements_.
+        1. Let _desc_ be the PropertyDescriptor{[[Value]]: _closure_, [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.
+        1. Perform ? DefinePropertyOrThrow(_homeObject_, _key_, _desc_).
     </emu-alg>
   </emu-clause>
 
   <emu-clause id="sec-method-definitions-runtime-semantics-classelementevaluation" aoid=ClassElementEvaluation>
     <h1>Runtime Semantics: ClassElementEvaluation</h1>
-    <p>With parameters _homeObject_, _enumerable_ and _placement_.</p>
+    <p>With parameters _homeObject_ and _enumerable_.</p>
     <p>ClassElementEvaluation returns a List of Records of the form { [[Kind]]: `"method"` or `"field"`, [[Key]]: Property Key or Private Name, [[Descriptor]]: a Property Descriptor, [[Placement]]: `"static"`, `"prototype"` or `"own"`, [[Initializer]]: optional function for initial value which exists only for fields }.</p>
     <emu-see-also-para op="PropertyDefinitionEvaluation"></emu-see-also-para>
     <emu-grammar>ClassElement : MethodDefinition</emu-grammar>
@@ -444,7 +376,8 @@ emu-example pre {
       1. ReturnIfAbrupt(_methodDef_).
       1. <del>Perform SetFunctionName(_methodDef_.[[Closure]], _methodDef_.[[Key]]).</del>
       1. <del>Let _desc_ be the PropertyDescriptor{[[Value]]: _methodDef_.[[Closure]], [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.</del>
-      1. Return <del>? DefinePropertyOrThrow(_homeObject_, _methodDef_.[[Key]], _desc_).</del><ins>DefaultMethodDescriptor(_methodDef_.[[Key]], _methodDef_.[[Closure]], _enumerable_, _placement_).</ins>
+      1. <del>Return ? DefinePropertyOrThrow(_homeObject_, _methodDef_.[[Key]], _desc_).</del>
+      1. <ins>Perform ? DefineOrdinaryMethod(_methodDef_.[[Key]], _homeObject_, _methodDef_.[[Closure]], _enumerable).</ins>
     </emu-alg>
     <emu-grammar>MethodDefinition : `get` ClassElementName `(` `)` `{` FunctionBody `}`</emu-grammar>
     <emu-alg>
@@ -456,17 +389,20 @@ emu-example pre {
       1. Let _closure_ be FunctionCreate(~Method~, _formalParameterList_, |FunctionBody|, _scope_, _strict_).
       1. Perform MakeMethod(_closure_, _homeObject_).
       1. Perform SetFunctionName(_closure_, _key_, `"get"`).
-      1. <del>Let _desc_ be the PropertyDescriptor{[[Get]]: _closure_, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.</del>
-      1. <del>Return ? DefinePropertyOrThrow(_homeObject_, _propKey_, _desc_).</del>
       1. <ins>If _key_ is a Private Name,</ins>
-        1. <ins>Set _enumerable_ to *false*.</ins>
-        1. <ins>Let _configurable_ be *false*.</ins>
-        1. <ins>If _placement_ is `"prototype"`, set _placement_ to `"own"`.</ins>
+        1. <ins>Let _descriptor_ be _key_'s associated [[Descriptor]]</ins>
+        1. <ins>If _descriptor_ has a [[Type]] field,</ins>
+          1. <ins>Assert: _descriptor_.[[Type]] is ~accessor~.</ins>
+          1. <ins>Assert: _descriptor_.[[Brand]] is _homeObject_.</ins>
+          1. <ins>Assert: _descriptor_ does not have a [[Get]] field.</ins>
+          1. <ins>Set _descriptor_.[[Get]] to _closure_.</ins>
+        1. <ins>Otherwise,</ins>
+          1. <ins>Set _descriptor_.[[Type]] to ~accessor~.</ins>
+          1. <ins>Set _descriptor_.[[Brand]] to _homeObject_.</ins>
+          1. <ins>Set _descriptor_.[[Get]] to _closure_.</ins>
       1. <ins>Else,</ins>
-        1. <ins>Let _configurable_ be *true*.</ins>
-      1. <ins>Let _desc_ be the PropertyDescriptor{[[Get]]: _closure_, [[Enumerable]]: _enumerable_, [[Configurable]]: _configurable_}.</ins>
-      1. <ins>Let _element_ be the Record { [[Kind]]: `"method"`, [[Key]]: _key_, [[Descriptor]]: _desc_, [[Placement]]: _placement_ }</ins>
-      1. <ins>Return a List containing _element_.</ins>
+        1. Let _desc_ be the PropertyDescriptor{[[Get]]: _closure_, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.
+        1. Perform ? DefinePropertyOrThrow(_homeObject_, _key_, _desc_).
     </emu-alg>
     <emu-grammar>MethodDefinition : `set` ClassElementName `(` PropertySetParameterList `)` `{` FunctionBody `}`</emu-grammar>
     <emu-alg>
@@ -477,17 +413,20 @@ emu-example pre {
       1. Let _closure_ be FunctionCreate(~Method~, |PropertySetParameterList|, |FunctionBody|, _scope_, _strict_).
       1. Perform MakeMethod(_closure_, _homeObject_).
       1. Perform SetFunctionName(_closure_, _key_, `"set"`).
-      1. <del>Let _desc_ be the PropertyDescriptor{[[Set]]: _closure_, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.</del>
-      1. <del>Return ? DefinePropertyOrThrow(_homeObject_, _propKey_, _desc_).</del>
       1. <ins>If _key_ is a Private Name,</ins>
-        1. <ins>Set _enumerable_ to *false*.</ins>
-        1. <ins>Let _configurable_ be *false*.</ins>
-        1. <ins>If _placement_ is `"prototype"`, set _placement_ to `"own"`.</ins>
+        1. <ins>Let _descriptor_ be _key_'s associated [[Descriptor]]</ins>
+        1. <ins>If _descriptor_ has a [[Type]] field,</ins>
+          1. <ins>Assert: _descriptor_.[[Type]] is ~accessor~.</ins>
+          1. <ins>Assert: _descriptor_.[[Brand]] is _homeObject_.</ins>
+          1. <ins>Assert: _descriptor_ does not have a [[Set]] field.</ins>
+          1. <ins>Set _descriptor_.[[Set]] to _closure_.</ins>
+        1. <ins>Otherwise,</ins>
+          1. <ins>Set _descriptor_.[[Type]] to ~accessor~.</ins>
+          1. <ins>Set _descriptor_.[[Brand]] to _homeObject_.</ins>
+          1. <ins>Set _descriptor_.[[Set]] to _closure_.</ins>
       1. <ins>Else,</ins>
-        1. <ins>Let _configurable_ be *true*.</ins>
-      1. <ins>Let _desc_ be the PropertyDescriptor{[[Set]]: _closure_, [[Enumerable]]: _enumerable_, [[Configurable]]: _configurable_}.</ins>
-      1. <ins>Let _element_ be the Record { [[Kind]]: `"method"`, [[Key]]: _key_, [[Descriptor]]: _desc_, [[Placement]]: _placement_ }</ins>
-      1. <ins>Return a List containing _element_.</ins>
+        1. Let _desc_ be the PropertyDescriptor{[[Set]]: _closure_, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.
+        1. Perform ? DefinePropertyOrThrow(_homeObject_, _key_, _desc_).
     </emu-alg>
     <emu-grammar>GeneratorMethod : `*` ClassElementName `(` UniqueFormalParameters `)` `{` GeneratorBody `}`</emu-grammar>
     <emu-alg>
@@ -502,7 +441,7 @@ emu-example pre {
       1. <del>Perform SetFunctionName(_closure_, _propKey_).</del>
       1. <del>Let _desc_ be the PropertyDescriptor{[[Value]]: _closure_, [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.</del>
       1. <del>Return ? DefinePropertyOrThrow(_homeObject_, _propKey_, _desc_).</del>
-      1. <ins>Return DefaultMethodDescriptor(_key_, _closure_, _enumerable_, _placement_).</ins>
+      1. <ins>Return DefineOrdinaryMethod(_key_, _homeObject_, _closure_, _enumerable_).</ins>
     </emu-alg>
     <emu-grammar>
       AsyncMethod : `async` [no LineTerminator here] ClassElementName `(` UniqueFormalParameters `)` `{` AsyncFunctionBody `}`
@@ -517,7 +456,7 @@ emu-example pre {
       1. <del>Perform ! SetFunctionName(_closure_, _key_).</ins>
       1. <del>Let _desc_ be the PropertyDescriptor{[[Value]]: _closure_, [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.</ins>
       1. <del>Return ? DefinePropertyOrThrow(_homeObject_, _propKey_, _desc_).</ins>
-      1. <ins>Return DefaultMethodDescriptor(_key_, _closure_, _enumerable_, _placement_).</ins>
+      1. <ins>Perform ? DefineOrdinaryMethod(_key_, _homeObject_, _closure_, _enumerable).</ins>
     </emu-alg>
 
       <emu-grammar>
@@ -535,52 +474,8 @@ emu-example pre {
         1. <del>Perform ! SetFunctionName(_closure_, _propKey_).</del>
         1. <del>Let _desc_ be PropertyDescriptor { [[Value]]: _closure_, [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true* }.</del>
         1. <del>Return ? DefinePropertyOrThrow(_object_, _propKey_, _desc_).</del>
-        1. <ins>Return DefaultMethodDescriptor(_key_, _closure_, _enumerable_, _placement_).</ins>
+        1. <ins>Perform ? DefineOrdinaryMethod(_key_, _homeObject_, _closure_, _enumerable).</ins>
       </emu-alg>
-
-  <emu-grammar>ClassElement : FieldDefinition `;`</emu-grammar>
-  <emu-alg>
-    1. Return ClassFieldDefinitionEvaluation of FieldDefinition with parameters `"own"` and ! Get(_homeObject_, `"prototype"`).
-  </emu-alg>
-</emu-clause>
-
-<emu-clause id="runtime-semantics-class-field-definition-evaluation">
-  <h1>Runtime Semantics: ClassFieldDefinitionEvaluation</h1>
-
-  <p>With parameters _placement_ and _homeObject_.</p>
-
-  <emu-grammar>
-    FieldDefinition : ClassElementName Initializer?
-  </emu-grammar>
-  <emu-alg>
-    1. Let _fieldName_ be the result of evaluating |ClassElementName|.
-    1. ReturnIfAbrupt(_fieldName_).
-    1. If |Initializer_opt| is present,
-      1. Let _lex_ be the Lexical Environment of the running execution context.
-      1. Let _formalParameterList_ be an instance of the production <emu-grammar>FormalParameters : [empty]</emu-grammar>.
-      1. Let _initializer_ be FunctionCreate(~Method~, _formalParameterList_, |Initializer|, _lex_, *true*).
-      1. Perform MakeMethod(_initializer_, _homeObject_).
-      1. Let _isAnonymousFunctionDefinition_ be IsAnonymousFunctionDefinition(|Initializer|).
-    1. Else,
-      1. Let _initializer_ be ~empty~.
-      1. Let _isAnonymousFunctionDeclaration_ be *false*.
-    1. If _key_ is a Private Name,
-      1. Let _enumerable_ be *false*.
-      1. Let _configurable_ be *false*.
-      1. Let _writable_ be *false*.
-    1. Else,
-      1. Let _enumerable_ be *true*.
-      1. Let _configurable_ be *true*.
-      1. Let _writable_ be *true*.
-    1. Let _desc_ be the PropertyDescriptor{[[Value]]: _closure_, [[Writable]]: _writable_, [[Enumerable]]: _enumerable_, [[Configurable]]: _configurable_}.
-    1. Return a List containing Record {
-         [[Name]]: _fieldName_,
-         [[Initializer]]: _initializer_,
-         [[Descriptor]]: _desc_
-         [[Placement]]: _placement_,
-         [[IsAnonymousFunctionDefinition]]: _isAnonymousFunctionDefinition_
-       }.
-  </emu-alg>
 </emu-clause>
 
 <emu-clause id="the-super-keyword">
@@ -599,7 +494,7 @@ emu-example pre {
       1. Let _thisER_ be GetThisEnvironment( ).
       1. Let _F_ be _thisER_.[[FunctionObject]].
       1. Assert: _F_ is an ECMAScript function object.
-      1. <ins>Perform ? InitializeInstanceElements(_result_, _F_).</ins>
+      1. Perform ? InitializeInstance<del>Fields</del><ins>Elements</ins>(_result_, _F_).
       1. Return ? _thisER_.BindThisValue(_result_).
     </emu-alg>
   </emu-clause>
@@ -624,11 +519,11 @@ emu-example pre {
     1. Assert: _calleeContext_ is now the running execution context.
     1. If _kind_ is `"base"`, then
       1. Perform OrdinaryCallBindThis(_F_, _calleeContext_, _thisArgument_).
-      1. <ins>Let _result_ be InitializeInstanceElements(_thisArgument_, _F_).</ins>
-      1. <ins>If _result_ is an abrupt completion, then</ins>
-        1. <ins>Remove _calleeContext_ from execution context stack and restore
-           _callerContext_ as the running execution context.</ins>
-        1. <ins>Return Completion(_result_).</ins>
+      1. Let _result_ be InitializeInstance<del>Fields</del><ins>Elements</ins>(_thisArgument_, _F_).
+      1. If _result_ is an abrupt completion, then
+        1. Remove _calleeContext_ from execution context stack and restore
+           _callerContext_ as the running execution context.
+        1. Return Completion(_result_).
     1. Let _constructorEnv_ be the LexicalEnvironment of _calleeContext_.
     1. Let _envRec_ be _constructorEnv_'s EnvironmentRecord.
     1. Let _result_ be OrdinaryCallEvaluateBody(_F_, _argumentsList_).
@@ -648,15 +543,134 @@ emu-example pre {
 <emu-clause id="sec-private-names">
   <h1>Private Names and references</h1>
 
-<emu-clause id="sec-privatefielddefine" aoid="PrivateFieldDefine">
-  <h1>PrivateFieldDefine (_P_, _O_, _desc_)</h1>
+  <p>Each PrivateName value immutably holds a mutable record called [[Descriptor]], initially empty, which may have the following fields added to it:</p>
+    <emu-table id="private-name-record" caption="Fields of the [[Descriptor]] record">
+      <table>
+        <tbody>
+        <tr>
+          <th>
+            Field
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            For which types is it present
+          </th>
+          <th>
+            Description
+          </th>
+        </tr>
+        <tr>
+          <td>
+            [[Type]]
+          </td>
+          <td>
+            ~field~, ~method~ or ~accessor~
+          </td>
+          <td>
+            All
+          </td>
+          <td>
+            Indicates what the private name is used for.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[Brand]]
+          </td>
+          <td>
+            an ECMAScript value
+          </td>
+          <td>
+            ~method~ or ~accessor~
+          </td>
+          <td>
+            The "original" class of the private method or accessor; checked for in the [[PrivateBrands]] internal slot of instances before access is provided.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[Value]]
+          </td>
+          <td>
+            Function
+          </td>
+          <td>
+            ~method~
+          </td>
+          <td>
+            The value of the private method.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[Get]]
+          </td>
+          <td>
+            Function
+          </td>
+          <td>
+            ~accessor~
+          </td>
+          <td>
+            The getter for a private accessor.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            [[Set]]
+          </td>
+          <td>
+            Function
+          </td>
+          <td>
+            ~accessor~
+          </td>
+          <td>
+            The setter for a private accessor.
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </emu-table>
+
+<p>In addition to [[PrivateFieldValues]], all ECMAScript objects have a new additional internal slot, [[PrivateBrands]], which is an initially empty List of ECMAScript values which are used for checking to see if an object supports a private method or accessor. The entries in the list correspond to the "original prototype" (or, in the case of static methods, the "original constructor") which contained the private method or accessor.</p>
+
+<emu-note type=editor>
+  <p>Although this specification uses logic of a [[PrivateBrand]] List which is held per-instance, the use of this list obeys certain invariants:</p>
+
+  <ul>
+    <li>Nothing is removed from the list; things are only added to the end.</li>
+    <li>There is no way to distinguish different copies of the list.</li>
+    <li>The list is mutable, but there are never any references to it outside of the particular object which holds it, so additions can be thought of as replacing the internal slot with another list which contains the new element.</li>
+  </ul>
+
+  <p>There are multiple possible implementation strategies which take advantage of these invariants for better runtime performance and lower space overhead, e.g., the following successive optimizations:</p>
+
+  <ul>
+    <li>The set of lists can be represented as a tree, where nodes represent a brand list, and the path to the root is the set of brands included. This tree will only have nodes added to it over time, and never needs to be mutated in any other way. In typical code, nodes only need to be allocated and added the first time a class is instantiated.</li>
+    <li>If deep inheritance hierarchies with private methods are common in practice, each node can have an array representing the set of brands, which can be traversed with better cache locality.</li>
+    <li>If a brand comes from a base class, only the first element of the array needs to be examined, rather than traversing up the tree.</li>
+    <li>If a brand comes from a subclass, the search can speculatively first check the entry at the depth in the class hierarchy (of classes with private methods) where the brand was at the time the class was created, and fall back to checking the whole array only on failure, along the lines of the classic Java O(1) instanceof check algorithm.</li>
+  </ul>
+</emu-note>
+
+<emu-clause id="sec-privatebrandcontains" aoid="PrivateBrandContains">
+  <h1>PrivateBrandCheck(_O_, _P_)</h1>
   <emu-alg>
-    1. Assert: _P_ is a Private Name value.
-    1. Assert: _desc_ is a Property Descriptor.
-    1. If _O_ is not an object, throw a *TypeError* exception.
-    1. Let _entry_ be PrivateFieldFind(_P_, _O_).
-    1. If _entry_ is not ~empty~, throw a *TypeError* exception.
-    1. Append { [[PrivateName]]: P, [[PrivateFieldDescriptor]]: _desc_ } to _O_.[[PrivateFieldDescriptors]].
+    1. Let _descriptor_ be _P_'s associated [[Descriptor]].
+    1. If _O_.[[PrivateBrands]] does not contain an entry _e_ such that SameValue(_e_, _descriptor_.[[Brand]]) is *true*,
+      1. Throw a *TypeError* exception.
+  </emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-privatebrandadd" aoid="PrivateBrandAdd">
+  <h1>PrivateBrandAdd(_O_, _brand_)</h1>
+  <emu-alg>
+    1. If _O_.[[PrivateBrands]] contains an entry _e_ such that SameValue(_e_, _brand_) is *true*,
+      1. Throw a *TypeError* exception.
+    1. Append _brand_ to _O_.[[PrivateBrands]].
   </emu-alg>
 </emu-clause>
 
@@ -665,15 +679,18 @@ emu-example pre {
   <emu-alg>
     1. Assert: _P_ is a Private Name value.
     1. If _O_ is not an object, throw a *TypeError* exception.
-    1. Let _entry_ be PrivateFieldFind(_P_, _O_).
-    1. If _entry_ is ~empty~, throw a *TypeError* exception.
-    1. <del>Return _entry_.[[PrivateFieldValue]].</del>
-    1. <ins>Let _desc_ be _entry_.[[PrivateFieldDescriptor]].</ins>
-    1. <ins>If IsDataDescriptor(_desc_) is *true*, return _desc_.[[Value]].</ins>
-    1. <ins>Assert: IsAccessorDescriptor(_desc_) is *true*.</ins>
-    1. <ins>Let _getter_ be _desc_.[[Get]].</ins>
-    1. <ins>If _getter_ is *undefined*, throw a *TypeError* exception.</ins>
-    1. <ins>Return ? Call(_getter_, _O_).</ins>
+    1. <ins>Let _descriptor_ be _P_'s associated [[Descriptor]].</ins>
+    1. <ins>If _descriptor_.[[Type]] is ~field~,
+      1. Let _entry_ be PrivateFieldFind(_P_, _O_).
+      1. If _entry_ is ~empty~, throw a *TypeError* exception.
+      1. Return _entry_.[[PrivateFieldValue]].
+    1. <ins>Perform ? PrivateBrandCheck(_O_, _P_).</ins>
+    1. <ins>If _descriptor_.[[Type]] is ~method~,</ins>
+      1. <ins>Return _descriptor_.[[Value]].</ins>
+    1. <ins>Otherwise, _descriptor_.[[Type]] is ~accessor~,</ins>
+      1. <ins>If _descriptor_ does not have a [[Get]] field, throw a *TypeError* exception.</ins>
+      1. <ins>Let _getter_ be _descriptor_.[[Get]].</ins>
+      1. <ins>Return ? Call(_getter_, _O_).</ins>
   </emu-alg>
 </emu-clause>
 
@@ -682,18 +699,19 @@ emu-example pre {
   <emu-alg>
     1. Assert: _P_ is a Private Name value.
     1. If _O_ is not an object, throw a *TypeError* exception.
-    1. Let _entry_ be PrivateFieldFind(_P_, _O_).
-    1. If _entry_ is ~empty~, throw a *TypeError* exception.
-    1. <del>Set _entry_.[[PrivateFieldValue]] to _value_.</del>
-    1. <ins>Let _desc_ be _entry_.[[PrivateFieldDescriptor]].</ins>
-    1. <ins>If IsDataDescriptor(_desc_) is *true*,</ins>
-      1. <ins>If _desc_.[[Writable]] is *false*, throw a *TypeError* exception.</ins>
-      1. <ins>Set _desc_.[[Value]] to _value_.</ins>
-    1. <ins>Else,</ins>
-      1. <ins>Assert: IsAccessorDescriptor(_desc_) is *true*.</ins>
-      1. <ins>Let _setter_ be _desc_.[[Set]].</ins>
-      1. <ins>If _setter_ is *undefined*, throw a *TypeError* exception.</ins>
+    1. <ins>Let _descriptor_ be _P_'s associated [[Descriptor]].</ins>
+    1. <ins>If _descriptor_.[[Type]] is ~field~,
+      1. Let _entry_ be PrivateFieldFind(_P_, _O_).
+      1. If _entry_ is ~empty~, throw a *TypeError* exception.
+      1. Set _entry_.[[PrivateFieldValue]] to _value_.
+      1. <ins>Return.</ins>
+    1. <ins>If _descriptor_.[[Type]] is ~method~, throw a *TypeError* exception.</ins>
+    1. <ins>Otherwise, _descriptor_.[[Type]] is ~accessor~,</ins>
+      1. <ins>If _O_.[[PrivateFieldBrands]] does not contain _descriptor_.[[Brand]], throw a *TypeError* exception.</ins>
+      1. <ins>If _descriptor_ does not have a [[Set]] field, throw a *TypeError* exception.</ins>
+      1. <ins>Let _setter_ be _descriptor_.[[Set]].</ins>
       1. <ins>Perform ? Call(_setter_, _O_, _value_).</ins>
+      1. <ins>Return.</ins>
   </emu-alg>
 </emu-clause>
 </emu-clause>
