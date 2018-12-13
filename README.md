@@ -135,8 +135,7 @@ In considering each proposal, TC39 delegates looked deeply into the motivation, 
 ### Implementations
 
 Several implementations are under development:
- 
-- [In progress](https://github.com/babel/babel/pull/8654) in Babel by Tim McClure
+
 - Babel by Tim McClure
   - Private methods [added in v7.2.0](https://babeljs.io/blog/2018/12/03/7.2.0)
   - Private accessors ([in progress](https://github.com/babel/babel/pull/9101))
