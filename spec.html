@@ -645,15 +645,6 @@ emu-example pre {
     <li>There is no way to distinguish different copies of the list.</li>
     <li>The list is mutable, but there are never any references to it outside of the particular object which holds it, so additions can be thought of as replacing the internal slot with another list which contains the new element.</li>
   </ul>
-
-  <p>There are multiple possible implementation strategies which take advantage of these invariants for better runtime performance and lower space overhead, e.g., the following successive optimizations:</p>
-
-  <ul>
-    <li>The set of lists can be represented as a tree, where nodes represent a brand list, and the path to the root is the set of brands included. This tree will only have nodes added to it over time, and never needs to be mutated in any other way. In typical code, nodes only need to be allocated and added the first time a class is instantiated.</li>
-    <li>If deep inheritance hierarchies with private methods are common in practice, each node can have an array representing the set of brands, which can be traversed with better cache locality.</li>
-    <li>If a brand comes from a base class, only the first element of the array needs to be examined, rather than traversing up the tree.</li>
-    <li>If a brand comes from a subclass, the search can speculatively first check the entry at the depth in the class hierarchy (of classes with private methods) where the brand was at the time the class was created, and fall back to checking the whole array only on failure, along the lines of the classic Java O(1) instanceof check algorithm.</li>
-  </ul>
 </emu-note>
 
 <emu-clause id="sec-privatebrandcontains" aoid="PrivateBrandContains">
