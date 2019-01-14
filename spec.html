@@ -705,7 +705,9 @@ emu-example pre {
       1. If _entry_ is ~empty~, throw a *TypeError* exception.
       1. Set _entry_.[[PrivateFieldValue]] to _value_.
       1. <ins>Return.</ins>
-    1. <ins>If _descriptor_.[[Type]] is ~method~, throw a *TypeError* exception.</ins>
+    1. <ins>If _descriptor_.[[Type]] is ~method~,</ins>
+      1. <ins>If SameValue(_value_, _descriptor_.[[Value]]) is *true*, return.</ins>
+      1. <ins>Otherwise, throw a *TypeError* exception.</ins>
     1. <ins>Otherwise, _descriptor_.[[Type]] is ~accessor~,</ins>
       1. <ins>If _O_.[[PrivateFieldBrands]] does not contain _descriptor_.[[Brand]], throw a *TypeError* exception.</ins>
       1. <ins>If _descriptor_ does not have a [[Set]] field, throw a *TypeError* exception.</ins>
