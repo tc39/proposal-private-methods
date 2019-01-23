@@ -1,4 +1,3 @@
-<!doctype html>
 <meta charset="utf8">
 <pre class=metadata>
 title: Private Methods and Accessors Proposal
@@ -114,12 +113,12 @@ emu-example pre {
       ClassBody : ClassElementList
     </emu-grammar>
     <ul>
-      <li>It is a Syntax Error if PrivateBoundNames of |ClassBody| contains any duplicate entries, <ins>unless the name is used once for a getter and once for a setter and in no other entries</ins>.</li>
+      <li>It is a Syntax Error if PrivateBoundIdentifiers of |ClassBody| contains any duplicate entries, <ins>unless the name is used once for a getter and once for a setter and in no other entries</ins>.</li>
     </ul>
 
     <emu-grammar>PropertyDefinition : MethodDefinition</emu-grammar>
     <ul>
-      <li>It is a Syntax Error if PrivateBoundNames of |MethodDefinition| is non-empty.</li>
+      <li>It is a Syntax Error if PrivateBoundIdentifiers of |MethodDefinition| is non-empty.</li>
     </ul>
     <emu-note type=editor>In a follow-on proposal, object literals may be permitted to have private methods, fields and accessors.</emu-note>
 
@@ -127,7 +126,7 @@ emu-example pre {
       ClassElement : `static` MethodDefinition
     </emu-grammar>
     <ul>
-      <li>It is a Syntax Error if PrivateBoundNames of |MethodDefinition| is non-empty.</li>
+      <li>It is a Syntax Error if PrivateBoundIdentifiers of |MethodDefinition| is non-empty.</li>
     </ul>
     <emu-note type=editor>In this specification, private static methods are not supported. This support may be provided by a follow-on proposal <a href="https://github.com/tc39/proposal-static-class-features/">static class features</a>.</emu-note>
 
@@ -176,7 +175,7 @@ emu-example pre {
   </emu-grammar>
   <emu-alg>
     1. Let _bindingName_ be StringValue of |PrivateName|.
-    1. Let _scope_ be the running execution context's PrivateNameEnvironment.
+    1. Let _scope_ be the running execution context's PrivateEnvironment.
     1. Let _scopeEnvRec_ be _scope_'s EnvironmentRecord.
     1. <del>Let _field_ be NewPrivateName(_bindingName_).</del>
     1. <del>Perform ! _scopeEnvRec_.InitializeBinding(_bindingName_, _field_).</del>
@@ -208,18 +207,18 @@ emu-example pre {
     1. Return.
   </emu-alg>
   <emu-note type=editor>The PrivateBrand enables the use of private methods on the instance. It is added before the fields so that the private methods may be called from field initializers.</emu-note>
-  <emu-note type=editor>Private fields are added to the object one by one, interspersed with evaluation of the initializers, following the construction of the receiver. These semantics allow for a later initializer to refer to a previously private field.</emu-note>
+  <emu-note type=editor>Private fields are added to the object one by one, interspersed with evaluation of the initializers, following the construction of the receiver. These semantics allow for a later initializer to refer to a previous private field.</emu-note>
 </emu-clause>
 
-<emu-clause id="sec-private-bound-names" aoid="PrivateBoundNames">
-  <h1>Static Semantics: PrivateBoundNames</h1>
+<emu-clause id="sec-private-bound-identifiers" aoid="PrivateBoundIdentifiers" id="sec-private-bound-names">
+  <h1>Static Semantics: PrivateBoundIdentifiers</h1>
   <emu-grammar>
     ClassElement : MethodDefinition
 
     ClassElement : `static` MethodDefinition
   </emu-grammar>
   <emu-alg>
-    1. Return PrivateBoundNames of |MethodDefinition|.
+    1. Return PrivateBoundIdentifiers of |MethodDefinition|.
   </emu-alg>
 
   <emu-grammar>
@@ -238,28 +237,28 @@ emu-example pre {
         `async` [no LineTerminator here] `*` ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`
   </emu-grammar>
   <emu-alg>
-    1. Return PrivateBoundNames of |ClassElementName|.
+    1. Return PrivateBoundIdentifiers of |ClassElementName|.
   </emu-alg>
 
   <emu-grammar>
       MethodDefinition[Yield, Await] : GeneratorMethod[?Yield, ?Await]
   </emu-grammar>
   <emu-alg>
-    1. Return PrivateBoundNames of |GeneratorMethod|.
+    1. Return PrivateBoundIdentifiers of |GeneratorMethod|.
   </emu-alg>
 
   <emu-grammar>
       MethodDefinition[Yield, Await] : AsyncMethod[?Yield, ?Await]
   </emu-grammar>
   <emu-alg>
-    1. Return PrivateBoundNames of |AsyncMethod|.
+    1. Return PrivateBoundIdentifiers of |AsyncMethod|.
   </emu-alg>
 
   <emu-grammar>
       MethodDefinition[Yield, Await] : AsyncGeneratorMethod[?Yield, ?Await]
   </emu-grammar>
   <emu-alg>
-    1. Return PrivateBoundNames of |AsyncGeneratorMethod|.
+    1. Return PrivateBoundIdentifiers of |AsyncGeneratorMethod|.
   </emu-alg>
 </emu-clause>
 
@@ -273,18 +272,18 @@ emu-example pre {
       1. Let _classScopeEnvRec_ be _classScope_'s EnvironmentRecord.
       1. If _className_ is not *undefined*, then
         1. Perform _classScopeEnvRec_.CreateImmutableBinding(_className_, *true*).
-      1. Let _outerPrivateEnvironment_ be the PrivateNameEnvironment of the running execution context.
+      1. Let _outerPrivateEnvironment_ be the PrivateEnvironment of the running execution context.
       1. Let _classPrivateEnvironment_ be NewDeclarativeEnvironment(_outerPrivateEnvironment_).
       1. Let _classPrivateEnvRec_ be _classPrivateEnvironment_'s EnvironmentRecord.
       1. If |ClassBody_opt| is present, then
-        1. For each element _dn_ of the PrivateBoundNames of |ClassBody_opt|,
+        1. For each element _dn_ of the PrivateBoundIdentifiers of |ClassBody_opt|,
           1. Perform _classPrivateEnvRec_.CreateImmutableBinding(_dn_, *true*).
       1. If |ClassHeritage_opt| is not present, then
         1. Let _protoParent_ be the intrinsic object %ObjectPrototype%.
         1. Let _constructorParent_ be the intrinsic object %FunctionPrototype%.
       1. Else,
         1. Set the running execution context's LexicalEnvironment to _classScope_.
-        1. NOTE: The running execution context's PrivateNameEnvironment is _outerPrivateEnvironment_ when evaluating |ClassHeritage|.
+        1. NOTE: The running execution context's PrivateEnvironment is _outerPrivateEnvironment_ when evaluating |ClassHeritage|.
         1. Let _superclass_ be the result of evaluating |ClassHeritage|.
         1. Set the running execution context's LexicalEnvironment to _lex_.
         1. ReturnIfAbrupt(_superclass_).
@@ -309,7 +308,7 @@ emu-example pre {
             <pre><code class="javascript">constructor( ){ }</code></pre>
             using the syntactic grammar with the goal symbol |MethodDefinition[~Yield]|.
       1. Set the running execution context's LexicalEnvironment to _classScope_.
-      1. Set the running execution context's PrivateNameEnvironment to _classPrivateEnvironment_.
+      1. Set the running execution context's PrivateEnvironment to _classPrivateEnvironment_.
       1. Let _constructorInfo_ be the result of performing DefineMethod for _constructor_ with arguments _proto_ and _constructorParent_ as the optional _functionPrototype_ argument.
       1. Assert: _constructorInfo_ is not an abrupt completion.
       1. Let _F_ be _constructorInfo_.[[Closure]].
@@ -327,16 +326,16 @@ emu-example pre {
           1. Let _field_ be the result of performing PropertyDefinitionEvaluation for _m_ClassElementEvaluation for _e_ with arguments _F_ and *false*.
         1. If _field_ is an abrupt completion, then
           1. Set the running execution context's LexicalEnvironment to _lex_.
-          1. Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.
+          1. Set the running execution context's PrivateEnvironment to _outerPrivateEnvironment_.
           1. Return Completion(_field_).
         1. If _field_ is not ~empty~, append _field_ to _instanceFields_.
       1. Set the running execution context's LexicalEnvironment to _lex_.
       1. If _className_ is not *undefined*, then
         1. Perform _classScopeEnvRec_.InitializeBinding(_className_, _F_).
       1. Set _F_.[[Fields]] to _instanceFields_.
-      1. <ins>If PrivateBoundNames of |ClassBody| contains a Private Name _P_ such that the [[Kind]] field of _P_'s [[Attributes]] record is either ~method~ or ~accessor~,</ins>
+      1. <ins>If PrivateBoundIdentifiers of |ClassBody| contains a Private Name _P_ such that the [[Kind]] field of _P_'s [[Attributes]] record is either ~method~ or ~accessor~,</ins>
         1. <ins>Set _F_.[[PrivateBrand]] to _proto_.</ins>
-      1. Set the running execution context's PrivateNameEnvironment to _outerPrivateEnvironment_.
+      1. Set the running execution context's PrivateEnvironment to _outerPrivateEnvironment_.
       1. Return _F_.
     </emu-alg>
   </emu-clause>
@@ -542,8 +541,53 @@ emu-example pre {
 <emu-clause id="sec-private-names">
   <h1>Private Names and references</h1>
 
+  <p>The <dfn>Private Name</dfn> specification type is used to describe a globally unique record which represents a private <del>field</del><ins>class element (field, method, or accessor)</ins>. A Private Name may be installed on any ECMAScript object with the PrivateFieldAdd internal algorithm, and then read or written using PrivateFieldGet and PrivateFieldSet.</p>
+
+  <p>Each Private Name holds the following information:</p>
+  <emu-table id="private-name-record" caption="Fields of the Private Name">
+    <table>
+      <thead>
+      <tr>
+        <th>
+          Field
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          [[Description]]
+        </td>
+        <td>
+          ~string~
+        </td>
+        <td>
+          The string value passed to NewPrivateRecord when creating this Private Name.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <ins>[[Attributes]]</ins>
+        </td>
+        <td>
+          <ins>See <emu-xref href="#private-name-attributes"></emu-xref>.</ins>
+        </td>
+        <td>
+          <ins>The attributes for this Private Name.</ins>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </emu-table>
+
   <p>Each PrivateName value immutably holds a mutable record called [[Attributes]], initially empty, which may have the following fields added to it:</p>
-    <emu-table id="private-name-record" caption="Fields of the [[Attributes]] record">
+    <emu-table id="private-name-attributes" caption="Fields of the [[Attributes]] record">
       <table>
         <tbody>
         <tr>
