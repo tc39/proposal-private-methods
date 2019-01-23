@@ -586,7 +586,7 @@ emu-example pre {
     </table>
   </emu-table>
 
-  <p>Each PrivateName value immutably holds a mutable record called [[Attributes]], initially empty, which may have the following fields added to it:</p>
+  <p>Each Private Name immutably holds a mutable record called [[Attributes]], initially empty, which may have the following fields added to it:</p>
     <emu-table id="private-name-attributes" caption="Fields of the [[Attributes]] record">
       <table>
         <tbody>
@@ -711,7 +711,7 @@ emu-example pre {
 <emu-clause id="sec-privatefieldget" aoid="PrivateFieldGet">
   <h1>PrivateFieldGet (_P_, _O_ )</h1>
   <emu-alg>
-    1. Assert: _P_ is a Private Name value.
+    1. Assert: _P_ is a Private Name.
     1. If _O_ is not an object, throw a *TypeError* exception.
     1. <ins>Let _attributes_ be _P_'s associated [[Attributes]] record.</ins>
     1. <ins>If _attributes_.[[Kind]] is ~field~,
@@ -731,7 +731,7 @@ emu-example pre {
 <emu-clause id="sec-privatefieldset" aoid="PrivateFieldSet">
   <h1>PrivateFieldSet (_P_, _O_, _value_ )</h1>
   <emu-alg>
-    1. Assert: _P_ is a Private Name value.
+    1. Assert: _P_ is a Private Name.
     1. If _O_ is not an object, throw a *TypeError* exception.
     1. <ins>Let _attributes_ be _P_'s associated [[Attributes]] record.</ins>
     1. <ins>If _attributes_.[[Kind]] is ~field~,
