@@ -154,7 +154,7 @@ emu-example pre {
   </emu-alg>
 
   <emu-grammar>
-      ClassElementName[Yield, Await] : PrivateName
+      ClassElementName[Yield, Await] : PrivateIdentifier
   </emu-grammar>
   <emu-alg>
     1. Return ~empty~.
@@ -164,17 +164,17 @@ emu-example pre {
 <emu-clause id="sec-runtime-semantics-evaluate-name">
   <h1>Runtime Semantics: Evaluation</h1>
   <emu-grammar>
-      ClassElementName[Yield, Await] : PropertyName[?Yield, ?Await]
+      ClassElementName[Yield, Await] : PropertyIdentifier[?Yield, ?Await]
   </emu-grammar>
   <emu-alg>
-    1. Return the result of evaluating |PropertyName|.
+    1. Return the result of evaluating |PropertyIdentifier|.
   </emu-alg>
 
   <emu-grammar>
-      ClassElementName[Yield, Await] : PrivateName
+      ClassElementName[Yield, Await] : PrivateIdentifier
   </emu-grammar>
   <emu-alg>
-    1. Let _bindingName_ be StringValue of |PrivateName|.
+    1. Let _bindingName_ be StringValue of |PrivateIdentifier|.
     1. Let _scope_ be the running execution context's PrivateEnvironment.
     1. Let _scopeEnvRec_ be _scope_'s EnvironmentRecord.
     1. <del>Let _field_ be NewPrivateName(_bindingName_).</del>
