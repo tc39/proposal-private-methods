@@ -89,21 +89,27 @@ emu-example pre {
 
     <emu-grammar>
       MethodDefinition[Yield, Await] :
-        <del>PropertyName</del><ins>ClassElementName</ins>[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, ~Await] `)` `{` FunctionBody[~Yield, ~Await] `}`
+        <del>PropertyName[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, ~Await] `)` `{` FunctionBody[~Yield, ~Await] `}`</del>
+        <ins>ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, ~Await] `)` `{` FunctionBody[~Yield, ~Await] `}`</ins>
         GeneratorMethod[?Yield, ?Await]
         AsyncMethod[?Yield, ?Await]
         AsyncGeneratorMethod[?Yield, ?Await]
-        `get` <del>PropertyName</del><ins>ClassElementName</ins>[?Yield, ?Await] `(` `)` `{` FunctionBody[~Yield, ~Await] `}`
-        `set` <del>PropertyName</del><ins>ClassElementName</ins>[?Yield, ?Await] `(` PropertySetParameterList `)` `{` FunctionBody[~Yield, ~Await] `}`
+        <del>`get` PropertyName[?Yield, ?Await] `(` `)` `{` FunctionBody[~Yield, ~Await] `}`</del>
+        <ins>`get` ClassElementName[?Yield, ?Await] `(` `)` `{` FunctionBody[~Yield, ~Await] `}`</ins>
+        <del>`set` PropertyName[?Yield, ?Await] `(` PropertySetParameterList `)` `{` FunctionBody[~Yield, ~Await] `}`</del>
+        <ins>`set` ClassElementName[?Yield, ?Await] `(` PropertySetParameterList `)` `{` FunctionBody[~Yield, ~Await] `}`</ins>
 
       GeneratorMethod[Yield, Await] :
-        `*` <del>PropertyName</del><ins>ClassElementName</ins>[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, ~Await] `)` `{` GeneratorBody `}`
+        <del>`*` PropertyName[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, ~Await] `)` `{` GeneratorBody `}`</del>
+        <ins>`*` ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, ~Await] `)` `{` GeneratorBody `}`</ins>
 
       AsyncMethod[Yield, Await] :
-        `async` [no LineTerminator here] <del>PropertyName</del><ins>ClassElementName</ins>[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`
+        <del>`async` [no LineTerminator here] PropertyName[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`</del>
+        <ins>`async` [no LineTerminator here] ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[~Yield, +Await] `)` `{` AsyncFunctionBody `}`</ins>
 
       AsyncGeneratorMethod[Yield, Await] :
-        `async` [no LineTerminator here] `*` <del>PropertyName</del><ins>ClassElementName</ins>[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, +Await] `)` `{` AsyncGeneratorBody `}`
+        <del>`async` [no LineTerminator here] `*` PropertyName[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, +Await] `)` `{` AsyncGeneratorBody `}`</del>
+        <ins>`async` [no LineTerminator here] `*` ClassElementName[?Yield, ?Await] `(` UniqueFormalParameters[+Yield, +Await] `)` `{` AsyncGeneratorBody `}`</ins>
     </emu-grammar>
   </emu-clause>
 
