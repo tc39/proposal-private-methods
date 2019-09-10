@@ -189,7 +189,7 @@ emu-example pre {
     1. <ins>If _scopeEnvRec_'s binding for _bindingName_ is uninitialized,</ins>
       1. <ins>Let _field_ be NewPrivateName(_bindingName_).</ins>
       1. <ins>Perform ! _scopeEnvRec_.InitializeBinding(_bindingName_, _field_).</ins>
-    1. <ins>Otherwise,</ins>
+    1. <ins>Else,</ins>
       1. <ins>Let _field_ be _scopeEnvRec_.GetBindingValue(_bindingName_).</ins>
       1. <ins>NOTE: The only case where this may occur is in getter/setter pairs; other duplicates are prohibited as a Syntax Error.</ins>
     1. <ins>Assert: _field_.[[Description]] is _bindingName_.</ins>
@@ -380,7 +380,7 @@ emu-example pre {
       1. <del>Perform SetFunctionName(_methodDef_.[[Closure]], _methodDef_.[[Key]]).</del>
       1. <del>Let _desc_ be the PropertyDescriptor{[[Value]]: _methodDef_.[[Closure]], [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.</del>
       1. <del>Return ? DefinePropertyOrThrow(_homeObject_, _methodDef_.[[Key]], _desc_).</del>
-      1. <ins>Perform ? DefineOrdinaryMethod(_methodDef_.[[Key]], _homeObject_, _methodDef_.[[Closure]], _enumerable).</ins>
+      1. <ins>Perform ? DefineOrdinaryMethod(_methodDef_.[[Key]], _homeObject_, _methodDef_.[[Closure]], _enumerable_).</ins>
     </emu-alg>
     <emu-grammar>MethodDefinition : `get` ClassElementName `(` `)` `{` FunctionBody `}`</emu-grammar>
     <emu-alg>
@@ -398,7 +398,7 @@ emu-example pre {
           1. <ins>Assert: _key_.[[Brand]] is _homeObject_.</ins>
           1. <ins>Assert: _key_ does not have a [[Get]] field.</ins>
           1. <ins>Set _key_.[[Get]] to _closure_.</ins>
-        1. <ins>Otherwise,</ins>
+        1. <ins>Else,</ins>
           1. <ins>Set _key_.[[Kind]] to `"accessor"`.</ins>
           1. <ins>Set _key_.[[Brand]] to _homeObject_.</ins>
           1. <ins>Set _key_.[[Get]] to _closure_.</ins>
@@ -421,7 +421,7 @@ emu-example pre {
           1. <ins>Assert: _key_.[[Brand]] is _homeObject_.</ins>
           1. <ins>Assert: _key_ does not have a [[Set]] field.</ins>
           1. <ins>Set _key_.[[Set]] to _closure_.</ins>
-        1. <ins>Otherwise,</ins>
+        1. <ins>Else,</ins>
           1. <ins>Set _key_.[[Kind]] to `"accessor"`.</ins>
           1. <ins>Set _key_.[[Brand]] to _homeObject_.</ins>
           1. <ins>Set _key_.[[Set]] to _closure_.</ins>
@@ -457,7 +457,7 @@ emu-example pre {
       1. <del>Perform ! SetFunctionName(_closure_, _key_).</ins>
       1. <del>Let _desc_ be the PropertyDescriptor{[[Value]]: _closure_, [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true*}.</ins>
       1. <del>Return ? DefinePropertyOrThrow(_homeObject_, _propKey_, _desc_).</ins>
-      1. <ins>Perform ? DefineOrdinaryMethod(_key_, _homeObject_, _closure_, _enumerable).</ins>
+      1. <ins>Perform ? DefineOrdinaryMethod(_key_, _homeObject_, _closure_, _enumerable_).</ins>
     </emu-alg>
 
       <emu-grammar>
@@ -475,7 +475,7 @@ emu-example pre {
         1. <del>Perform ! SetFunctionName(_closure_, _propKey_).</del>
         1. <del>Let _desc_ be PropertyDescriptor { [[Value]]: _closure_, [[Writable]]: *true*, [[Enumerable]]: _enumerable_, [[Configurable]]: *true* }.</del>
         1. <del>Return ? DefinePropertyOrThrow(_object_, _propKey_, _desc_).</del>
-        1. <ins>Perform ? DefineOrdinaryMethod(_key_, _homeObject_, _closure_, _enumerable).</ins>
+        1. <ins>Perform ? DefineOrdinaryMethod(_key_, _homeObject_, _closure_, _enumerable_).</ins>
       </emu-alg>
 </emu-clause>
 
@@ -688,7 +688,7 @@ emu-example pre {
   <emu-alg>
     1. Assert: _P_ is a Private Name.
     1. If _O_ is not an object, throw a *TypeError* exception.
-    1. <ins>If _P_.[[Kind]] is `"field"`,
+    1. <ins>If _P_.[[Kind]] is `"field"`,</ins>
       1. Let _entry_ be PrivateFieldFind(_P_, _O_).
       1. If _entry_ is ~empty~, throw a *TypeError* exception.
       1. Return _entry_.[[PrivateFieldValue]].
@@ -708,7 +708,7 @@ emu-example pre {
   <emu-alg>
     1. Assert: _P_ is a Private Name.
     1. If _O_ is not an object, throw a *TypeError* exception.
-    1. <ins>If _P_.[[Kind]] is `"field"`,
+    1. <ins>If _P_.[[Kind]] is `"field"`,</ins>
       1. Let _entry_ be PrivateFieldFind(_P_, _O_).
       1. If _entry_ is ~empty~, throw a *TypeError* exception.
       1. Set _entry_.[[PrivateFieldValue]] to _value_.
@@ -716,7 +716,7 @@ emu-example pre {
     1. <ins>If _P_.[[Kind]] is `"method"`, throw a *TypeError* exception.</ins>
     1. <ins>Else,</ins>
       1. <ins>Assert: _P_.[[Kind]] is `"accessor"`.</ins>
-      1. <ins>If _O_.[[PrivateFieldBrands]] does not contain _P_.[[Brand]], throw a *TypeError* exception.</ins>
+      1. <ins>Perform ? PrivateBrandCheck(_O_, _P_).</ins>
       1. <ins>If _P_ does not have a [[Set]] field, throw a *TypeError* exception.</ins>
       1. <ins>Let _setter_ be _P_.[[Set]].</ins>
       1. <ins>Perform ? Call(_setter_, _O_, _value_).</ins>
