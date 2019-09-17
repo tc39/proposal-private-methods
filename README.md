@@ -143,10 +143,10 @@ Several implementations are under development:
 - [Additional tooling support](https://github.com/tc39/proposal-private-methods/issues/32)
 - [V8 behind a flag](https://bugs.chromium.org/p/v8/issues/detail?id=8330)
 - JSC:
-  - [Private methods](https://bugs.webkit.org/show_bug.cgi?id=194434).
-  - [Private accessors](https://bugs.webkit.org/show_bug.cgi?id=194435)
-- [Moddable XS](https://blog.moddable.com/blog/secureprivate/)
-- [QuickJS](https://www.freelists.org/post/quickjs-devel/New-release,82)
+  - [Private methods](https://bugs.webkit.org/show_bug.cgi?id=194434) - complete and under review.
+  - [Private accessors](https://bugs.webkit.org/show_bug.cgi?id=194435)- complete and under review.
+- [Moddable XS](https://blog.moddable.com/blog/secureprivate/) - full implementation.
+- [QuickJS](https://www.freelists.org/post/quickjs-devel/New-release,82) - full implementation.
 
 ### Activity welcome in this repository
 
