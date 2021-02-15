@@ -83,7 +83,7 @@ The above example has some implementation details exposed to the world that migh
 class Counter extends HTMLElement {
   #xValue = 0;
 
-  get #x() { return #xValue; }
+  get #x() { return this.#xValue; }
   set #x(value) {
     this.#xValue = value;
     window.requestAnimationFrame(this.#render.bind(this));
