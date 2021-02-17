@@ -139,7 +139,7 @@ Several implementations are under development:
 - Babel by Tim McClure
   - Private methods [added in v7.2.0](https://babeljs.io/blog/2018/12/03/7.2.0)
   - Private accessors ([added in V7.3.0](https://babeljs.io/blog/2019/01/21/7.3.0#private-instance-accessors-getters-and-setters-9101-https-githubcom-babel-babel-pull-9101))
-- [In progress](https://github.com/bloomberg/TypeScript/pull/6) in TypeScript by Bloomberg
+- [In progress](https://github.com/microsoft/TypeScript/pull/42458) in TypeScript by Bloomberg
 - [Additional tooling support](https://github.com/tc39/proposal-private-methods/issues/32)
 - [Shipping in V8](https://www.chromestatus.com/feature/5700509656678400)
 - JSC:
