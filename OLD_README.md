@@ -134,19 +134,19 @@ In considering each proposal, TC39 delegates looked deeply into the motivation, 
 
 ### Implementations
 
-Several implementations are under development:
+Several full implementations exist:
 
 - Babel by Tim McClure
   - Private methods [added in v7.2.0](https://babeljs.io/blog/2018/12/03/7.2.0)
   - Private accessors ([added in V7.3.0](https://babeljs.io/blog/2019/01/21/7.3.0#private-instance-accessors-getters-and-setters-9101-https-githubcom-babel-babel-pull-9101))
-- [In progress](https://github.com/microsoft/TypeScript/pull/42458) in TypeScript by Bloomberg
+- [TypeScript](https://github.com/microsoft/TypeScript/pull/42458) - unflagged in nightlies, heading for TypeScript 4.3
+- [V8](https://www.chromestatus.com/feature/5700509656678400) - unflagged in Chrome 84 / Node 14.6
+- [JSC](https://webkit.org/blog/11577/release-notes-for-safari-technology-preview-122/) - unflagged in in Safari TP 122
+- [SpiderMonkey](https://bugzilla.mozilla.org/show_bug.cgi?id=1662557) - flagged
+- [Moddable XS](https://blog.moddable.com/blog/secureprivate/)
+- [QuickJS](https://www.freelists.org/post/quickjs-devel/New-release,82)
+- [esbuild](https://esbuild.github.io/content-types/#javascript)
 - [Additional tooling support](https://github.com/tc39/proposal-private-methods/issues/32)
-- [Shipping in V8](https://www.chromestatus.com/feature/5700509656678400)
-- JSC:
-  - [Private methods](https://bugs.webkit.org/show_bug.cgi?id=194434) - complete and under review.
-  - [Private accessors](https://bugs.webkit.org/show_bug.cgi?id=194435)- complete and under review.
-- [Moddable XS](https://blog.moddable.com/blog/secureprivate/) - full implementation.
-- [QuickJS](https://www.freelists.org/post/quickjs-devel/New-release,82) - full implementation.
 
 ### Activity welcome in this repository
 
