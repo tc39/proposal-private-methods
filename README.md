@@ -1,5 +1,7 @@
 # Private methods and getter/setters for JavaScript classes
 
+![Stage 3](https://badges.aleen42.com/src/tc39_4.svg)
+
 Daniel Ehrenberg
 
 [Stage 3](https://tc39.es/process-document/)
