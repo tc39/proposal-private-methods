@@ -1,0 +1,2297 @@
+<!doctype html>
+<head><meta charset="utf-8">
+<title>Private Methods and Accessors Proposal</title><script type="application/json" id="menu-search-biblio">[{"type":"clause","id":"sec-intro","aoid":null,"title":"Introduction","titleHTML":"Introduction","number":"","namespace":"<no location>","location":"","referencingIds":[],"key":"Introduction"},{"type":"production","id":"prod-MethodDefinition","name":"MethodDefinition","referencingIds":["_ref_105","_ref_106","_ref_107","_ref_108","_ref_111","_ref_112","_ref_113","_ref_132","_ref_133","_ref_138","_ref_139","_ref_140","_ref_141","_ref_143","_ref_146","_ref_149"],"namespace":"<no location>","location":"","key":"MethodDefinition"},{"type":"production","id":"prod-GeneratorMethod","name":"GeneratorMethod","referencingIds":["_ref_96","_ref_121","_ref_122","_ref_152"],"namespace":"<no location>","location":"","key":"GeneratorMethod"},{"type":"production","id":"prod-AsyncMethod","name":"AsyncMethod","referencingIds":["_ref_97","_ref_123","_ref_124","_ref_155"],"namespace":"<no location>","location":"","key":"AsyncMethod"},{"type":"production","id":"prod-AsyncGeneratorMethod","name":"AsyncGeneratorMethod","referencingIds":["_ref_98","_ref_125","_ref_126","_ref_158"],"namespace":"<no location>","location":"","key":"AsyncGeneratorMethod"},{"type":"clause","id":"sec-updated-syntax","aoid":null,"title":"Updated Productions","titleHTML":"Updated Productions","number":"1.1","namespace":"<no location>","location":"","referencingIds":[],"key":"Updated Productions"},{"type":"production","id":"prod-ClassBody","name":"ClassBody","referencingIds":["_ref_104","_ref_127","_ref_128","_ref_129","_ref_130","_ref_131","_ref_134","_ref_135","_ref_137"],"namespace":"<no location>","location":"","key":"ClassBody"},{"type":"production","id":"prod-PropertyDefinition","name":"PropertyDefinition","referencingIds":[],"namespace":"<no location>","location":"","key":"PropertyDefinition"},{"type":"production","id":"prod-ClassElement","name":"ClassElement","referencingIds":["_ref_136"],"namespace":"<no location>","location":"","key":"ClassElement"},{"type":"clause","id":"sec-static-semantics-early-errors","aoid":null,"title":"Static Semantics: Early Errors","titleHTML":"Static Semantics: Early Errors","number":"1.2","namespace":"<no location>","location":"","referencingIds":[],"key":"Static Semantics: Early Errors"},{"type":"clause","id":"sec-syntax","aoid":null,"title":"Syntax","titleHTML":"Syntax","number":"1","namespace":"<no location>","location":"","referencingIds":[],"key":"Syntax"},{"type":"production","id":"prod-FieldDefinition","name":"FieldDefinition","referencingIds":[],"namespace":"<no location>","location":"","key":"FieldDefinition"},{"type":"production","id":"prod-ClassElementName","name":"ClassElementName","referencingIds":["_ref_95","_ref_99","_ref_100","_ref_101","_ref_102","_ref_103","_ref_109","_ref_110","_ref_114","_ref_115","_ref_116","_ref_117","_ref_118","_ref_119","_ref_120","_ref_142","_ref_144","_ref_145","_ref_147","_ref_148","_ref_150","_ref_151","_ref_153","_ref_154","_ref_156","_ref_157"],"namespace":"<no location>","location":"","key":"ClassElementName"},{"type":"clause","id":"static-semantics-propname","aoid":null,"title":"Static Semantics: PropName","titleHTML":"Static Semantics: PropName","number":"2.1","namespace":"<no location>","location":"","referencingIds":[],"key":"Static Semantics: PropName"},{"type":"clause","id":"sec-runtime-semantics-evaluate-name","aoid":null,"title":"Runtime Semantics: Evaluation","titleHTML":"Runtime Semantics: Evaluation","number":"2.2","namespace":"<no location>","location":"","referencingIds":[],"key":"Runtime Semantics: Evaluation"},{"type":"clause","id":"initialize-instance-elements","aoid":null,"title":"InitializeInstanceFieldsElements ( O, constructor )","titleHTML":"InitializeInstance<del>Fields</del><ins>Elements</ins> ( <var>O</var>, <var>constructor</var> )","number":"2.3","namespace":"<no location>","location":"","referencingIds":[],"key":"InitializeInstanceFieldsElements ( O, constructor )"},{"type":"op","aoid":"PrivateBoundIdentifiers","refId":"sec-private-bound-identifiers","location":"","referencingIds":[],"key":"PrivateBoundIdentifiers"},{"type":"clause","id":"sec-private-bound-identifiers","aoid":"PrivateBoundIdentifiers","title":"Static Semantics: PrivateBoundIdentifiers","titleHTML":"Static Semantics: PrivateBoundIdentifiers","number":"2.4","namespace":"<no location>","location":"","referencingIds":["_ref_0","_ref_1","_ref_2","_ref_4","_ref_5","_ref_6","_ref_7","_ref_8","_ref_11","_ref_23"],"key":"Static Semantics: PrivateBoundIdentifiers"},{"type":"production","id":"prod-ClassTail","name":"ClassTail","referencingIds":[],"namespace":"<no location>","location":"","key":"ClassTail"},{"type":"clause","id":"runtime-semantics-class-definition-evaluation","aoid":null,"title":"Runtime Semantics: ClassDefinitionEvaluation","titleHTML":"Runtime Semantics: ClassDefinitionEvaluation","number":"2.5","namespace":"<no location>","location":"","referencingIds":[],"key":"Runtime Semantics: ClassDefinitionEvaluation"},{"type":"op","aoid":"DefineOrdinaryMethod","refId":"sec-define-ordinary-method","location":"","referencingIds":[],"key":"DefineOrdinaryMethod"},{"type":"clause","id":"sec-define-ordinary-method","aoid":"DefineOrdinaryMethod","title":"DefineOrdinaryMethod ( key, homeObject, closure, enumerable )","titleHTML":"DefineOrdinaryMethod ( <var>key</var>, <var>homeObject</var>, <var>closure</var>, <var>enumerable</var> )","number":"2.6","namespace":"<no location>","location":"","referencingIds":["_ref_34","_ref_54","_ref_60","_ref_67"],"key":"DefineOrdinaryMethod ( key, homeObject, closure, enumerable )"},{"type":"production","id":"prod-FormalParameters","name":"FormalParameters","referencingIds":[],"namespace":"<no location>","location":"","key":"FormalParameters"},{"type":"op","aoid":"ClassElementEvaluation","refId":"sec-method-definitions-runtime-semantics-classelementevaluation","location":"","referencingIds":[],"key":"ClassElementEvaluation"},{"type":"clause","id":"sec-method-definitions-runtime-semantics-classelementevaluation","aoid":"ClassElementEvaluation","title":"Runtime Semantics: ClassElementEvaluation","titleHTML":"Runtime Semantics: ClassElementEvaluation","number":"2.7","namespace":"<no location>","location":"","referencingIds":["_ref_20","_ref_21","_ref_28","_ref_30"],"key":"Runtime Semantics: ClassElementEvaluation"},{"type":"production","id":"prod-SuperCall","name":"SuperCall","referencingIds":[],"namespace":"<no location>","location":"","key":"SuperCall"},{"type":"clause","id":"sec-super-keyword-runtime-semantics-evaluation","aoid":null,"title":"Runtime Semantics: Evaluation","titleHTML":"Runtime Semantics: Evaluation","number":"2.8.1","namespace":"<no location>","location":"","referencingIds":[],"key":"Runtime Semantics: Evaluation"},{"type":"clause","id":"the-super-keyword","aoid":null,"title":"The super Keyword","titleHTML":"The <code>super</code> Keyword","number":"2.8","namespace":"<no location>","location":"","referencingIds":[],"key":"The super Keyword"},{"type":"clause","id":"[[construct]]","aoid":null,"title":"[[Construct]] ( argumentsList, newTarget)","titleHTML":"[[Construct]] ( <var>argumentsList</var>, <var>newTarget</var>)","number":"2.9","namespace":"<no location>","location":"","referencingIds":[],"key":"[[Construct]] ( argumentsList, newTarget)"},{"type":"clause","id":"sec-internal-algorithms","aoid":null,"title":"Modified algorithms","titleHTML":"Modified algorithms","number":"2","namespace":"<no location>","location":"","referencingIds":[],"key":"Modified algorithms"},{"type":"term","term":"Private Name","refId":"sec-private-names","referencingIds":[],"namespace":"<no location>","location":"","key":"Private Name"},{"type":"table","id":"private-name-record","number":1,"caption":"Table 1: Fields of the Private Name","referencingIds":[],"namespace":"<no location>","location":"","key":"Table 1: Fields of the Private Name"},{"type":"op","aoid":"PrivateBrandCheck","refId":"sec-privatebrandcheck","location":"","referencingIds":[],"key":"PrivateBrandCheck"},{"type":"clause","id":"sec-privatebrandcheck","aoid":"PrivateBrandCheck","title":"PrivateBrandCheck(O, P)","titleHTML":"PrivateBrandCheck(<var>O</var>, <var>P</var>)","number":"3.1","namespace":"<no location>","location":"","referencingIds":["_ref_90","_ref_93"],"key":"PrivateBrandCheck(O, P)"},{"type":"op","aoid":"PrivateBrandAdd","refId":"sec-privatebrandadd","location":"","referencingIds":[],"key":"PrivateBrandAdd"},{"type":"clause","id":"sec-privatebrandadd","aoid":"PrivateBrandAdd","title":"PrivateBrandAdd(O, brand)","titleHTML":"PrivateBrandAdd(<var>O</var>, <var>brand</var>)","number":"3.2","namespace":"<no location>","location":"","referencingIds":["_ref_3"],"key":"PrivateBrandAdd(O, brand)"},{"type":"op","aoid":"PrivateFieldGet","refId":"sec-privatefieldget","location":"","referencingIds":[],"key":"PrivateFieldGet"},{"type":"clause","id":"sec-privatefieldget","aoid":"PrivateFieldGet","title":"PrivateFieldGet (P, O )","titleHTML":"PrivateFieldGet (<var>P</var>, <var>O</var> )","number":"3.3","namespace":"<no location>","location":"","referencingIds":["_ref_83"],"key":"PrivateFieldGet (P, O )"},{"type":"op","aoid":"PrivateFieldSet","refId":"sec-privatefieldset","location":"","referencingIds":[],"key":"PrivateFieldSet"},{"type":"clause","id":"sec-privatefieldset","aoid":"PrivateFieldSet","title":"PrivateFieldSet (P, O, value )","titleHTML":"PrivateFieldSet (<var>P</var>, <var>O</var>, <var>value</var> )","number":"3.4","namespace":"<no location>","location":"","referencingIds":["_ref_84"],"key":"PrivateFieldSet (P, O, value )"},{"type":"clause","id":"sec-private-names","aoid":null,"title":"Private Names and references","titleHTML":"Private Names and references","number":"3","namespace":"<no location>","location":"","referencingIds":["_ref_24","_ref_26","_ref_39","_ref_45","_ref_85","_ref_86","_ref_89","_ref_92"],"key":"Private Names and references"},{"type":"clause","id":"sec-copyright-and-software-license","aoid":null,"title":"Copyright & Software License","titleHTML":"Copyright &amp; Software License","number":"A","namespace":"<no location>","location":"","referencingIds":[],"key":"Copyright & Software License"}]</script><script>"use strict";
+
+function Search(menu) {
+  this.menu = menu;
+  this.$search = document.getElementById('menu-search');
+  this.$searchBox = document.getElementById('menu-search-box');
+  this.$searchResults = document.getElementById('menu-search-results');
+  
+  this.loadBiblio();
+  
+  document.addEventListener('keydown', this.documentKeydown.bind(this));
+  
+  this.$searchBox.addEventListener('keydown', debounce(this.searchBoxKeydown.bind(this), { stopPropagation: true }));
+  this.$searchBox.addEventListener('keyup', debounce(this.searchBoxKeyup.bind(this), { stopPropagation: true }));
+}
+
+Search.prototype.loadBiblio = function () {
+  var $biblio = document.getElementById('menu-search-biblio');
+  if (!$biblio) {
+    this.biblio = [];
+  } else {
+    this.biblio = JSON.parse($biblio.textContent);
+    this.biblio.clauses = this.biblio.filter(function (e) { return e.type === 'clause' });
+    this.biblio.byId = this.biblio.reduce(function (map, entry) {
+      map[entry.id] = entry;
+      return map;
+    }, {});
+  }
+}
+
+Search.prototype.documentKeydown = function (e) {
+  if (e.keyCode === 191) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.triggerSearch();
+  }
+}
+
+Search.prototype.searchBoxKeydown = function (e) {
+  e.stopPropagation();
+  e.preventDefault();
+  if (e.keyCode === 191 && e.target.value.length === 0) {
+    e.preventDefault();
+  } else if (e.keyCode === 13) {
+    e.preventDefault();
+    this.selectResult();
+  }
+}
+
+Search.prototype.searchBoxKeyup = function (e) {
+  if (e.keyCode === 13 || e.keyCode === 9) {
+    return;
+  }
+  
+  this.search(e.target.value);
+}
+
+
+Search.prototype.triggerSearch = function (e) {
+  if (this.menu.isVisible()) {
+    this._closeAfterSearch = false;
+  } else {
+    this._closeAfterSearch = true;
+    this.menu.show();
+  }
+
+  this.$searchBox.focus();
+  this.$searchBox.select();
+}
+// bit 12 - Set if the result starts with searchString
+// bits 8-11: 8 - number of chunks multiplied by 2 if cases match, otherwise 1.
+// bits 1-7: 127 - length of the entry
+// General scheme: prefer case sensitive matches with fewer chunks, and otherwise
+// prefer shorter matches.
+function relevance(result, searchString) {
+  var relevance = 0;
+  
+  relevance = Math.max(0, 8 - result.match.chunks) << 7;
+  
+  if (result.match.caseMatch) {
+    relevance *= 2;
+  }
+  
+  if (result.match.prefix) {
+    relevance += 2048
+  }
+  
+  relevance += Math.max(0, 255 - result.entry.key.length);
+  
+  return relevance;
+}
+
+Search.prototype.search = function (searchString) {
+  var s = Date.now();
+
+  if (searchString === '') {
+    this.displayResults([]);
+    this.hideSearch();
+    return;
+  } else {
+    this.showSearch();
+  }
+  
+  if (searchString.length === 1) {
+    this.displayResults([]);
+    return;
+  }
+    
+  var results;
+
+  if (/^[\d\.]*$/.test(searchString)) {
+    results = this.biblio.clauses.filter(function (clause) {
+      return clause.number.substring(0, searchString.length) === searchString;
+    }).map(function (clause) {
+      return { entry: clause };
+    });
+  } else {
+    results = [];
+    
+    for (var i = 0; i < this.biblio.length; i++) {
+      var entry = this.biblio[i];
+      if (!entry.key) {
+        // biblio entries without a key aren't searchable
+        continue;
+      }
+
+      var match = fuzzysearch(searchString, entry.key);
+      if (match) {
+        results.push({ entry: entry, match: match });
+      }
+    }
+  
+    results.forEach(function (result) {
+      result.relevance = relevance(result, searchString);
+    });
+    
+    results = results.sort(function (a, b) { return b.relevance - a.relevance });
+
+  }
+
+  if (results.length > 50) {
+    results = results.slice(0, 50);
+  }
+  
+  this.displayResults(results);
+}
+Search.prototype.hideSearch = function () {
+  this.$search.classList.remove('active');
+}
+
+Search.prototype.showSearch = function () {
+  this.$search.classList.add('active');
+}
+
+Search.prototype.selectResult = function () {
+  var $first = this.$searchResults.querySelector('li:first-child a');
+
+  if ($first) {
+    document.location = $first.getAttribute('href');
+  }
+  
+  this.$searchBox.value = '';
+  this.$searchBox.blur();
+  this.displayResults([]);
+  this.hideSearch();
+
+  if (this._closeAfterSearch) {
+    this.menu.hide();
+  }
+}
+
+Search.prototype.displayResults = function (results) {
+  if (results.length > 0) {
+    this.$searchResults.classList.remove('no-results');
+    
+    var html = '<ul>';
+
+    results.forEach(function (result) {
+      var entry = result.entry;
+      var id = entry.id;
+      var cssClass = '';
+      var text = '';
+
+      if (entry.type === 'clause') {
+        var number = entry.number ? entry.number + ' ' : '';
+        text = number + entry.key;
+        cssClass = 'clause';
+        id = entry.id;
+      } else if (entry.type === 'production') {
+        text = entry.key;
+        cssClass = 'prod';
+        id = entry.id;  
+      } else if (entry.type === 'op') {
+        text = entry.key;
+        cssClass = 'op';
+        id = entry.id || entry.refId;
+      } else if (entry.type === 'term') {
+        text = entry.key;
+        cssClass = 'term';
+        id = entry.id || entry.refId;
+      }
+
+      if (text) {
+        html += '<li class=menu-search-result-' + cssClass + '><a href="#' + id + '">' + text + '</a></li>'
+      }
+    });
+
+    html += '</ul>'
+
+    this.$searchResults.innerHTML = html;
+  } else {
+    this.$searchResults.innerHTML = '';
+    this.$searchResults.classList.add('no-results');
+  }
+}
+
+
+function Menu() {
+  this.$toggle = document.getElementById('menu-toggle');
+  this.$menu = document.getElementById('menu');
+  this.$toc = document.querySelector('menu-toc > ol');
+  this.$pins = document.querySelector('#menu-pins');
+  this.$pinList = document.getElementById('menu-pins-list');
+  this.$toc = document.querySelector('#menu-toc > ol');
+  this.$specContainer = document.getElementById('spec-container');
+  this.search = new Search(this);
+  
+  this._pinnedIds = {}; 
+  this.loadPinEntries();
+
+  // toggle menu
+  this.$toggle.addEventListener('click', this.toggle.bind(this));
+
+  // keydown events for pinned clauses
+  document.addEventListener('keydown', this.documentKeydown.bind(this));
+
+  // toc expansion
+  var tocItems = this.$menu.querySelectorAll('#menu-toc li');
+  for (var i = 0; i < tocItems.length; i++) {
+    var $item = tocItems[i];
+    $item.addEventListener('click', function($item, event) {
+      $item.classList.toggle('active');
+      event.stopPropagation();
+    }.bind(null, $item));
+  }
+
+  // close toc on toc item selection
+  var tocLinks = this.$menu.querySelectorAll('#menu-toc li > a');
+  for (var i = 0; i < tocLinks.length; i++) {
+    var $link = tocLinks[i];
+    $link.addEventListener('click', function(event) {
+      this.toggle();
+      event.stopPropagation();
+    }.bind(this));
+  }
+
+  // update active clause on scroll
+  window.addEventListener('scroll', debounce(this.updateActiveClause.bind(this)));
+  this.updateActiveClause();
+
+  // prevent menu scrolling from scrolling the body
+  this.$toc.addEventListener('wheel', function (e) {
+    var target = e.currentTarget;
+    var offTop = e.deltaY < 0 && target.scrollTop === 0;
+    if (offTop) {
+      e.preventDefault();
+    }
+    var offBottom = e.deltaY > 0
+                    && target.offsetHeight + target.scrollTop >= target.scrollHeight;
+
+    if (offBottom) {
+		  e.preventDefault();
+	  }
+  })
+}
+
+Menu.prototype.documentKeydown = function (e) {
+  e.stopPropagation();
+  if (e.keyCode === 80) {
+    this.togglePinEntry();
+  } else if (e.keyCode > 48 && e.keyCode < 58) {
+    this.selectPin(e.keyCode - 49);
+  }
+}
+
+Menu.prototype.updateActiveClause = function () {
+  this.setActiveClause(findActiveClause(this.$specContainer))
+}
+
+Menu.prototype.setActiveClause = function (clause) {
+  this.$activeClause = clause;
+  this.revealInToc(this.$activeClause);
+}
+
+Menu.prototype.revealInToc = function (path) {
+  var current = this.$toc.querySelectorAll('li.revealed');
+  for (var i = 0; i < current.length; i++) {
+    current[i].classList.remove('revealed');
+    current[i].classList.remove('revealed-leaf');
+  }
+  
+  var current = this.$toc;
+  var index = 0;
+  while (index < path.length) {
+    var children = current.children;
+    for (var i = 0; i < children.length; i++) {
+      if ('#' + path[index].id === children[i].children[1].getAttribute('href') ) {
+        children[i].classList.add('revealed');
+        if (index === path.length - 1) {
+          children[i].classList.add('revealed-leaf');
+          var rect = children[i].getBoundingClientRect();
+          this.$toc.getBoundingClientRect().top
+          var tocRect = this.$toc.getBoundingClientRect();
+          if (rect.top + 10 > tocRect.bottom) {
+            this.$toc.scrollTop = this.$toc.scrollTop + (rect.top - tocRect.bottom) + (rect.bottom - rect.top);
+          } else if (rect.top < tocRect.top) {
+            this.$toc.scrollTop = this.$toc.scrollTop - (tocRect.top - rect.top);
+          }
+        }
+        current = children[i].querySelector('ol');
+        index++;
+        break;
+      }      
+    }
+    
+  }
+}
+
+function findActiveClause(root, path) {
+  var clauses = new ClauseWalker(root);
+  var $clause;
+  var found = false;
+  var path = path || [];
+  
+  while ($clause = clauses.nextNode()) {
+    var rect = $clause.getBoundingClientRect();
+    var $header = $clause.children[0];
+    var marginTop = parseInt(getComputedStyle($header)["margin-top"]);
+    
+    if ((rect.top - marginTop) <= 0 && rect.bottom > 0) {
+      found = true;
+      return findActiveClause($clause, path.concat($clause)) || path;
+    }
+  }
+  
+  return path;
+}
+
+function ClauseWalker(root) {
+  var previous;
+  var treeWalker = document.createTreeWalker(
+    root,
+    NodeFilter.SHOW_ELEMENT,
+    {
+      acceptNode: function (node) {
+        if (previous === node.parentNode) {
+          return NodeFilter.FILTER_REJECT;
+        } else {
+          previous = node;
+        }
+        if (node.nodeName === 'EMU-CLAUSE' || node.nodeName === 'EMU-INTRO' || node.nodeName === 'EMU-ANNEX') {
+          return NodeFilter.FILTER_ACCEPT;
+        } else {
+          return NodeFilter.FILTER_SKIP;
+        }
+      }
+    },
+    false
+    );
+  
+  return treeWalker;
+}
+
+Menu.prototype.toggle = function () {
+  this.$menu.classList.toggle('active');
+}
+
+Menu.prototype.show = function () {
+  this.$menu.classList.add('active');
+}
+
+Menu.prototype.hide = function () {
+  this.$menu.classList.remove('active');
+}
+
+Menu.prototype.isVisible = function() {
+  return this.$menu.classList.contains('active');
+}
+
+Menu.prototype.showPins = function () {
+  this.$pins.classList.add('active');
+}
+
+Menu.prototype.hidePins = function () {
+  this.$pins.classList.remove('active');
+}
+
+Menu.prototype.addPinEntry = function (id) {
+  var entry = this.search.biblio.byId[id];
+  if (!entry) {
+    // id was deleted after pin (or something) so remove it
+    delete this._pinnedIds[id];
+    this.persistPinEntries();
+    return;
+  }
+
+  if (entry.type === 'clause') {
+    var prefix;
+    if (entry.number) {
+      prefix = entry.number + ' ';
+    } else {
+      prefix = '';
+    }
+    this.$pinList.innerHTML += '<li><a href="#' + entry.id + '">' + prefix + entry.titleHTML + '</a></li>';
+  } else {
+    this.$pinList.innerHTML += '<li><a href="#' + entry.id + '">' + entry.key + '</a></li>';
+  }
+
+  if (Object.keys(this._pinnedIds).length === 0) {
+    this.showPins();
+  }
+  this._pinnedIds[id] = true;
+  this.persistPinEntries();
+}
+
+Menu.prototype.removePinEntry = function (id) {
+  var item = this.$pinList.querySelector('a[href="#' + id + '"]').parentNode;
+  this.$pinList.removeChild(item);
+  delete this._pinnedIds[id];
+  if (Object.keys(this._pinnedIds).length === 0) {
+    this.hidePins();
+  }
+
+  this.persistPinEntries();
+}
+
+Menu.prototype.persistPinEntries = function () {
+  try {
+    if (!window.localStorage) return;
+  } catch (e) {
+    return;
+  }
+
+  localStorage.pinEntries = JSON.stringify(Object.keys(this._pinnedIds));
+}
+
+Menu.prototype.loadPinEntries = function () {
+  try {
+    if (!window.localStorage) return;
+  } catch (e) {
+    return;
+  }
+  
+  var pinsString = window.localStorage.pinEntries;
+  if (!pinsString) return;
+  var pins = JSON.parse(pinsString);
+  for(var i = 0; i < pins.length; i++) {
+    this.addPinEntry(pins[i]);
+  }
+}
+
+Menu.prototype.togglePinEntry = function (id) {
+  if (!id) {
+    id = this.$activeClause[this.$activeClause.length - 1].id;
+  }
+
+  if (this._pinnedIds[id]) {
+    this.removePinEntry(id);
+  } else {
+    this.addPinEntry(id);
+  }
+}
+
+Menu.prototype.selectPin = function (num) {
+  document.location = this.$pinList.children[num].children[0].href;
+}
+
+var menu;
+function init() {
+  menu = new Menu();
+  var $container = document.getElementById('spec-container');
+  $container.addEventListener('mouseover', debounce(function (e) {
+    Toolbox.activateIfMouseOver(e);
+  }));
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+function debounce(fn, opts) {
+  opts = opts || {};
+  var timeout;
+  return function(e) {
+    if (opts.stopPropagation) {
+      e.stopPropagation();
+    }
+    var args = arguments;
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(function() {
+      timeout = null;
+      fn.apply(this, args);
+    }.bind(this), 150);
+  }
+}
+
+var CLAUSE_NODES = ['EMU-CLAUSE', 'EMU-INTRO', 'EMU-ANNEX'];
+function findLocalReferences ($elem) {
+  var name = $elem.innerHTML;
+  var references = [];
+
+  var parentClause = $elem.parentNode;
+  while (parentClause && CLAUSE_NODES.indexOf(parentClause.nodeName) === -1) {
+    parentClause = parentClause.parentNode;
+  }
+
+  if(!parentClause) return;
+
+  var vars = parentClause.querySelectorAll('var');
+
+  for (var i = 0; i < vars.length; i++) {
+    var $var = vars[i];
+
+    if ($var.innerHTML === name) {
+      references.push($var);
+    }
+  }
+
+  return references;
+}
+
+function toggleFindLocalReferences($elem) {
+  var references = findLocalReferences($elem);
+  if ($elem.classList.contains('referenced')) {
+    references.forEach(function ($reference) {
+      $reference.classList.remove('referenced');
+    });
+  } else {
+    references.forEach(function ($reference) {
+      $reference.classList.add('referenced');
+    });
+  }
+}
+
+function installFindLocalReferences () {
+  document.addEventListener('click', function (e) {
+    if (e.target.nodeName === 'VAR') {
+      toggleFindLocalReferences(e.target);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', installFindLocalReferences);
+
+
+
+
+// The following license applies to the fuzzysearch function
+// The MIT License (MIT)
+// Copyright © 2015 Nicolas Bevacqua
+// Copyright © 2016 Brian Terlson
+// Permission is hereby granted, free of charge, to any person obtaining a copy of
+// this software and associated documentation files (the "Software"), to deal in
+// the Software without restriction, including without limitation the rights to
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+function fuzzysearch (searchString, haystack, caseInsensitive) {
+  var tlen = haystack.length;
+  var qlen = searchString.length;
+  var chunks = 1;
+  var finding = false;
+  var prefix = true;
+  
+  if (qlen > tlen) {
+    return false;
+  }
+  
+  if (qlen === tlen) {
+    if (searchString === haystack) {
+      return { caseMatch: true, chunks: 1, prefix: true };
+    } else if (searchString.toLowerCase() === haystack.toLowerCase()) {
+      return { caseMatch: false, chunks: 1, prefix: true };
+    } else {
+      return false;
+    }
+  }
+  
+  outer: for (var i = 0, j = 0; i < qlen; i++) {
+    var nch = searchString[i];
+    while (j < tlen) {
+      var targetChar = haystack[j++];
+      if (targetChar === nch) {
+        finding = true;
+        continue outer;
+      }
+      if (finding) {
+        chunks++;
+        finding = false;
+      }
+    }
+    
+    if (caseInsensitive) { return false }
+    
+    return fuzzysearch(searchString.toLowerCase(), haystack.toLowerCase(), true);
+  }
+  
+  return { caseMatch: !caseInsensitive, chunks: chunks, prefix: j <= qlen };
+}
+
+var Toolbox = {
+  init: function () {
+    this.$container = document.createElement('div');
+    this.$container.classList.add('toolbox');
+    this.$permalink = document.createElement('a');
+    this.$permalink.textContent = 'Permalink';
+    this.$pinLink = document.createElement('a');
+    this.$pinLink.textContent = 'Pin';
+    this.$pinLink.setAttribute('href', '#');
+    this.$pinLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      menu.togglePinEntry(this.entry.id);
+    }.bind(this));
+
+    this.$refsLink = document.createElement('a');
+    this.$refsLink.setAttribute('href', '#');
+    this.$refsLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      referencePane.showReferencesFor(this.entry);
+    }.bind(this));
+    this.$container.appendChild(this.$permalink);
+    this.$container.appendChild(this.$pinLink);
+    this.$container.appendChild(this.$refsLink);
+    document.body.appendChild(this.$container);
+  },
+
+  activate: function (el, entry, target) {
+    if (el === this._activeEl) return;
+    this.active = true;
+    this.entry = entry;
+    this.$container.classList.add('active');
+    this.top = el.offsetTop - this.$container.offsetHeight - 10;
+    this.left = el.offsetLeft;
+    this.$container.setAttribute('style', 'left: ' + this.left + 'px; top: ' + this.top + 'px');
+    this.updatePermalink();
+    this.updateReferences();
+    this._activeEl = el;
+    if (this.top < document.body.scrollTop && el === target) {
+      // don't scroll unless it's a small thing (< 200px)
+      this.$container.scrollIntoView();
+    }
+  },
+
+  updatePermalink: function () {
+    this.$permalink.setAttribute('href', '#' + this.entry.id);
+  },
+
+  updateReferences: function () {
+    this.$refsLink.textContent = 'References (' + this.entry.referencingIds.length + ')';
+  },
+
+  activateIfMouseOver: function (e) {
+    var ref = this.findReferenceUnder(e.target);
+    if (ref && (!this.active || e.pageY > this._activeEl.offsetTop)) {
+      var entry = menu.search.biblio.byId[ref.id];
+      this.activate(ref.element, entry, e.target);
+    } else if (this.active && ((e.pageY < this.top) || e.pageY > (this._activeEl.offsetTop + this._activeEl.offsetHeight))) {
+      this.deactivate();
+    }
+  },
+
+  findReferenceUnder: function (el) {
+    while (el) {
+      var parent = el.parentNode;
+      if (el.nodeName === 'H1' && parent.nodeName.match(/EMU-CLAUSE|EMU-ANNEX|EMU-INTRO/) && parent.id) {
+        return { element: el, id: parent.id };
+      } else if (el.nodeName.match(/EMU-(?!CLAUSE|XREF|ANNEX|INTRO)|DFN/) &&
+                el.id && el.id[0] !== '_') {
+        if (el.nodeName === 'EMU-FIGURE' || el.nodeName === 'EMU-TABLE' || el.nodeName === 'EMU-EXAMPLE') {
+          // return the figcaption element
+          return { element: el.children[0].children[0], id: el.id };
+        } else if (el.nodeName === 'EMU-PRODUCTION') {
+          // return the LHS non-terminal element
+          return { element: el.children[0], id: el.id };
+        } else {
+          return { element: el, id: el.id };
+        }
+      }
+      el = parent;
+    }
+  },
+
+  deactivate: function () {
+    this.$container.classList.remove('active');
+    this._activeEl = null;
+    this.activeElBounds = null;
+    this.active = false;
+  }
+}
+
+var referencePane = {
+  init: function() {
+    this.$container = document.createElement('div');
+    this.$container.setAttribute('id', 'references-pane-container');
+
+    var $spacer = document.createElement('div');
+    $spacer.setAttribute('id', 'references-pane-spacer');
+
+    this.$pane = document.createElement('div');
+    this.$pane.setAttribute('id', 'references-pane');
+
+    this.$container.appendChild($spacer);
+    this.$container.appendChild(this.$pane);
+
+    this.$header = document.createElement('div');
+    this.$header.classList.add('menu-pane-header');
+    this.$header.textContent = 'References to ';
+    this.$headerRefId = document.createElement('a');
+    this.$header.appendChild(this.$headerRefId);
+    this.$closeButton = document.createElement('span');
+    this.$closeButton.setAttribute('id', 'references-pane-close');
+    this.$closeButton.addEventListener('click', function (e) {
+      this.deactivate();
+    }.bind(this));
+    this.$header.appendChild(this.$closeButton);
+
+    this.$pane.appendChild(this.$header);
+    var tableContainer = document.createElement('div');
+    tableContainer.setAttribute('id', 'references-pane-table-container');
+
+    this.$table = document.createElement('table');
+    this.$table.setAttribute('id', 'references-pane-table');
+
+    this.$tableBody = this.$table.createTBody();
+
+    tableContainer.appendChild(this.$table);
+    this.$pane.appendChild(tableContainer);
+
+    menu.$specContainer.appendChild(this.$container);
+  },
+
+  activate: function () {
+    this.$container.classList.add('active');
+  },
+
+  deactivate: function () {
+    this.$container.classList.remove('active');
+  },
+
+  showReferencesFor(entry) {
+    this.activate();
+    var newBody = document.createElement('tbody');
+    var previousId;
+    var previousCell;
+    var dupCount = 0;
+    this.$headerRefId.textContent = '#' + entry.id;
+    this.$headerRefId.setAttribute('href', '#' + entry.id);
+    entry.referencingIds.map(function (id) {
+      var target = document.getElementById(id);
+      var cid = findParentClauseId(target);
+      var clause = menu.search.biblio.byId[cid];
+      var dupCount = 0;
+      return { id: id, clause: clause }
+    }).sort(function (a, b) {
+      return sortByClauseNumber(a.clause, b.clause);
+    }).forEach(function (record, i) {
+      if (previousId === record.clause.id) {
+        previousCell.innerHTML += ' (<a href="#' + record.id + '">' + (dupCount + 2) + '</a>)';
+        dupCount++;
+      } else {
+        var row = newBody.insertRow();
+        var cell = row.insertCell();
+        cell.innerHTML = record.clause.number;
+        cell = row.insertCell();
+        cell.innerHTML = '<a href="#' + record.id + '">' + record.clause.titleHTML + '</a>';
+        previousCell = cell;
+        previousId = record.clause.id;
+        dupCount = 0;
+      }
+    }, this);
+    this.$table.removeChild(this.$tableBody);
+    this.$tableBody = newBody;
+    this.$table.appendChild(this.$tableBody);
+  }
+}
+function findParentClauseId(node) {
+  while (node && node.nodeName !== 'EMU-CLAUSE' && node.nodeName !== 'EMU-INTRO' && node.nodeName !== 'EMU-ANNEX') {
+    node = node.parentNode;
+  }
+  if (!node) return null;
+  return node.getAttribute('id');
+}
+
+function sortByClauseNumber(c1, c2) {
+  var c1c = c1.number.split('.');
+  var c2c = c2.number.split('.');
+
+  for (var i = 0; i < c1c.length; i++) {
+    if (i >= c2c.length) {
+      return 1;
+    }
+    
+    var c1 = c1c[i];
+    var c2 = c2c[i];
+    var c1cn = Number(c1);
+    var c2cn = Number(c2);
+
+    if (Number.isNaN(c1cn) && Number.isNaN(c2cn)) {
+      if (c1 > c2) {
+        return 1;
+      } else if (c1 < c2) {
+        return -1;
+      }
+    } else if (!Number.isNaN(c1cn) && Number.isNaN(c2cn)) {
+      return -1;
+    } else if (Number.isNaN(c1cn) && !Number.isNaN(c2cn)) {
+      return 1;
+    } else if(c1cn > c2cn) {
+      return 1;
+    } else if (c1cn < c2cn) {
+      return -1;
+    }
+  }
+
+  if (c1c.length === c2c.length) {
+    return 0;
+  }
+  return -1;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  Toolbox.init();
+  referencePane.init();
+})
+var CLAUSE_NODES = ['EMU-CLAUSE', 'EMU-INTRO', 'EMU-ANNEX'];
+function findLocalReferences ($elem) {
+  var name = $elem.innerHTML;
+  var references = [];
+
+  var parentClause = $elem.parentNode;
+  while (parentClause && CLAUSE_NODES.indexOf(parentClause.nodeName) === -1) {
+    parentClause = parentClause.parentNode;
+  }
+
+  if(!parentClause) return;
+
+  var vars = parentClause.querySelectorAll('var');
+
+  for (var i = 0; i < vars.length; i++) {
+    var $var = vars[i];
+
+    if ($var.innerHTML === name) {
+      references.push($var);
+    }
+  }
+
+  return references;
+}
+
+function toggleFindLocalReferences($elem) {
+  var references = findLocalReferences($elem);
+  if ($elem.classList.contains('referenced')) {
+    references.forEach(function ($reference) {
+      $reference.classList.remove('referenced');
+    });
+  } else {
+    references.forEach(function ($reference) {
+      $reference.classList.add('referenced');
+    });
+  }
+}
+
+function installFindLocalReferences () {
+  document.addEventListener('click', function (e) {
+    if (e.target.nodeName === 'VAR') {
+      toggleFindLocalReferences(e.target);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', installFindLocalReferences);
+</script><style>body {
+  display: flex;
+  font-size: 18px;
+  line-height: 1.5;
+  font-family: Cambria, Palatino Linotype, Palatino, Liberation Serif, serif;
+  padding: 0;
+  margin: 0;
+  color: #111;
+}
+
+#spec-container {
+  padding: 0 20px;
+  flex-grow: 1;
+  flex-basis: 66%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body.oldtoc {
+  margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: #206ca7;
+}
+
+a:visited {
+  color: #206ca7;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #239dee;
+}
+
+
+code {
+    font-weight: bold;
+    font-family: Consolas, Monaco, monospace;
+    white-space: pre;
+}
+
+pre code {
+  font-weight: inherit;
+}
+
+pre code.hljs {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+ol.toc {
+    list-style: none;
+    padding-left: 0;
+}
+
+ol.toc ol.toc {
+    padding-left: 2ex;
+    list-style: none;
+}
+
+var {
+  color: #2aa198;
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+}
+
+var.referenced {
+  background-color: #ffff33;
+}
+
+emu-const {
+  font-family: sans-serif;
+}
+
+emu-val {
+  font-weight: bold;
+}
+emu-alg ol, emu-alg ol ol ol ol {
+    list-style-type: decimal;
+}
+
+emu-alg ol ol, emu-alg ol ol ol ol ol {
+    list-style-type: lower-alpha;
+}
+
+emu-alg ol ol ol, ol ol ol ol ol ol {
+    list-style-type: lower-roman;
+}
+
+emu-eqn {
+  display: block;
+  margin-left: 4em;
+}
+
+emu-eqn.inline {
+  display: inline;
+  margin: 0;
+}
+
+emu-eqn div:first-child {
+  margin-left: -2em;
+}
+
+emu-note {
+    margin: 1em 0;
+    color: #666;
+    border-left: 5px solid #ccc;
+    display: flex;
+    flex-direction: row;
+}
+
+emu-note > span.note {
+    flex-basis: 100px;
+    min-width: 100px;
+    flex-grow: 0;
+    flex-shrink: 1;
+    text-transform: uppercase;
+    padding-left: 5px;
+}
+
+emu-note[type=editor] {
+  border-left-color: #faa;
+}
+
+emu-note > div.note-contents {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+emu-note > div.note-contents > p:first-of-type {
+  margin-top: 0;
+}
+
+emu-note > div.note-contents > p:last-of-type {
+  margin-bottom: 0;
+}
+
+emu-figure {
+  display: block;
+}
+
+emu-example {
+  display: block;
+  margin: 1em 3em;
+}
+
+emu-example figure figcaption {
+  margin-top: 0.5em;
+  text-align: left;
+}
+
+emu-figure figure,
+emu-example figure,
+emu-table figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+emu-production {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 5ex;
+}
+
+emu-grammar.inline, emu-production.inline,
+emu-grammar.inline emu-production emu-rhs, emu-production.inline emu-rhs,
+emu-grammar[collapsed] emu-production emu-rhs, emu-production[collapsed] emu-rhs {
+    display: inline;
+    padding-left: 1ex;
+    margin-left: 0;
+}
+
+emu-grammar[collapsed] emu-production, emu-production[collapsed] {
+    margin: 0;
+}
+
+emu-constraints {
+    font-size: .75em;
+    margin-right: 1ex;
+}
+
+emu-gann {
+    margin-right: 1ex;
+}
+
+emu-gann emu-t:last-child,
+emu-gann emu-nt:last-child {
+    margin-right: 0;
+}
+
+emu-geq {
+    margin-left: 1ex;
+    font-weight: bold;
+}
+
+emu-oneof {
+    font-weight: bold;
+    margin-left: 1ex;
+}
+
+emu-nt {
+    display: inline-block;
+    font-style: italic;
+    white-space: nowrap;
+    text-indent: 0;
+}
+
+emu-nt a, emu-nt a:visited {
+  color: #333;
+}
+
+emu-rhs emu-nt {
+    margin-right: 1ex;
+}
+
+emu-t {
+    display: inline-block;
+    font-family: monospace;
+    font-weight: bold;
+    white-space: nowrap;
+    text-indent: 0;
+}
+
+emu-production emu-t {
+    margin-right: 1ex;
+}
+
+emu-rhs {
+    display: block;
+    padding-left: 75px;
+    text-indent: -25px;
+}
+
+emu-mods {
+    font-size: .85em;
+    vertical-align: sub;
+    font-style: normal;
+    font-weight: normal;
+}
+
+emu-production[collapsed] emu-mods {
+  display: none;
+}
+
+emu-params, emu-opt {
+  margin-right: 1ex;
+  font-family: monospace;
+}
+
+emu-params, emu-constraints {
+  color: #2aa198;
+}
+
+emu-opt {
+  color: #b58900;
+}
+
+emu-gprose {
+    font-size: 0.9em;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h1.shortname {
+  color: #f60;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+h1.version {
+  color: #f60;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+h1.title {
+  margin-top: 0;
+  color: #f60;
+}
+
+h1.first {
+  margin-top: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    position: relative;
+}
+
+h1 .secnum {
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+h1 span.title {
+  order: 2;
+}
+
+
+h1 { font-size: 2.67em; margin-top: 2em; margin-bottom: 0; line-height: 1em;}
+h2 { font-size: 2em; }
+h3 { font-size: 1.56em; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1.11em; }
+h6 { font-size: 1em; }
+
+h1:hover span.utils {
+  display: block;
+}
+
+span.utils {
+  font-size: 18px;
+  line-height: 18px;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  font-weight: normal;
+}
+
+span.utils:before {
+    content: "⤷";
+    display: inline-block;
+    padding: 0 5px;
+}
+
+span.utils > * {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+h1 span.utils span.anchor a,
+h2 span.utils span.anchor a,
+h3 span.utils span.anchor a,
+h4 span.utils span.anchor a,
+h5 span.utils span.anchor a,
+h6 span.utils span.anchor a {
+  text-decoration: none;
+  font-variant: small-caps;
+}
+
+h1 span.utils span.anchor a:hover,
+h2 span.utils span.anchor a:hover,
+h3 span.utils span.anchor a:hover,
+h4 span.utils span.anchor a:hover,
+h5 span.utils span.anchor a:hover,
+h6 span.utils span.anchor a:hover {
+  color: #333;
+}
+
+emu-intro h1, emu-clause h1, emu-annex h1 { font-size: 2em; }
+emu-intro h2, emu-clause h2, emu-annex h2 { font-size: 1.56em; }
+emu-intro h3, emu-clause h3, emu-annex h3 { font-size: 1.25em; }
+emu-intro h4, emu-clause h4, emu-annex h4 { font-size: 1.11em; }
+emu-intro h5, emu-clause h5, emu-annex h5 { font-size: 1em; }
+emu-intro h6, emu-clause h6, emu-annex h6 { font-size: 0.9em; }
+emu-intro emu-intro h1, emu-clause emu-clause h1, emu-annex emu-annex h1 { font-size: 1.56em; }
+emu-intro emu-intro h2, emu-clause emu-clause h2, emu-annex emu-annex h2 { font-size: 1.25em; }
+emu-intro emu-intro h3, emu-clause emu-clause h3, emu-annex emu-annex h3 { font-size: 1.11em; }
+emu-intro emu-intro h4, emu-clause emu-clause h4, emu-annex emu-annex h4 { font-size: 1em; }
+emu-intro emu-intro h5, emu-clause emu-clause h5, emu-annex emu-annex h5 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex h1 { font-size: 1.25em; }
+emu-intro emu-intro emu-intro h2, emu-clause emu-clause emu-clause h2, emu-annex emu-annex emu-annex h2 { font-size: 1.11em; }
+emu-intro emu-intro emu-intro h3, emu-clause emu-clause emu-clause h3, emu-annex emu-annex emu-annex h3 { font-size: 1em; }
+emu-intro emu-intro emu-intro h4, emu-clause emu-clause emu-clause h4, emu-annex emu-annex emu-annex h4 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex emu-annex h1 { font-size: 1.11em; }
+emu-intro emu-intro emu-intro emu-intro h2, emu-clause emu-clause emu-clause emu-clause h2, emu-annex emu-annex emu-annex emu-annex h2 { font-size: 1em; }
+emu-intro emu-intro emu-intro emu-intro h3, emu-clause emu-clause emu-clause emu-clause h3, emu-annex emu-annex emu-annex emu-annex h3 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex emu-annex emu-annex h1 { font-size: 1em; }
+emu-intro emu-intro emu-intro emu-intro emu-intro h2, emu-clause emu-clause emu-clause emu-clause emu-clause h2, emu-annex emu-annex emu-annex emu-annex emu-annex h2 { font-size: 0.9em; }
+emu-intro emu-intro emu-intro emu-intro emu-intro emu-intro h1, emu-clause emu-clause emu-clause emu-clause emu-clause emu-clause h1, emu-annex emu-annex emu-annex emu-annex emu-annex emu-annex h1 { font-size: 0.9em }
+
+emu-clause, emu-intro, emu-annex {
+    display: block;
+}
+
+/* Figures and tables */
+figure { display: block; margin: 1em 0 3em 0; }
+figure object { display: block; margin: 0 auto; }
+figure table.real-table { margin: 0 auto; }
+figure figcaption {
+    display: block;
+    color: #555555;
+    font-weight: bold;
+    text-align: center;
+}
+
+emu-table table {
+  margin: 0 auto;
+}
+
+emu-table table, table.real-table {
+    border-collapse: collapse;
+}
+
+emu-table td, emu-table th, table.real-table td, table.real-table th {
+    border: 1px solid black;
+    padding: 0.4em;
+    vertical-align: baseline;
+}
+emu-table th, emu-table thead td, table.real-table th {
+    background-color: #eeeeee;
+}
+
+/* Note: the left content edges of table.lightweight-table >tbody >tr >td
+   and div.display line up. */
+table.lightweight-table {
+    border-collapse: collapse;
+    margin: 0 0 0 1.5em;
+}
+table.lightweight-table td, table.lightweight-table th {
+    border: none;
+    padding: 0 0.5em;
+    vertical-align: baseline;
+}
+
+/* diff styles */
+ins {
+    background-color: #e0f8e0;
+    text-decoration: none;
+    border-bottom: 1px solid #396;
+}
+
+del {
+    background-color: #fee;
+}
+
+ins.block, del.block,
+emu-production > ins, emu-production > del,
+emu-grammar > ins, emu-grammar > del {
+  display: block;
+}
+emu-rhs > ins, emu-rhs > del { 
+  display: inline;
+}
+
+tr.ins > td > ins {
+  border-bottom: none;
+}
+
+tr.ins > td {
+  background-color: #e0f8e0;
+}
+
+tr.del > td {
+  background-color: #fee;
+}
+
+/* Menu Styles */
+#menu-toggle {
+  font-size: 2em;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1.5em;
+  height: 1.5em;
+  z-index: 3;
+  visibility: hidden;
+  color: #1567a2;
+  background-color: #fff;
+
+  line-height: 1.5em;
+  text-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;;
+
+  cursor: pointer;
+}
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  width: 33%; height: 100vh;
+  max-width: 500px;
+  box-sizing: border-box;
+  background-color: #ddd;
+  overflow: hidden;
+  transition: opacity 0.1s linear;
+  padding: 0 5px;
+  position: fixed;
+  left: 0; top: 0;
+  border-right: 2px solid #bbb;
+
+  z-index: 2;
+}
+
+#menu-spacer {
+  flex-basis: 33%;
+  max-width: 500px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+#menu a {
+  color: #1567a2;
+}
+
+#menu.active {
+  display: flex;
+  opacity: 1;
+  z-index: 2;
+}
+
+#menu-pins {
+  flex-grow: 1;
+  display: none;
+}
+
+#menu-pins.active {
+  display: block;
+}
+
+#menu-pins-list {
+  margin: 0;
+  padding: 0;
+  counter-reset: pins-counter;
+}
+
+#menu-pins-list > li:before {
+  content: counter(pins-counter);
+  counter-increment: pins-counter;
+  display: inline-block;
+  width: 25px;
+  text-align: center;
+  border: 1px solid #bbb;
+  padding: 2px;
+  margin: 4px;
+  box-sizing: border-box;
+  line-height: 1em;
+  background-color: #ccc;
+  border-radius: 4px;
+}
+#menu-toc > ol {
+  padding: 0;
+  flex-grow: 1;
+}
+
+#menu-toc > ol li {
+  padding: 0;
+}
+
+#menu-toc > ol , #menu-toc > ol ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#menu-toc > ol ol {
+  padding-left: 0.75em;
+}
+
+#menu-toc li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#menu-toc .item-toggle {
+  display: inline-block;
+  transform: rotate(-45deg) translate(-5px, -5px);
+  transition: transform 0.1s ease;
+  text-align: center;
+  width: 20px;
+
+  color: #aab;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;;
+
+  cursor: pointer;
+}
+
+#menu-toc .item-toggle-none {
+  display: inline-block;
+  width: 20px;
+}
+
+#menu-toc li.active > .item-toggle {
+  transform: rotate(45deg) translate(-5px, -5px);
+}
+
+#menu-toc li > ol {
+  display: none;
+}
+
+#menu-toc li.active > ol {
+  display: block;
+}
+
+#menu-toc li.revealed > a {
+  background-color: #bbb;
+  font-weight: bold;
+  /*
+  background-color: #222;
+  color: #c6d8e4;
+  */
+}
+
+#menu-toc li.revealed-leaf> a {
+  color: #206ca7;
+  /*
+  background-color: #222;
+  color: #c6d8e4;
+  */
+}
+
+#menu-toc li.revealed > .item-toggle {
+  transform: rotate(45deg) translate(-5px, -5px);
+}
+
+#menu-toc li.revealed > ol {
+  display: block;
+}
+
+#menu-toc li > a {
+  padding: 2px 5px;
+}
+
+#menu > * {
+  margin-bottom: 5px;
+}
+
+.menu-pane-header {
+  padding: 0 5px;
+  text-transform: uppercase;
+  background-color: #aaa;
+  color: #335;
+  font-weight: bold;
+  letter-spacing: 2px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 0.8em;
+}
+
+#menu-toc {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+#menu-toc ol.toc {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#menu-search {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  
+  max-height: 300px;
+}
+
+#menu-trace-list {
+  display: none;
+}
+
+#menu-search-box {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin: 5px 0 0 0;
+  font-size: 1em;
+  padding: 2px;
+  background-color: #bbb;
+  border: 1px solid #999;
+}
+
+#menu-search-results {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+li.menu-search-result-clause:before {
+    content: 'clause';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%;
+}
+li.menu-search-result-op:before {
+    content: 'op';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%;
+}
+
+li.menu-search-result-prod:before {
+    content: 'prod';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%
+}
+
+
+li.menu-search-result-term:before {
+    content: 'term';
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 1ex;
+    color: #666;
+    font-size: 75%
+}
+
+#menu-search-results ul {
+  padding: 0 5px;
+  margin: 0;
+}
+
+#menu-search-results li {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+#menu-trace-list {
+  counter-reset: item;
+  margin: 0 0 0 20px;
+  padding: 0;
+}
+#menu-trace-list li {
+  display: block;
+  white-space: nowrap;
+}
+
+#menu-trace-list li .secnum:after {
+  content: " ";
+}
+#menu-trace-list li:before {
+    content: counter(item) " ";
+    background-color: #222;
+    counter-increment: item;
+    color: #999;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    text-align: center;
+    margin: 2px 4px 2px 0;
+}
+
+@media (max-width: 1000px) {
+  body {
+    margin: 0;
+    display: block;
+  }
+
+  #menu {
+    display: none;
+    padding-top: 3em;
+    width: 450px;
+  }
+
+  #menu.active {
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 300px;
+  }
+
+  #menu-toggle {
+    visibility: visible;
+  }
+
+  #spec-container {
+    padding: 0 5px;
+  }
+
+  #references-pane-spacer {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #menu {
+    width: 100%;
+  }
+
+  h1 .secnum:empty {
+    margin: 0; padding: 0;
+  }
+}
+
+
+/* Toolbox */
+.toolbox {
+	position: absolute;
+	background: #ddd;
+	border: 1px solid #aaa;
+  display: none;
+  color: #eee;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.toolbox.active {
+  display: inline-block;
+}
+
+.toolbox a {
+  text-decoration: none;
+  padding: 0 5px;
+}
+
+.toolbox a:hover {
+  text-decoration: underline;
+}
+
+.toolbox:after, .toolbox:before {
+	top: 100%;
+	left: 15px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.toolbox:after {
+	border-color: rgba(0, 0, 0, 0);
+	border-top-color: #ddd;
+	border-width: 10px;
+	margin-left: -10px;
+}
+.toolbox:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-top-color: #aaa;
+	border-width: 12px;
+	margin-left: -12px;
+}
+
+#references-pane-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  display: none;
+  background-color: #ddd;
+  z-index: 1;
+}
+
+#references-pane-table-container {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#references-pane-spacer {
+  flex-basis: 33%;
+  max-width: 500px;
+}
+
+#references-pane {
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#references-pane-container.active {
+  display: flex;
+}
+
+#references-pane-close:after {
+  content: '✖';
+  float: right;
+  cursor: pointer;
+}
+
+#references-pane table tr td:first-child {
+  text-align: right;
+  padding-right: 5px;
+}
+
+@media print {
+  #menu-toggle {
+    display: none; 
+  }
+}
+</style></head><body><div id="menu-toggle">☰</div><div id="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins</div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle">◢</span><a href="#sec-syntax" title="Syntax"><span class="secnum">1</span> Syntax</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-updated-syntax" title="Updated Productions"><span class="secnum">1.1</span> Updated Productions</a></li><li><span class="item-toggle-none"></span><a href="#sec-static-semantics-early-errors" title="Static Semantics: Early Errors"><span class="secnum">1.2</span> SS: Early Errors</a></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-internal-algorithms" title="Modified algorithms"><span class="secnum">2</span> Modified algorithms</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#static-semantics-propname" title="Static Semantics: PropName"><span class="secnum">2.1</span> SS: PropName</a></li><li><span class="item-toggle-none"></span><a href="#sec-runtime-semantics-evaluate-name" title="Runtime Semantics: Evaluation"><span class="secnum">2.2</span> RS: Evaluation</a></li><li><span class="item-toggle-none"></span><a href="#initialize-instance-elements" title="InitializeInstanceFieldsElements ( O, constructor )"><span class="secnum">2.3</span> InitializeInstance<del>Fields</del><ins>Elements</ins> ( <var>O</var>, <var>constructor</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-private-bound-identifiers" title="Static Semantics: PrivateBoundIdentifiers"><span class="secnum">2.4</span> SS: PrivateBoundIdentifiers</a></li><li><span class="item-toggle-none"></span><a href="#runtime-semantics-class-definition-evaluation" title="Runtime Semantics: ClassDefinitionEvaluation"><span class="secnum">2.5</span> RS: ClassDefinitionEvaluation</a></li><li><span class="item-toggle-none"></span><a href="#sec-define-ordinary-method" title="DefineOrdinaryMethod ( key, homeObject, closure, enumerable )"><span class="secnum">2.6</span> DefineOrdinaryMethod ( <var>key</var>, <var>homeObject</var>, <var>closure</var>, <var>enumerable</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-method-definitions-runtime-semantics-classelementevaluation" title="Runtime Semantics: ClassElementEvaluation"><span class="secnum">2.7</span> RS: ClassElementEvaluation</a></li><li><span class="item-toggle">◢</span><a href="#the-super-keyword" title="The super Keyword"><span class="secnum">2.8</span> The <code>super</code> Keyword</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-super-keyword-runtime-semantics-evaluation" title="Runtime Semantics: Evaluation"><span class="secnum">2.8.1</span> RS: Evaluation</a></li></ol></li><li><span class="item-toggle-none"></span><a href="#[[construct]]" title="[[Construct]] ( argumentsList, newTarget)"><span class="secnum">2.9</span> [[Construct]] ( <var>argumentsList</var>, <var>newTarget</var>)</a></li></ol></li><li><span class="item-toggle">◢</span><a href="#sec-private-names" title="Private Names and references"><span class="secnum">3</span> Private Names and references</a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-privatebrandcheck" title="PrivateBrandCheck(O, P)"><span class="secnum">3.1</span> PrivateBrandCheck(<var>O</var>, <var>P</var>)</a></li><li><span class="item-toggle-none"></span><a href="#sec-privatebrandadd" title="PrivateBrandAdd(O, brand)"><span class="secnum">3.2</span> PrivateBrandAdd(<var>O</var>, <var>brand</var>)</a></li><li><span class="item-toggle-none"></span><a href="#sec-privatefieldget" title="PrivateFieldGet (P, O )"><span class="secnum">3.3</span> PrivateFieldGet (<var>P</var>, <var>O</var> )</a></li><li><span class="item-toggle-none"></span><a href="#sec-privatefieldset" title="PrivateFieldSet (P, O, value )"><span class="secnum">3.4</span> PrivateFieldSet (<var>P</var>, <var>O</var>, <var>value</var> )</a></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="version first">Stage 3 Draft / April 14, 2021</h1><h1 class="title">Private Methods and Accessors Proposal</h1>
+<style>
+emu-example figure {
+  align-items: initial;
+  width: 100%;
+} emu-note {
+  display: block;
+  border-left-color: #474747;
+} emu-note span.note {
+  display: inline-block;
+  color: #fff;
+  background-color: #474747;
+  width: initial;
+  padding-right: 50px;
+} emu-note div.note-contents {
+  padding-left: 5px;
+} emu-note[type=editor] {
+  border-left-color: #900;
+}
+emu-note[type=editor] span.note {
+  background-color: #900;
+} emu-example {
+  border-left: 5px solid #006387;
+  margin: 1em 0;
+} emu-example figure figcaption:first-child {
+  display: inline-block;
+  color: #fff;
+  background-color: #006387;
+  margin: 0;
+  padding: 0 50px 0 5px;
+  font-weight: normal;
+  text-transform: uppercase;
+  margin-left: -5px;
+} emu-example figure figcaption:nth-child(2) {
+  margin: 0;
+  padding: 0;
+  padding-left: 5px;
+  margin-left: -5px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+} emu-example p:nth-of-type(1) {
+  margin-top: 0;
+} emu-example figure {
+  padding-left: 5px;
+  display: block;
+  margin: 0;
+} emu-example pre {
+  margin: 0;
+}
+
+</style>
+
+<emu-intro id="sec-intro">
+  <emu-note><span class="note">Note</span><div class="note-contents">
+    <p>This is a deprecated document. The document with all updated changes for this proposal has been merged and available as an unified document  <a href="https://tc39.es/proposal-class-fields/unified.html">here</a>.</p>
+  </div></emu-note>
+  <h1>Introduction</h1>
+  <p>This document adds to the  <a href="https://tc39.github.io/proposal-class-fields">class fields</a> proposal by introducing private methods and accessors.  See  <a href="https://github.com/tc39/proposal-private-methods">the explainer</a> for an overview.</p>
+  <p>This specification draft is phrased as a diff against the class fields proposal.</p>
+</emu-intro>
+
+<emu-clause id="sec-syntax">
+  <h1><span class="secnum">1</span>Syntax</h1>
+
+  <emu-clause id="sec-updated-syntax">
+    <h1><span class="secnum">1.1</span>Updated Productions</h1>
+
+    <emu-grammar><emu-production name="MethodDefinition" params="Yield, Await" id="prod-MethodDefinition">
+    <emu-nt params="Yield, Await"><a href="#prod-MethodDefinition">MethodDefinition</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><del><emu-rhs a="19d49312"><emu-nt params="?Yield, ?Await"><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs></del>
+    <ins><emu-rhs a="65004a98"><emu-nt params="?Yield, ?Await" id="_ref_95"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs></ins>
+    <emu-rhs a="b8854ce2"><emu-nt params="?Yield, ?Await" id="_ref_96"><a href="#prod-GeneratorMethod">GeneratorMethod</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="978adba9"><emu-nt params="?Yield, ?Await" id="_ref_97"><a href="#prod-AsyncMethod">AsyncMethod</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <emu-rhs a="d8d5f4bb"><emu-nt params="?Yield, ?Await" id="_ref_98"><a href="#prod-AsyncGeneratorMethod">AsyncGeneratorMethod</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+    <del><emu-rhs a="044ecd0b"><emu-t>get</emu-t><emu-nt params="?Yield, ?Await"><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs></del>
+    <ins><emu-rhs a="8e3477cc"><emu-t>get</emu-t><emu-nt params="?Yield, ?Await" id="_ref_99"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs></ins>
+    <del><emu-rhs a="55774850"><emu-t>set</emu-t><emu-nt params="?Yield, ?Await"><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-PropertySetParameterList">PropertySetParameterList</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs></del>
+    <ins><emu-rhs a="95162968"><emu-t>set</emu-t><emu-nt params="?Yield, ?Await" id="_ref_100"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-PropertySetParameterList">PropertySetParameterList</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs></ins>
+</emu-production>
+<emu-production name="GeneratorMethod" params="Yield, Await" id="prod-GeneratorMethod">
+    <emu-nt params="Yield, Await"><a href="#prod-GeneratorMethod">GeneratorMethod</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><del><emu-rhs a="54505152"><emu-t>*</emu-t><emu-nt params="?Yield, ?Await"><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="+Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[+Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-GeneratorBody">GeneratorBody</a></emu-nt><emu-t>}</emu-t></emu-rhs></del>
+    <ins><emu-rhs a="b3a9d330"><emu-t>*</emu-t><emu-nt params="?Yield, ?Await" id="_ref_101"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="+Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[+Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-GeneratorBody">GeneratorBody</a></emu-nt><emu-t>}</emu-t></emu-rhs></ins>
+</emu-production>
+<emu-production name="AsyncMethod" params="Yield, Await" id="prod-AsyncMethod">
+    <emu-nt params="Yield, Await"><a href="#prod-AsyncMethod">AsyncMethod</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><del><emu-rhs a="a922691e"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-nt params="?Yield, ?Await"><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="~Yield, +Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[~Yield, +Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-AsyncFunctionBody">AsyncFunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs></del>
+    <ins><emu-rhs a="b5938e8b"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-nt params="?Yield, ?Await" id="_ref_102"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="~Yield, +Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[~Yield, +Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-AsyncFunctionBody">AsyncFunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs></ins>
+</emu-production>
+<emu-production name="AsyncGeneratorMethod" params="Yield, Await" id="prod-AsyncGeneratorMethod">
+    <emu-nt params="Yield, Await"><a href="#prod-AsyncGeneratorMethod">AsyncGeneratorMethod</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><del><emu-rhs a="a713bc4f"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-t>*</emu-t><emu-nt params="?Yield, ?Await"><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="+Yield, +Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[+Yield, +Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt>AsyncGeneratorBody</emu-nt><emu-t>}</emu-t></emu-rhs></del>
+    <ins><emu-rhs a="04e8cb59"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-t>*</emu-t><emu-nt params="?Yield, ?Await" id="_ref_103"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="+Yield, +Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[+Yield, +Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt>AsyncGeneratorBody</emu-nt><emu-t>}</emu-t></emu-rhs></ins>
+</emu-production></emu-grammar>
+  </emu-clause>
+
+  <emu-clause id="sec-static-semantics-early-errors">
+    <h1><span class="secnum">1.2</span>Static Semantics: Early Errors</h1>
+    <emu-grammar><emu-production name="ClassBody" collapsed="" id="prod-ClassBody">
+    <emu-nt><a href="#prod-ClassBody">ClassBody</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="d72d43ba"><emu-nt><a href="https://tc39.github.io/ecma262/#prod-ClassElementList">ClassElementList</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+    <ul>
+      <li>It is a Syntax Error if <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_0"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_104"><a href="#prod-ClassBody">ClassBody</a></emu-nt> contains any duplicate entries,  <ins>unless the name is used once for a getter and once for a setter and in no other entries</ins>.</li>
+    </ul>
+
+    <emu-grammar><emu-production name="PropertyDefinition" collapsed="" id="prod-PropertyDefinition">
+    <emu-nt><a href="#prod-PropertyDefinition">PropertyDefinition</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="4bc22514"><emu-nt id="_ref_105"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+    <ul>
+      <li>It is a Syntax Error if <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_1"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_106"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt> is non-empty.</li>
+    </ul>
+    <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">In a follow-on proposal, object literals may be permitted to have private methods, fields and accessors.</div></emu-note>
+
+    <emu-grammar><emu-production name="ClassElement" collapsed="" id="prod-ClassElement">
+    <emu-nt><a href="#prod-ClassElement">ClassElement</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="fa58c6b5"><emu-t>static</emu-t><emu-nt id="_ref_107"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+    <ul>
+      <li>It is a Syntax Error if <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_2"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_108"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt> is non-empty.</li>
+    </ul>
+    <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">In this specification, private static methods are not supported. This support may be provided by a follow-on proposal  <a href="https://github.com/tc39/proposal-static-class-features/">static class features</a>.</div></emu-note>
+
+
+  </emu-clause>
+</emu-clause>
+
+<emu-clause id="sec-internal-algorithms">
+<h1><span class="secnum">2</span>Modified algorithms</h1>
+
+<emu-clause id="static-semantics-propname">
+  <h1><span class="secnum">2.1</span>Static Semantics: PropName</h1>
+  <emu-grammar><emu-production name="FieldDefinition" collapsed="" id="prod-FieldDefinition">
+    <emu-nt><a href="#prod-FieldDefinition">FieldDefinition</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="46a6730d"><emu-nt id="_ref_109"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt><emu-nt optional=""><a href="https://tc39.github.io/ecma262/#prod-Initializer">Initializer</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return PropName of <emu-nt id="_ref_110"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt>.
+  </li></ol></emu-alg>
+
+  <emu-grammar><emu-production name="ClassElementName" params="Yield, Await" collapsed="" id="prod-ClassElementName">
+    <emu-nt params="Yield, Await"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="241709ca"><emu-nt params="?Yield, ?Await"><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return PropName of <emu-nt><a href="https://tc39.github.io/ecma262/#prod-PropertyName">PropertyName</a></emu-nt>.
+  </li></ol></emu-alg>
+
+  <emu-grammar><emu-production name="ClassElementName" params="Yield, Await" collapsed="">
+    <emu-nt params="Yield, Await"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="884dbe65"><emu-nt>PrivateIdentifier</emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return <emu-const>empty</emu-const>.
+  </li></ol></emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-runtime-semantics-evaluate-name">
+  <h1><span class="secnum">2.2</span>Runtime Semantics: Evaluation</h1>
+  <emu-grammar><emu-production name="ClassElementName" params="Yield, Await" collapsed="">
+    <emu-nt params="Yield, Await"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="5c493222"><emu-nt params="?Yield, ?Await">PropertyIdentifier<emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return the result of evaluating <emu-nt>PropertyIdentifier</emu-nt>.
+  </li></ol></emu-alg>
+
+  <emu-grammar><emu-production name="ClassElementName" params="Yield, Await" collapsed="">
+    <emu-nt params="Yield, Await"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="884dbe65"><emu-nt>PrivateIdentifier</emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Let <var>bindingName</var> be StringValue of <emu-nt>PrivateIdentifier</emu-nt>.</li><li>Let <var>scope</var> be the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s PrivateEnvironment.</li><li>Let <var>scopeEnvRec</var> be <var>scope</var>'s <emu-xref href="#sec-lexical-environments"><a href="https://tc39.github.io/ecma262/#sec-lexical-environments">EnvironmentRecord</a></emu-xref>.</li><li><del>Let <var>field</var> be NewPrivateName(<var>bindingName</var>).</del></li><li><del>Perform ! <var>scopeEnvRec</var>.InitializeBinding(<var>bindingName</var>, <var>field</var>).</del></li><li><ins>Assert: <var>scopeEnvRec</var> has a binding for <var>bindingName</var>.</ins></li><li><ins>If <var>scopeEnvRec</var>'s binding for <var>bindingName</var> is uninitialized,</ins><ol><li><ins>Let <var>field</var> be NewPrivateName(<var>bindingName</var>).</ins></li><li><ins>Perform ! <var>scopeEnvRec</var>.InitializeBinding(<var>bindingName</var>, <var>field</var>).</ins></li></ol></li><li><ins>Else,</ins><ol><li><ins>Let <var>field</var> be <var>scopeEnvRec</var>.GetBindingValue(<var>bindingName</var>).</ins></li><li><ins>NOTE: The only case where this may occur is in getter/setter pairs; other duplicates are prohibited as a Syntax Error.</ins></li></ol></li><li><ins>Assert: <var>field</var>.[[Description]] is <var>bindingName</var>.</ins></li><li>Return <var>field</var>.
+  </li></ol></emu-alg>
+  <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">Each time a class declaration executes, distinct internal Private Names are created. This means, that they cannot directly access each other's private state if a method of one is called with the other as a receiver.</div></emu-note>
+
+</emu-clause>
+
+<emu-clause id="initialize-instance-elements">
+  <h1><span class="secnum">2.3</span>InitializeInstance<del>Fields</del><ins>Elements</ins> ( <var>O</var>, <var>constructor</var> )</h1>
+
+  <emu-alg><ol><li>Assert: Type ( <var>O</var> ) is Object.</li><li>Assert: Assert <var>constructor</var> is an ECMAScript function object.</li><li><ins>If <var>constructor</var>.[[PrivateBrand]] is not <emu-val>undefined</emu-val>,</ins><ol><li><ins>Perform ?&nbsp;<emu-xref aoid="PrivateBrandAdd" id="_ref_3"><a href="#sec-privatebrandadd">PrivateBrandAdd</a></emu-xref>(<var>O</var>, <var>constructor</var>.[[PrivateBrand]]).</ins></li></ol></li><li>Let <var>fieldRecords</var> be the value of <var>constructor</var>'s [[Fields]] internal slot.</li><li>For each item <var>fieldRecord</var> in order from <var>fieldRecords</var>,<ol><li>Perform ?&nbsp;DefineField(<var>O</var>, <var>fieldRecord</var>).</li></ol></li><li>Return.
+  </li></ol></emu-alg>
+  <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">The PrivateBrand enables the use of private methods on the instance. It is added before the fields so that the private methods may be called from field initializers.</div></emu-note>
+  <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">Private fields are added to the object one by one, interspersed with evaluation of the initializers, following the construction of the receiver. These semantics allow for a later initializer to refer to a previous private field.</div></emu-note>
+</emu-clause>
+
+<emu-clause id="sec-private-bound-identifiers" aoid="PrivateBoundIdentifiers">
+  <h1><span class="secnum">2.4</span>Static Semantics: PrivateBoundIdentifiers</h1>
+  <emu-grammar><emu-production name="ClassElement" collapsed="">
+    <emu-nt><a href="#prod-ClassElement">ClassElement</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="4bc22514"><emu-nt id="_ref_111"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt></emu-rhs>
+</emu-production>
+<emu-production name="ClassElement" collapsed="">
+    <emu-nt><a href="#prod-ClassElement">ClassElement</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="fa58c6b5"><emu-t>static</emu-t><emu-nt id="_ref_112"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_4"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_113"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt>.
+  </li></ol></emu-alg>
+
+  <emu-grammar><emu-production name="MethodDefinition" params="Yield, Await">
+    <emu-nt params="Yield, Await"><a href="#prod-MethodDefinition">MethodDefinition</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="65004a98"><emu-nt params="?Yield, ?Await" id="_ref_114"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+    <emu-rhs a="8e3477cc"><emu-t>get</emu-t><emu-nt params="?Yield, ?Await" id="_ref_115"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+    <emu-rhs a="95162968"><emu-t>set</emu-t><emu-nt params="?Yield, ?Await" id="_ref_116"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-PropertySetParameterList">PropertySetParameterList</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt params="~Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a><emu-mods><emu-params>[~Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="GeneratorMethod" params="Yield, Await">
+    <emu-nt params="Yield, Await"><a href="#prod-GeneratorMethod">GeneratorMethod</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b3a9d330"><emu-t>*</emu-t><emu-nt params="?Yield, ?Await" id="_ref_117"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="+Yield, ~Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[+Yield, ~Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-GeneratorBody">GeneratorBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="AsyncMethod" params="Yield, Await">
+    <emu-nt params="Yield, Await"><a href="#prod-AsyncMethod">AsyncMethod</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b5938e8b"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-nt params="?Yield, ?Await" id="_ref_118"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="~Yield, +Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[~Yield, +Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-AsyncFunctionBody">AsyncFunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="AsyncGeneratorMethod" params="Yield, Await">
+    <emu-nt params="Yield, Await"><a href="#prod-AsyncGeneratorMethod">AsyncGeneratorMethod</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b1ca1703"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-t>*</emu-t><emu-nt params="?Yield, ?Await" id="_ref_119"><a href="#prod-ClassElementName">ClassElementName</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt><emu-t>(</emu-t><emu-nt params="~Yield, +Await"><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a><emu-mods><emu-params>[~Yield, +Await]</emu-params></emu-mods></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-AsyncFunctionBody">AsyncFunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_5"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_120"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt>.
+  </li></ol></emu-alg>
+
+  <emu-grammar><emu-production name="MethodDefinition" params="Yield, Await" collapsed="">
+    <emu-nt params="Yield, Await"><a href="#prod-MethodDefinition">MethodDefinition</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b8854ce2"><emu-nt params="?Yield, ?Await" id="_ref_121"><a href="#prod-GeneratorMethod">GeneratorMethod</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_6"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_122"><a href="#prod-GeneratorMethod">GeneratorMethod</a></emu-nt>.
+  </li></ol></emu-alg>
+
+  <emu-grammar><emu-production name="MethodDefinition" params="Yield, Await" collapsed="">
+    <emu-nt params="Yield, Await"><a href="#prod-MethodDefinition">MethodDefinition</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="978adba9"><emu-nt params="?Yield, ?Await" id="_ref_123"><a href="#prod-AsyncMethod">AsyncMethod</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_7"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_124"><a href="#prod-AsyncMethod">AsyncMethod</a></emu-nt>.
+  </li></ol></emu-alg>
+
+  <emu-grammar><emu-production name="MethodDefinition" params="Yield, Await" collapsed="">
+    <emu-nt params="Yield, Await"><a href="#prod-MethodDefinition">MethodDefinition</a><emu-mods><emu-params>[Yield, Await]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="d8d5f4bb"><emu-nt params="?Yield, ?Await" id="_ref_125"><a href="#prod-AsyncGeneratorMethod">AsyncGeneratorMethod</a><emu-mods><emu-params>[?Yield, ?Await]</emu-params></emu-mods></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+  <emu-alg><ol><li>Return <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_8"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_126"><a href="#prod-AsyncGeneratorMethod">AsyncGeneratorMethod</a></emu-nt>.
+  </li></ol></emu-alg>
+</emu-clause>
+
+  <emu-clause id="runtime-semantics-class-definition-evaluation">
+    <h1><span class="secnum">2.5</span>Runtime Semantics: ClassDefinitionEvaluation</h1>
+    <p>With parameter <var>className</var>.</p>
+    <emu-grammar><emu-production name="ClassTail" collapsed="" id="prod-ClassTail">
+    <emu-nt><a href="#prod-ClassTail">ClassTail</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b8ea6aa5"><emu-nt optional=""><a href="https://tc39.github.io/ecma262/#prod-ClassHeritage">ClassHeritage</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t>{</emu-t><emu-nt optional="" id="_ref_127"><a href="#prod-ClassBody">ClassBody</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Let <var>lex</var> be the LexicalEnvironment of the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>.</li><li>Let <var>classScope</var> be <emu-xref aoid="NewDeclarativeEnvironment" id="_ref_9"><a href="https://tc39.github.io/ecma262/#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a></emu-xref>(<var>lex</var>).</li><li>Let <var>classScopeEnvRec</var> be <var>classScope</var>'s <emu-xref href="#sec-lexical-environments"><a href="https://tc39.github.io/ecma262/#sec-lexical-environments">EnvironmentRecord</a></emu-xref>.</li><li>If <var>className</var> is not <emu-val>undefined</emu-val>, then<ol><li>Perform <var>classScopeEnvRec</var>.CreateImmutableBinding(<var>className</var>, <emu-val>true</emu-val>).</li></ol></li><li>Let <var>outerPrivateEnvironment</var> be the PrivateEnvironment of the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>.</li><li>Let <var>classPrivateEnvironment</var> be <emu-xref aoid="NewDeclarativeEnvironment" id="_ref_10"><a href="https://tc39.github.io/ecma262/#sec-newdeclarativeenvironment">NewDeclarativeEnvironment</a></emu-xref>(<var>outerPrivateEnvironment</var>).</li><li>Let <var>classPrivateEnvRec</var> be <var>classPrivateEnvironment</var>'s <emu-xref href="#sec-lexical-environments"><a href="https://tc39.github.io/ecma262/#sec-lexical-environments">EnvironmentRecord</a></emu-xref>.</li><li>If <emu-nt optional="" id="_ref_128"><a href="#prod-ClassBody">ClassBody</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt> is present, then<ol><li>For each element <var>dn</var> of the <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_11"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt optional="" id="_ref_129"><a href="#prod-ClassBody">ClassBody</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>,<ol><li>Perform <var>classPrivateEnvRec</var>.CreateImmutableBinding(<var>dn</var>, <emu-val>true</emu-val>).</li></ol></li></ol></li><li>If <emu-nt optional=""><a href="https://tc39.github.io/ecma262/#prod-ClassHeritage">ClassHeritage</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt> is not present, then<ol><li>Let <var>protoParent</var> be the intrinsic object <emu-xref href="#sec-properties-of-the-object-prototype-object"><a href="https://tc39.github.io/ecma262/#sec-properties-of-the-object-prototype-object">%ObjectPrototype%</a></emu-xref>.</li><li>Let <var>constructorParent</var> be the intrinsic object <emu-xref href="#sec-properties-of-the-function-prototype-object"><a href="https://tc39.github.io/ecma262/#sec-properties-of-the-function-prototype-object">%FunctionPrototype%</a></emu-xref>.</li></ol></li><li>Else,<ol><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment to <var>classScope</var>.</li><li>NOTE: The <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s PrivateEnvironment is <var>outerPrivateEnvironment</var> when evaluating <emu-nt><a href="https://tc39.github.io/ecma262/#prod-ClassHeritage">ClassHeritage</a></emu-nt>.</li><li>Let <var>superclass</var> be the result of evaluating <emu-nt><a href="https://tc39.github.io/ecma262/#prod-ClassHeritage">ClassHeritage</a></emu-nt>.</li><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment to <var>lex</var>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_12"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>superclass</var>).</li><li>If <var>superclass</var> is <emu-val>null</emu-val>, then<ol><li>Let <var>protoParent</var> be <emu-val>null</emu-val>.</li><li>Let <var>constructorParent</var> be the intrinsic object <emu-xref href="#sec-properties-of-the-function-prototype-object"><a href="https://tc39.github.io/ecma262/#sec-properties-of-the-function-prototype-object">%FunctionPrototype%</a></emu-xref>.</li></ol></li><li>Else if <emu-xref aoid="IsConstructor" id="_ref_13"><a href="https://tc39.github.io/ecma262/#sec-isconstructor">IsConstructor</a></emu-xref>(<var>superclass</var>) is <emu-val>false</emu-val>, throw a <emu-val>TypeError</emu-val> exception.</li><li>Else,<ol><li>Let <var>protoParent</var> be ?&nbsp;<emu-xref aoid="Get" id="_ref_14"><a href="https://tc39.github.io/ecma262/#sec-get-o-p">Get</a></emu-xref>(<var>superclass</var>, <code>"prototype"</code>).</li><li>If <emu-xref aoid="Type" id="_ref_15"><a href="https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>protoParent</var>) is neither Object nor Null, throw a <emu-val>TypeError</emu-val> exception.</li><li>Let <var>constructorParent</var> be <var>superclass</var>.</li></ol></li></ol></li><li>Let <var>proto</var> be <emu-xref aoid="ObjectCreate" id="_ref_16"><a href="https://tc39.github.io/ecma262/#sec-objectcreate">ObjectCreate</a></emu-xref>(<var>protoParent</var>).</li><li>If <emu-nt optional="" id="_ref_130"><a href="#prod-ClassBody">ClassBody</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt> is not present, let <var>constructor</var> be <emu-const>empty</emu-const>.</li><li>Else, let <var>constructor</var> be ConstructorMethod of <emu-nt id="_ref_131"><a href="#prod-ClassBody">ClassBody</a></emu-nt>.</li><li>If <var>constructor</var> is <emu-const>empty</emu-const>, then<ol><li>If <emu-nt optional=""><a href="https://tc39.github.io/ecma262/#prod-ClassHeritage">ClassHeritage</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt> is present and <var>protoParent</var> is not <emu-val>null</emu-val>, then<ol><li>Let <var>constructor</var> be the result of parsing the source text
+            <pre><code class="javascript hljs"><span class="hljs-keyword">constructor</span>(... args){ <span class="hljs-keyword">super</span> (...args);}</code></pre>
+            using the syntactic grammar with the <emu-xref href="#sec-context-free-grammars"><a href="https://tc39.github.io/ecma262/#sec-context-free-grammars">goal symbol</a></emu-xref> <emu-nt params="~Yield" id="_ref_132"><a href="#prod-MethodDefinition">MethodDefinition</a><emu-mods><emu-params>[~Yield]</emu-params></emu-mods></emu-nt>.</li></ol></li><li>Else,<ol><li>Let <var>constructor</var> be the result of parsing the source text
+            <pre><code class="javascript hljs"><span class="hljs-keyword">constructor</span>( ){ }</code></pre>
+            using the syntactic grammar with the <emu-xref href="#sec-context-free-grammars"><a href="https://tc39.github.io/ecma262/#sec-context-free-grammars">goal symbol</a></emu-xref> <emu-nt params="~Yield" id="_ref_133"><a href="#prod-MethodDefinition">MethodDefinition</a><emu-mods><emu-params>[~Yield]</emu-params></emu-mods></emu-nt>.</li></ol></li></ol></li><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment to <var>classScope</var>.</li><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s PrivateEnvironment to <var>classPrivateEnvironment</var>.</li><li>Let <var>constructorInfo</var> be the result of performing DefineMethod for <var>constructor</var> with arguments <var>proto</var> and <var>constructorParent</var> as the optional <var>functionPrototype</var> argument.</li><li>Assert: <var>constructorInfo</var> is not an <emu-xref href="#sec-completion-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-completion-record-specification-type">abrupt completion</a></emu-xref>.</li><li>Let <var>F</var> be <var>constructorInfo</var>.[[Closure]].</li><li>If <emu-nt optional=""><a href="https://tc39.github.io/ecma262/#prod-ClassHeritage">ClassHeritage</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt> is present and <var>protoParent</var> is not <emu-val>null</emu-val>, then set <var>F</var>.[[ConstructorKind]] to <code>"derived"</code>.</li><li>Perform <emu-xref aoid="MakeConstructor" id="_ref_17"><a href="https://tc39.github.io/ecma262/#sec-makeconstructor">MakeConstructor</a></emu-xref>(<var>F</var>, <emu-val>false</emu-val>, <var>proto</var>).</li><li>Perform <emu-xref aoid="MakeClassConstructor" id="_ref_18"><a href="https://tc39.github.io/ecma262/#sec-makeclassconstructor">MakeClassConstructor</a></emu-xref>(<var>F</var>).</li><li>Perform <emu-xref aoid="CreateMethodProperty" id="_ref_19"><a href="https://tc39.github.io/ecma262/#sec-createmethodproperty">CreateMethodProperty</a></emu-xref>(<var>proto</var>, <code>"constructor"</code>, <var>F</var>).</li><li>If <emu-nt optional="" id="_ref_134"><a href="#prod-ClassBody">ClassBody</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt> is not present, let <var>methods</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>Else, let <var>elements</var> be NonConstructorMethodDefinitions of <emu-nt id="_ref_135"><a href="#prod-ClassBody">ClassBody</a></emu-nt>.</li><li>Let <var>instanceFields</var> be a new empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref>.</li><li>For each <emu-nt id="_ref_136"><a href="#prod-ClassElement">ClassElement</a></emu-nt> <var>e</var> in order from <var>elements</var>,<ol><li>If IsStatic of <var>e</var> is <emu-val>false</emu-val>, then<ol><li>Let <var>field</var> be the result of performing <emu-xref aoid="ClassElementEvaluation" id="_ref_20"><a href="#sec-method-definitions-runtime-semantics-classelementevaluation">ClassElementEvaluation</a></emu-xref> for <var>e</var> with arguments <var>proto</var> and <emu-val>false</emu-val>.</li></ol></li><li>Else,<ol><li>Let <var>field</var> be the result of performing PropertyDefinitionEvaluation for <var>m</var><emu-xref aoid="ClassElementEvaluation" id="_ref_21"><a href="#sec-method-definitions-runtime-semantics-classelementevaluation">ClassElementEvaluation</a></emu-xref> for <var>e</var> with arguments <var>F</var> and <emu-val>false</emu-val>.</li></ol></li><li>If <var>field</var> is an <emu-xref href="#sec-completion-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-completion-record-specification-type">abrupt completion</a></emu-xref>, then<ol><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment to <var>lex</var>.</li><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s PrivateEnvironment to <var>outerPrivateEnvironment</var>.</li><li>Return <emu-xref aoid="Completion" id="_ref_22"><a href="https://tc39.github.io/ecma262/#sec-completion-record-specification-type">Completion</a></emu-xref>(<var>field</var>).</li></ol></li><li>If <var>field</var> is not <emu-const>empty</emu-const>, append <var>field</var> to <var>instanceFields</var>.</li></ol></li><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment to <var>lex</var>.</li><li>If <var>className</var> is not <emu-val>undefined</emu-val>, then<ol><li>Perform <var>classScopeEnvRec</var>.InitializeBinding(<var>className</var>, <var>F</var>).</li></ol></li><li>Set <var>F</var>.[[Fields]] to <var>instanceFields</var>.</li><li><ins>If <emu-xref aoid="PrivateBoundIdentifiers" id="_ref_23"><a href="#sec-private-bound-identifiers">PrivateBoundIdentifiers</a></emu-xref> of <emu-nt id="_ref_137"><a href="#prod-ClassBody">ClassBody</a></emu-nt> contains a <emu-xref href="#sec-private-names" id="_ref_24"><a href="#sec-private-names">Private Name</a></emu-xref> <var>P</var> such that the <var>P</var>'s [[Kind]] field is either <code>"method"</code> or <code>"accessor"</code>,</ins><ol><li><ins>Set <var>F</var>.[[PrivateBrand]] to <var>proto</var>.</ins></li></ol></li><li>Set the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s PrivateEnvironment to <var>outerPrivateEnvironment</var>.</li><li>Return <var>F</var>.
+    </li></ol></emu-alg>
+  </emu-clause>
+
+  <emu-clause id="sec-define-ordinary-method" aoid="DefineOrdinaryMethod">
+    <h1><span class="secnum">2.6</span>DefineOrdinaryMethod ( <var>key</var>, <var>homeObject</var>, <var>closure</var>, <var>enumerable</var> )</h1>
+    <emu-alg><ol><li>Perform <emu-xref aoid="SetFunctionName" id="_ref_25"><a href="https://tc39.github.io/ecma262/#sec-setfunctionname">SetFunctionName</a></emu-xref>(<var>closure</var>, <var>key</var>).</li><li>If <var>key</var> is a <emu-xref href="#sec-private-names" id="_ref_26"><a href="#sec-private-names">Private Name</a></emu-xref>,<ol><li>Assert: <var>key</var> does not have a [[Kind]] field.</li><li>Set <var>key</var>.[[Kind]] to <code>"method"</code>.</li><li>Set <var>key</var>.[[Value]] to <var>closure</var>.</li><li>Set <var>key</var>.[[Brand]] to <var>homeObject</var>.</li></ol></li><li>Else,<ol><li>Let <var>desc</var> be the PropertyDescriptor{[[Value]]: <var>closure</var>, [[Writable]]: <emu-val>true</emu-val>, [[Enumerable]]: <var>enumerable</var>, [[Configurable]]: <emu-val>true</emu-val>}.</li><li>Perform ?&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_27"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>homeObject</var>, <var>key</var>, <var>desc</var>).
+    </li></ol></li></ol></emu-alg>
+  </emu-clause>
+
+  <emu-clause id="sec-method-definitions-runtime-semantics-classelementevaluation" aoid="ClassElementEvaluation">
+    <h1><span class="secnum">2.7</span>Runtime Semantics: ClassElementEvaluation</h1>
+    <p>With parameters <var>homeObject</var> and <var>enumerable</var>.</p>
+    <emu-see-also-para op="PropertyDefinitionEvaluation"></emu-see-also-para>
+    <emu-grammar><emu-production name="ClassElement" collapsed="">
+    <emu-nt><a href="#prod-ClassElement">ClassElement</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="4bc22514"><emu-nt id="_ref_138"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Return <emu-xref aoid="ClassElementEvaluation" id="_ref_28"><a href="#sec-method-definitions-runtime-semantics-classelementevaluation">ClassElementEvaluation</a></emu-xref> of <emu-nt id="_ref_139"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt> with arguments !&nbsp;<emu-xref aoid="Get" id="_ref_29"><a href="https://tc39.github.io/ecma262/#sec-get-o-p">Get</a></emu-xref>(<var>homeObject</var>, <code>"prototype"</code>),<var>enumerable</var>, and <code>"prototype"</code>.
+    </li></ol></emu-alg>
+    <emu-grammar><emu-production name="ClassElement" collapsed="">
+    <emu-nt><a href="#prod-ClassElement">ClassElement</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="fa58c6b5"><emu-t>static</emu-t><emu-nt id="_ref_140"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Return <emu-xref aoid="ClassElementEvaluation" id="_ref_30"><a href="#sec-method-definitions-runtime-semantics-classelementevaluation">ClassElementEvaluation</a></emu-xref> of <emu-nt id="_ref_141"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt> with arguments <var>homeObject</var>, <var>enumerable</var> and <code>"static"</code>.
+    </li></ol></emu-alg>
+    <emu-grammar><emu-production name="MethodDefinition" collapsed="">
+    <emu-nt><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="1766b2c7"><emu-nt id="_ref_142"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Let <var>methodDef</var> be DefineMethod of <emu-nt id="_ref_143"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt> with argument <var>homeObject</var>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_31"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>methodDef</var>).</li><li><del>Perform <emu-xref aoid="SetFunctionName" id="_ref_32"><a href="https://tc39.github.io/ecma262/#sec-setfunctionname">SetFunctionName</a></emu-xref>(<var>methodDef</var>.[[Closure]], <var>methodDef</var>.[[Key]]).</del></li><li><del>Let <var>desc</var> be the PropertyDescriptor{[[Value]]: <var>methodDef</var>.[[Closure]], [[Writable]]: <emu-val>true</emu-val>, [[Enumerable]]: <var>enumerable</var>, [[Configurable]]: <emu-val>true</emu-val>}.</del></li><li><del>Return ?&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_33"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>homeObject</var>, <var>methodDef</var>.[[Key]], <var>desc</var>).</del></li><li><ins>Perform ?&nbsp;<emu-xref aoid="DefineOrdinaryMethod" id="_ref_34"><a href="#sec-define-ordinary-method">DefineOrdinaryMethod</a></emu-xref>(<var>methodDef</var>.[[Key]], <var>homeObject</var>, <var>methodDef</var>.[[Closure]], <var>enumerable</var>).</ins>
+    </li></ol></emu-alg>
+    <emu-grammar><emu-production name="MethodDefinition" collapsed="">
+    <emu-nt><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="b3b54aec"><emu-t>get</emu-t><emu-nt id="_ref_144"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt><emu-t>(</emu-t><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Let <var>key</var> be the result of evaluating <emu-nt id="_ref_145"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_35"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>key</var>).</li><li>If the function code for this <emu-nt id="_ref_146"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt> is <emu-xref href="#sec-strict-mode-code"><a href="https://tc39.github.io/ecma262/#sec-strict-mode-code">strict mode code</a></emu-xref>, let <var>strict</var> be <emu-val>true</emu-val>. Otherwise let <var>strict</var> be <emu-val>false</emu-val>.</li><li>Let <var>scope</var> be the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment.</li><li>Let <var>formalParameterList</var> be an instance of the production <emu-grammar><emu-production name="FormalParameters" collapsed="" id="prod-FormalParameters" class=" inline">
+    <emu-nt><a href="#prod-FormalParameters">FormalParameters</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="37b9c04c"><emu-gann>[empty]</emu-gann></emu-rhs>
+</emu-production></emu-grammar>.</li><li>Let <var>closure</var> be <emu-xref aoid="FunctionCreate" id="_ref_36"><a href="https://tc39.github.io/ecma262/#sec-functioncreate">FunctionCreate</a></emu-xref>(<emu-const>Method</emu-const>, <var>formalParameterList</var>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a></emu-nt>, <var>scope</var>, <var>strict</var>).</li><li>Perform <emu-xref aoid="MakeMethod" id="_ref_37"><a href="https://tc39.github.io/ecma262/#sec-makemethod">MakeMethod</a></emu-xref>(<var>closure</var>, <var>homeObject</var>).</li><li>Perform <emu-xref aoid="SetFunctionName" id="_ref_38"><a href="https://tc39.github.io/ecma262/#sec-setfunctionname">SetFunctionName</a></emu-xref>(<var>closure</var>, <var>key</var>, <code>"get"</code>).</li><li><ins>If <var>key</var> is a <emu-xref href="#sec-private-names" id="_ref_39"><a href="#sec-private-names">Private Name</a></emu-xref>,</ins><ol><li><ins>If <var>key</var> has a [[Kind]] field,</ins><ol><li><ins>Assert: <var>key</var>.[[Kind]] is <code>"accessor"</code>.</ins></li><li><ins>Assert: <var>key</var>.[[Brand]] is <var>homeObject</var>.</ins></li><li><ins>Assert: <var>key</var> does not have a [[Get]] field.</ins></li><li><ins>Set <var>key</var>.[[Get]] to <var>closure</var>.</ins></li></ol></li><li><ins>Else,</ins><ol><li><ins>Set <var>key</var>.[[Kind]] to <code>"accessor"</code>.</ins></li><li><ins>Set <var>key</var>.[[Brand]] to <var>homeObject</var>.</ins></li><li><ins>Set <var>key</var>.[[Get]] to <var>closure</var>.</ins></li></ol></li></ol></li><li><ins>Else,</ins><ol><li>Let <var>desc</var> be the PropertyDescriptor{[[Get]]: <var>closure</var>, [[Enumerable]]: <var>enumerable</var>, [[Configurable]]: <emu-val>true</emu-val>}.</li><li>Perform ?&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_40"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>homeObject</var>, <var>key</var>, <var>desc</var>).
+    </li></ol></li></ol></emu-alg>
+    <emu-grammar><emu-production name="MethodDefinition" collapsed="">
+    <emu-nt><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="95b538d1"><emu-t>set</emu-t><emu-nt id="_ref_147"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-PropertySetParameterList">PropertySetParameterList</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Let <var>key</var> be the result of evaluating <emu-nt id="_ref_148"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_41"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>key</var>).</li><li>If the function code for this <emu-nt id="_ref_149"><a href="#prod-MethodDefinition">MethodDefinition</a></emu-nt> is <emu-xref href="#sec-strict-mode-code"><a href="https://tc39.github.io/ecma262/#sec-strict-mode-code">strict mode code</a></emu-xref>, let <var>strict</var> be <emu-val>true</emu-val>. Otherwise let <var>strict</var> be <emu-val>false</emu-val>.</li><li>Let <var>scope</var> be the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment.</li><li>Let <var>closure</var> be <emu-xref aoid="FunctionCreate" id="_ref_42"><a href="https://tc39.github.io/ecma262/#sec-functioncreate">FunctionCreate</a></emu-xref>(<emu-const>Method</emu-const>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-PropertySetParameterList">PropertySetParameterList</a></emu-nt>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-FunctionBody">FunctionBody</a></emu-nt>, <var>scope</var>, <var>strict</var>).</li><li>Perform <emu-xref aoid="MakeMethod" id="_ref_43"><a href="https://tc39.github.io/ecma262/#sec-makemethod">MakeMethod</a></emu-xref>(<var>closure</var>, <var>homeObject</var>).</li><li>Perform <emu-xref aoid="SetFunctionName" id="_ref_44"><a href="https://tc39.github.io/ecma262/#sec-setfunctionname">SetFunctionName</a></emu-xref>(<var>closure</var>, <var>key</var>, <code>"set"</code>).</li><li><ins>If <var>key</var> is a <emu-xref href="#sec-private-names" id="_ref_45"><a href="#sec-private-names">Private Name</a></emu-xref>,</ins><ol><li><ins>If <var>key</var> has a [[Kind]] field,</ins><ol><li><ins>Assert: <var>key</var>.[[Kind]] is <code>"accessor"</code>.</ins></li><li><ins>Assert: <var>key</var>.[[Brand]] is <var>homeObject</var>.</ins></li><li><ins>Assert: <var>key</var> does not have a [[Set]] field.</ins></li><li><ins>Set <var>key</var>.[[Set]] to <var>closure</var>.</ins></li></ol></li><li><ins>Else,</ins><ol><li><ins>Set <var>key</var>.[[Kind]] to <code>"accessor"</code>.</ins></li><li><ins>Set <var>key</var>.[[Brand]] to <var>homeObject</var>.</ins></li><li><ins>Set <var>key</var>.[[Set]] to <var>closure</var>.</ins></li></ol></li></ol></li><li><ins>Else,</ins><ol><li>Let <var>desc</var> be the PropertyDescriptor{[[Set]]: <var>closure</var>, [[Enumerable]]: <var>enumerable</var>, [[Configurable]]: <emu-val>true</emu-val>}.</li><li>Perform ?&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_46"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>homeObject</var>, <var>key</var>, <var>desc</var>).
+    </li></ol></li></ol></emu-alg>
+    <emu-grammar><emu-production name="GeneratorMethod" collapsed="">
+    <emu-nt><a href="#prod-GeneratorMethod">GeneratorMethod</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="13a6143c"><emu-t>*</emu-t><emu-nt id="_ref_150"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-GeneratorBody">GeneratorBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Let <var>key</var> be the result of evaluating <emu-nt id="_ref_151"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_47"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>key</var>).</li><li>If the function code for this <emu-nt id="_ref_152"><a href="#prod-GeneratorMethod">GeneratorMethod</a></emu-nt> is <emu-xref href="#sec-strict-mode-code"><a href="https://tc39.github.io/ecma262/#sec-strict-mode-code">strict mode code</a></emu-xref>, let <var>strict</var> be <emu-val>true</emu-val>. Otherwise let <var>strict</var> be <emu-val>false</emu-val>.</li><li>Let <var>scope</var> be the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment.</li><li>Let <var>closure</var> be <emu-xref aoid="GeneratorFunctionCreate" id="_ref_48"><a href="https://tc39.github.io/ecma262/#sec-generatorfunctioncreate">GeneratorFunctionCreate</a></emu-xref>(<emu-const>Method</emu-const>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a></emu-nt>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-GeneratorBody">GeneratorBody</a></emu-nt>, <var>scope</var>, <var>strict</var>).</li><li>Perform <emu-xref aoid="MakeMethod" id="_ref_49"><a href="https://tc39.github.io/ecma262/#sec-makemethod">MakeMethod</a></emu-xref>(<var>closure</var>, <var>homeObject</var>).</li><li>Let <var>prototype</var> be <emu-xref aoid="ObjectCreate" id="_ref_50"><a href="https://tc39.github.io/ecma262/#sec-objectcreate">ObjectCreate</a></emu-xref>(<emu-xref href="#sec-properties-of-generator-prototype"><a href="https://tc39.github.io/ecma262/#sec-properties-of-generator-prototype">%GeneratorPrototype%</a></emu-xref>).</li><li>Perform <emu-xref aoid="DefinePropertyOrThrow" id="_ref_51"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>closure</var>, <code>"prototype"</code>, PropertyDescriptor{[[Value]]: <var>prototype</var>, [[Writable]]: <emu-val>true</emu-val>, [[Enumerable]]: <emu-val>false</emu-val>, [[Configurable]]: <emu-val>false</emu-val>}).</li><li><del>Perform <emu-xref aoid="SetFunctionName" id="_ref_52"><a href="https://tc39.github.io/ecma262/#sec-setfunctionname">SetFunctionName</a></emu-xref>(<var>closure</var>, <var>propKey</var>).</del></li><li><del>Let <var>desc</var> be the PropertyDescriptor{[[Value]]: <var>closure</var>, [[Writable]]: <emu-val>true</emu-val>, [[Enumerable]]: <var>enumerable</var>, [[Configurable]]: <emu-val>true</emu-val>}.</del></li><li><del>Return ?&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_53"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>homeObject</var>, <var>propKey</var>, <var>desc</var>).</del></li><li><ins>Return <emu-xref aoid="DefineOrdinaryMethod" id="_ref_54"><a href="#sec-define-ordinary-method">DefineOrdinaryMethod</a></emu-xref>(<var>key</var>, <var>homeObject</var>, <var>closure</var>, <var>enumerable</var>).</ins>
+    </li></ol></emu-alg>
+    <emu-grammar><emu-production name="AsyncMethod" collapsed="">
+    <emu-nt><a href="#prod-AsyncMethod">AsyncMethod</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a3584b7e"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-nt id="_ref_153"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-AsyncFunctionBody">AsyncFunctionBody</a></emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Let <var>key</var> be the result of evaluating <emu-nt id="_ref_154"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_55"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>key</var>).</li><li>If the function code for this <emu-nt id="_ref_155"><a href="#prod-AsyncMethod">AsyncMethod</a></emu-nt> is <emu-xref href="#sec-strict-mode-code"><a href="https://tc39.github.io/ecma262/#sec-strict-mode-code">strict mode code</a></emu-xref>, let <var>strict</var> be <emu-val>true</emu-val>. Otherwise let <var>strict</var> be <emu-val>false</emu-val>.</li><li>Let <var>scope</var> be the LexicalEnvironment of the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>.</li><li>Let <var>closure</var> be !&nbsp;<emu-xref aoid="AsyncFunctionCreate" id="_ref_56"><a href="https://tc39.github.io/ecma262/#sec-async-functions-abstract-operations-async-function-create">AsyncFunctionCreate</a></emu-xref>(<emu-const>Method</emu-const>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a></emu-nt>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-AsyncFunctionBody">AsyncFunctionBody</a></emu-nt>, <var>scope</var>, <var>strict</var>).</li><li>Perform !&nbsp;<emu-xref aoid="MakeMethod" id="_ref_57"><a href="https://tc39.github.io/ecma262/#sec-makemethod">MakeMethod</a></emu-xref>(<var>closure</var>, <var>homeObject</var>).</li><li><del>Perform !&nbsp;<emu-xref aoid="SetFunctionName" id="_ref_58"><a href="https://tc39.github.io/ecma262/#sec-setfunctionname">SetFunctionName</a></emu-xref>(<var>closure</var>, <var>key</var>).</del></li><li><del>Let <var>desc</var> be the PropertyDescriptor{[[Value]]: <var>closure</var>, [[Writable]]: <emu-val>true</emu-val>, [[Enumerable]]: <var>enumerable</var>, [[Configurable]]: <emu-val>true</emu-val>}.</del></li><li><del>Return ?&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_59"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>homeObject</var>, <var>propKey</var>, <var>desc</var>).</del></li><li><ins>Perform ?&nbsp;<emu-xref aoid="DefineOrdinaryMethod" id="_ref_60"><a href="#sec-define-ordinary-method">DefineOrdinaryMethod</a></emu-xref>(<var>key</var>, <var>homeObject</var>, <var>closure</var>, <var>enumerable</var>).</ins>
+    </li></ol></emu-alg>
+
+      <emu-grammar><emu-production name="AsyncGeneratorMethod" collapsed="">
+    <emu-nt><a href="#prod-AsyncGeneratorMethod">AsyncGeneratorMethod</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="ab7db149"><emu-t>async</emu-t><emu-gann>[no <emu-nt><a href="https://tc39.github.io/ecma262/#prod-LineTerminator">LineTerminator</a></emu-nt> here]</emu-gann><emu-t>*</emu-t><emu-nt id="_ref_156"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt><emu-t>(</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a></emu-nt><emu-t>)</emu-t><emu-t>{</emu-t><emu-nt>AsyncGeneratorBody</emu-nt><emu-t>}</emu-t></emu-rhs>
+</emu-production></emu-grammar>
+      <emu-alg><ol><li>Let <var>key</var> be the result of evaluating <emu-nt id="_ref_157"><a href="#prod-ClassElementName">ClassElementName</a></emu-nt>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_61"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>key</var>).</li><li>If the function code for this <emu-nt id="_ref_158"><a href="#prod-AsyncGeneratorMethod">AsyncGeneratorMethod</a></emu-nt> is <emu-xref href="#sec-strict-mode-code"><a href="https://tc39.github.io/ecma262/#sec-strict-mode-code">strict mode code</a></emu-xref>, let <var>strict</var> be <emu-val>true</emu-val>. Otherwise let <var>strict</var> be <emu-val>false</emu-val>.</li><li>Let <var>scope</var> be the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>'s LexicalEnvironment.</li><li>Let <var>closure</var> be !&nbsp;AsyncGeneratorFunctionCreate(<emu-const>Method</emu-const>, <emu-nt><a href="https://tc39.github.io/ecma262/#prod-UniqueFormalParameters">UniqueFormalParameters</a></emu-nt>, <emu-nt>AsyncGeneratorBody</emu-nt>, <var>scope</var>, <var>strict</var>).</li><li>Perform !&nbsp;<emu-xref aoid="MakeMethod" id="_ref_62"><a href="https://tc39.github.io/ecma262/#sec-makemethod">MakeMethod</a></emu-xref>(<var>closure</var>, <var>object</var>).</li><li>Let <var>prototype</var> be !&nbsp;<emu-xref aoid="ObjectCreate" id="_ref_63"><a href="https://tc39.github.io/ecma262/#sec-objectcreate">ObjectCreate</a></emu-xref>(%AsyncGeneratorPrototype%).</li><li>Perform !&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_64"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>closure</var>, <code>"prototype"</code>, PropertyDescriptor { [[Value]]: <var>prototype</var>, [[Writable]]: <emu-val>true</emu-val>, [[Enumerable]]: <emu-val>false</emu-val>, [[Configurable]]: <emu-val>false</emu-val> }).</li><li><del>Perform !&nbsp;<emu-xref aoid="SetFunctionName" id="_ref_65"><a href="https://tc39.github.io/ecma262/#sec-setfunctionname">SetFunctionName</a></emu-xref>(<var>closure</var>, <var>propKey</var>).</del></li><li><del>Let <var>desc</var> be PropertyDescriptor { [[Value]]: <var>closure</var>, [[Writable]]: <emu-val>true</emu-val>, [[Enumerable]]: <var>enumerable</var>, [[Configurable]]: <emu-val>true</emu-val> }.</del></li><li><del>Return ?&nbsp;<emu-xref aoid="DefinePropertyOrThrow" id="_ref_66"><a href="https://tc39.github.io/ecma262/#sec-definepropertyorthrow">DefinePropertyOrThrow</a></emu-xref>(<var>object</var>, <var>propKey</var>, <var>desc</var>).</del></li><li><ins>Perform ?&nbsp;<emu-xref aoid="DefineOrdinaryMethod" id="_ref_67"><a href="#sec-define-ordinary-method">DefineOrdinaryMethod</a></emu-xref>(<var>key</var>, <var>homeObject</var>, <var>closure</var>, <var>enumerable</var>).</ins>
+      </li></ol></emu-alg>
+</emu-clause>
+
+<emu-clause id="the-super-keyword">
+  <h1><span class="secnum">2.8</span>The <code>super</code> Keyword</h1>
+
+  <emu-clause id="sec-super-keyword-runtime-semantics-evaluation">
+    <h1><span class="secnum">2.8.1</span>Runtime Semantics: Evaluation</h1>
+    <emu-grammar><emu-production name="SuperCall" collapsed="" id="prod-SuperCall">
+    <emu-nt><a href="#prod-SuperCall">SuperCall</a></emu-nt><emu-geq>:</emu-geq><emu-rhs a="a833032f"><emu-t>super</emu-t><emu-nt><a href="https://tc39.github.io/ecma262/#prod-Arguments">Arguments</a></emu-nt></emu-rhs>
+</emu-production></emu-grammar>
+    <emu-alg><ol><li>Let <var>newTarget</var> be <emu-xref aoid="GetNewTarget" id="_ref_68"><a href="https://tc39.github.io/ecma262/#sec-getnewtarget">GetNewTarget</a></emu-xref>().</li><li>If <var>newTarget</var> is <emu-val>undefined</emu-val>, throw a <emu-val>ReferenceError</emu-val> exception.</li><li>Let <var>func</var> be ?&nbsp;<emu-xref aoid="GetSuperConstructor" id="_ref_69"><a href="https://tc39.github.io/ecma262/#sec-getsuperconstructor">GetSuperConstructor</a></emu-xref>().</li><li>Let <var>argList</var> be ArgumentListEvaluation of <emu-nt><a href="https://tc39.github.io/ecma262/#prod-Arguments">Arguments</a></emu-nt>.</li><li><emu-xref aoid="ReturnIfAbrupt" id="_ref_70"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>argList</var>).</li><li>Let <var>result</var> be ?&nbsp;<emu-xref aoid="Construct" id="_ref_71"><a href="https://tc39.github.io/ecma262/#sec-construct">Construct</a></emu-xref>(<var>func</var>, <var>argList</var>, <var>newTarget</var>).</li><li>Let <var>thisER</var> be <emu-xref aoid="GetThisEnvironment" id="_ref_72"><a href="https://tc39.github.io/ecma262/#sec-getthisenvironment">GetThisEnvironment</a></emu-xref>( ).</li><li>Let <var>F</var> be <var>thisER</var>.[[FunctionObject]].</li><li>Assert: <var>F</var> is an ECMAScript function object.</li><li>Perform ? InitializeInstance<del>Fields</del><ins>Elements</ins>(<var>result</var>, <var>F</var>).</li><li>Return ? <var>thisER</var>.BindThisValue(<var>result</var>).
+    </li></ol></emu-alg>
+  </emu-clause>
+</emu-clause>
+
+<emu-clause id="[[construct]]">
+  <h1><span class="secnum">2.9</span>[[Construct]] ( <var>argumentsList</var>, <var>newTarget</var>)</h1>
+  <p>
+    The [[Construct]] internal method for an ECMAScript Function object <var>F</var> is
+    called with parameters <var>argumentsList</var> and <var>newTarget</var>. <var>argumentsList</var> is
+    a possibly empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref> of ECMAScript language values. The following steps are
+    taken:
+  
+  </p>
+  <emu-alg><ol><li>Assert: <var>F</var> is an ECMAScript function object.</li><li>Assert: <emu-xref aoid="Type" id="_ref_73"><a href="https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>newTarget</var>) is Object.</li><li>Let <var>callerContext</var> be the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>.</li><li>Let <var>kind</var> be <var>F</var>.[[ConstructorKind]].</li><li>If <var>kind</var> is <code>"base"</code>, then<ol><li>Let <var>thisArgument</var> be ?&nbsp;<emu-xref aoid="OrdinaryCreateFromConstructor" id="_ref_74"><a href="https://tc39.github.io/ecma262/#sec-ordinarycreatefromconstructor">OrdinaryCreateFromConstructor</a></emu-xref>(<var>newTarget</var>, <code>"%ObjectPrototype%"</code>).</li></ol></li><li>Let <var>calleeContext</var> be <emu-xref aoid="PrepareForOrdinaryCall" id="_ref_75"><a href="https://tc39.github.io/ecma262/#sec-prepareforordinarycall">PrepareForOrdinaryCall</a></emu-xref>(<var>F</var>, <var>newTarget</var>).</li><li>Assert: <var>calleeContext</var> is now the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>.</li><li>If <var>kind</var> is <code>"base"</code>, then<ol><li>Perform <emu-xref aoid="OrdinaryCallBindThis" id="_ref_76"><a href="https://tc39.github.io/ecma262/#sec-ordinarycallbindthis">OrdinaryCallBindThis</a></emu-xref>(<var>F</var>, <var>calleeContext</var>, <var>thisArgument</var>).</li><li>Let <var>result</var> be InitializeInstance<del>Fields</del><ins>Elements</ins>(<var>thisArgument</var>, <var>F</var>).</li><li>If <var>result</var> is an <emu-xref href="#sec-completion-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-completion-record-specification-type">abrupt completion</a></emu-xref>, then<ol><li>Remove <var>calleeContext</var> from <emu-xref href="#execution-context-stack"><a href="https://tc39.github.io/ecma262/#execution-context-stack">execution context stack</a></emu-xref> and restore
+           <var>callerContext</var> as the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>.</li><li>Return <emu-xref aoid="Completion" id="_ref_77"><a href="https://tc39.github.io/ecma262/#sec-completion-record-specification-type">Completion</a></emu-xref>(<var>result</var>).</li></ol></li></ol></li><li>Let <var>constructorEnv</var> be the LexicalEnvironment of <var>calleeContext</var>.</li><li>Let <var>envRec</var> be <var>constructorEnv</var>'s <emu-xref href="#sec-lexical-environments"><a href="https://tc39.github.io/ecma262/#sec-lexical-environments">EnvironmentRecord</a></emu-xref>.</li><li>Let <var>result</var> be <emu-xref aoid="OrdinaryCallEvaluateBody" id="_ref_78"><a href="https://tc39.github.io/ecma262/#sec-ordinarycallevaluatebody">OrdinaryCallEvaluateBody</a></emu-xref>(<var>F</var>, <var>argumentsList</var>).</li><li>Remove <var>calleeContext</var> from the <emu-xref href="#execution-context-stack"><a href="https://tc39.github.io/ecma262/#execution-context-stack">execution context stack</a></emu-xref> and restore <var>callerContext</var> as the <emu-xref href="#running-execution-context"><a href="https://tc39.github.io/ecma262/#running-execution-context">running execution context</a></emu-xref>.</li><li>If <var>result</var>.[[Type]] is <emu-const>return</emu-const>, then<ol><li>If <emu-xref aoid="Type" id="_ref_79"><a href="https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values">Type</a></emu-xref>(<var>result</var>.[[Value]]) is Object, return <emu-xref aoid="NormalCompletion" id="_ref_80"><a href="https://tc39.github.io/ecma262/#sec-normalcompletion">NormalCompletion</a></emu-xref>(<var>result</var>.[[Value]]).</li><li>If <var>kind</var> is <code>"base"</code>, return <emu-xref aoid="NormalCompletion" id="_ref_81"><a href="https://tc39.github.io/ecma262/#sec-normalcompletion">NormalCompletion</a></emu-xref>(<var>thisArgument</var>).</li><li>If <var>result</var>.[[Value]] is not <emu-val>undefined</emu-val>, throw a <emu-val>TypeError</emu-val> exception.</li></ol></li><li>Else, <emu-xref aoid="ReturnIfAbrupt" id="_ref_82"><a href="https://tc39.github.io/ecma262/#sec-returnifabrupt">ReturnIfAbrupt</a></emu-xref>(<var>result</var>).</li><li>Return ? <var>envRec</var>.GetThisBinding().
+  </li></ol></emu-alg>
+  <emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">Fields are added by the base class constructor when the super chain reaches up to that, rather than by the subclass constructor when creating the object, in order to be analogous to ES2015 subclassable builtins. See  <a href="https://github.com/tc39/proposal-private-fields/issues/17">this GitHub thread</a> for more discussion.</div></emu-note>
+</emu-clause>
+
+</emu-clause>
+
+<emu-clause id="sec-private-names">
+  <h1><span class="secnum">3</span>Private Names and references</h1>
+
+  <p>The  <dfn>Private Name</dfn> specification type is used to describe a globally unique record which represents a private  <del>field</del><ins>class element (field, method, or accessor)</ins>. A Private Name may be installed on any ECMAScript object with the PrivateFieldAdd internal algorithm, and then read or written using <emu-xref aoid="PrivateFieldGet" id="_ref_83"><a href="#sec-privatefieldget">PrivateFieldGet</a></emu-xref> and <emu-xref aoid="PrivateFieldSet" id="_ref_84"><a href="#sec-privatefieldset">PrivateFieldSet</a></emu-xref>.</p>
+
+  <p>Each Private Name holds the following information:</p>
+  <emu-table id="private-name-record" caption="Fields of the Private Name"><figure><figcaption>Table 1: Fields of the <emu-xref href="#sec-private-names" id="_ref_85"><a href="#sec-private-names">Private Name</a></emu-xref></figcaption>
+    <table>
+      <thead>
+      <tr>
+        <th>
+          Field
+        
+        </th>
+        <th>
+          Type
+        
+        </th>
+        <th>
+          <ins>For which types is it present</ins>
+        </th>
+        <th>
+          Description
+        
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          [[Description]]
+        
+        </td>
+        <td>
+          <emu-const>string</emu-const>
+        
+        </td>
+        <td>
+          <ins>All</ins>
+        </td>
+        <td>
+          The string value passed to NewPrivateName when creating this <emu-xref href="#sec-private-names" id="_ref_86"><a href="#sec-private-names">Private Name</a></emu-xref>.
+        
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <ins>[[Kind]]</ins>
+        </td>
+        <td>
+          <ins><code>"field"</code>, <code>"method"</code> or <code>"accessor"</code></ins>
+        </td>
+        <td>
+          <ins>All</ins>
+        </td>
+        <td>
+          <ins>Indicates what the private name is used for.</ins>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <ins>[[Brand]]</ins>
+        </td>
+        <td>
+          <ins>an ECMAScript value</ins>
+        </td>
+        <td>
+          <ins><code>"method"</code> or <code>"accessor"</code></ins>
+        </td>
+        <td>
+          <ins>The "original" class of the private method or accessor; checked for in the [[PrivateBrands]] internal slot of instances before access is provided.</ins>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <ins>[[Value]]</ins>
+        </td>
+        <td>
+          <ins>Function</ins>
+        </td>
+        <td>
+          <ins><code>"method"</code></ins>
+        </td>
+        <td>
+          <ins>The value of the private method.</ins>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <ins>[[Get]]</ins>
+        </td>
+        <td>
+          <ins>Function</ins>
+        </td>
+        <td>
+          <ins><code>"accessor"</code></ins>
+        </td>
+        <td>
+          <ins>The getter for a private accessor.</ins>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <ins>[[Set]]</ins>
+        </td>
+        <td>
+          <ins>Function</ins>
+        </td>
+        <td>
+          <ins><code>"accessor"</code></ins>
+        </td>
+        <td>
+          <ins>The setter for a private accessor.</ins>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    </figure></emu-table>
+
+<p>In addition to [[PrivateFieldValues]], all ECMAScript objects have a new additional internal slot, [[PrivateBrands]], which is an initially empty <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref> of ECMAScript values which are used for checking to see if an object supports a private method or accessor. The entries in the list correspond to the "original prototype" (or, in the case of static methods, the "original constructor") which contained the private method or accessor.</p>
+
+<emu-note type="editor"><span class="note">Editor's Note</span><div class="note-contents">
+  <p>Although this specification uses logic of a [[PrivateBrand]] <emu-xref href="#sec-list-and-record-specification-type"><a href="https://tc39.github.io/ecma262/#sec-list-and-record-specification-type">List</a></emu-xref> which is held per-instance, the use of this list obeys certain invariants:</p>
+
+  <ul>
+    <li>Nothing is removed from the list; things are only added to the end.</li>
+    <li>There is no way to distinguish different copies of the list.</li>
+    <li>The list is mutable, but there are never any references to it outside of the particular object which holds it, so additions can be thought of as replacing the internal slot with another list which contains the new element.</li>
+  </ul>
+</div></emu-note>
+
+<emu-clause id="sec-privatebrandcheck" aoid="PrivateBrandCheck" oldids="sec-privatebrandcontains">
+  <span id="sec-privatebrandcontains"></span><h1><span class="secnum">3.1</span>PrivateBrandCheck(<var>O</var>, <var>P</var>)</h1>
+  <emu-alg><ol><li>If <var>O</var>.[[PrivateBrands]] does not contain an entry <var>e</var> such that <emu-xref aoid="SameValue" id="_ref_87"><a href="https://tc39.github.io/ecma262/#sec-samevalue">SameValue</a></emu-xref>(<var>e</var>, <var>P</var>.[[Brand]]) is <emu-val>true</emu-val>,<ol><li>Throw a <emu-val>TypeError</emu-val> exception.
+  </li></ol></li></ol></emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-privatebrandadd" aoid="PrivateBrandAdd">
+  <h1><span class="secnum">3.2</span>PrivateBrandAdd(<var>O</var>, <var>brand</var>)</h1>
+  <emu-alg><ol><li>If <var>O</var>.[[PrivateBrands]] contains an entry <var>e</var> such that <emu-xref aoid="SameValue" id="_ref_88"><a href="https://tc39.github.io/ecma262/#sec-samevalue">SameValue</a></emu-xref>(<var>e</var>, <var>brand</var>) is <emu-val>true</emu-val>,<ol><li>Throw a <emu-val>TypeError</emu-val> exception.</li></ol></li><li>Append <var>brand</var> to <var>O</var>.[[PrivateBrands]].
+  </li></ol></emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-privatefieldget" aoid="PrivateFieldGet">
+  <h1><span class="secnum">3.3</span>PrivateFieldGet (<var>P</var>, <var>O</var> )</h1>
+  <emu-alg><ol><li>Assert: <var>P</var> is a <emu-xref href="#sec-private-names" id="_ref_89"><a href="#sec-private-names">Private Name</a></emu-xref>.</li><li>If <var>O</var> is not an object, throw a <emu-val>TypeError</emu-val> exception.</li><li><ins>If <var>P</var>.[[Kind]] is <code>"field"</code>,</ins><ol><li>Let <var>entry</var> be PrivateFieldFind(<var>P</var>, <var>O</var>).</li><li>If <var>entry</var> is <emu-const>empty</emu-const>, throw a <emu-val>TypeError</emu-val> exception.</li><li>Return <var>entry</var>.[[PrivateFieldValue]].</li></ol></li><li><ins>Perform ?&nbsp;<emu-xref aoid="PrivateBrandCheck" id="_ref_90"><a href="#sec-privatebrandcheck">PrivateBrandCheck</a></emu-xref>(<var>O</var>, <var>P</var>).</ins></li><li><ins>If <var>P</var>.[[Kind]] is <code>"method"</code>,</ins><ol><li><ins>Return <var>P</var>.[[Value]].</ins></li></ol></li><li><ins>Else,</ins><ol><li><ins>Assert: <var>P</var>.[[Kind]] is <code>"accessor"</code>.</ins></li><li><ins>If <var>P</var> does not have a [[Get]] field, throw a <emu-val>TypeError</emu-val> exception.</ins></li><li><ins>Let <var>getter</var> be <var>P</var>.[[Get]].</ins></li><li><ins>Return ?&nbsp;<emu-xref aoid="Call" id="_ref_91"><a href="https://tc39.github.io/ecma262/#sec-call">Call</a></emu-xref>(<var>getter</var>, <var>O</var>).</ins>
+  </li></ol></li></ol></emu-alg>
+</emu-clause>
+
+<emu-clause id="sec-privatefieldset" aoid="PrivateFieldSet">
+  <h1><span class="secnum">3.4</span>PrivateFieldSet (<var>P</var>, <var>O</var>, <var>value</var> )</h1>
+  <emu-alg><ol><li>Assert: <var>P</var> is a <emu-xref href="#sec-private-names" id="_ref_92"><a href="#sec-private-names">Private Name</a></emu-xref>.</li><li>If <var>O</var> is not an object, throw a <emu-val>TypeError</emu-val> exception.</li><li><ins>If <var>P</var>.[[Kind]] is <code>"field"</code>,</ins><ol><li>Let <var>entry</var> be PrivateFieldFind(<var>P</var>, <var>O</var>).</li><li>If <var>entry</var> is <emu-const>empty</emu-const>, throw a <emu-val>TypeError</emu-val> exception.</li><li>Set <var>entry</var>.[[PrivateFieldValue]] to <var>value</var>.</li><li><ins>Return.</ins></li></ol></li><li><ins>If <var>P</var>.[[Kind]] is <code>"method"</code>, throw a <emu-val>TypeError</emu-val> exception.</ins></li><li><ins>Else,</ins><ol><li><ins>Assert: <var>P</var>.[[Kind]] is <code>"accessor"</code>.</ins></li><li><ins>Perform ?&nbsp;<emu-xref aoid="PrivateBrandCheck" id="_ref_93"><a href="#sec-privatebrandcheck">PrivateBrandCheck</a></emu-xref>(<var>O</var>, <var>P</var>).</ins></li><li><ins>If <var>P</var> does not have a [[Set]] field, throw a <emu-val>TypeError</emu-val> exception.</ins></li><li><ins>Let <var>setter</var> be <var>P</var>.[[Set]].</ins></li><li><ins>Perform ?&nbsp;<emu-xref aoid="Call" id="_ref_94"><a href="https://tc39.github.io/ecma262/#sec-call">Call</a></emu-xref>(<var>setter</var>, <var>O</var>, <var>value</var>).</ins></li><li><ins>Return.</ins>
+  </li></ol></li></ol></emu-alg>
+</emu-clause>
+</emu-clause><emu-annex id="sec-copyright-and-software-license">
+      <h1><span class="secnum">A</span>Copyright &amp; Software License</h1>
+      
+      <h2>Copyright Notice</h2>
+      <p>© 2021 Daniel Ehrenberg, Jeff Morrison, Kevin Smith, Kevin Gibbons</p>
+
+      <h2>Software License</h2>
+      <p>All Software contained in this document ("Software") is protected by copyright and is being made available under the "BSD License", included below. This Software may be subject to third party rights (rights from parties other than Ecma International), including patent rights, and no licenses under such third party rights are granted under this license even if the third party concerned is a member of Ecma International. SEE THE ECMA CODE OF CONDUCT IN PATENT MATTERS AVAILABLE AT https://ecma-international.org/memento/codeofconduct.htm FOR INFORMATION REGARDING THE LICENSING OF PATENT CLAIMS THAT ARE REQUIRED TO IMPLEMENT ECMA INTERNATIONAL STANDARDS.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ol>
+  <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+  <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+  <li>Neither the name of the authors nor Ecma International may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ol>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE ECMA INTERNATIONAL "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ECMA INTERNATIONAL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+    </emu-annex>
+</div></body>
