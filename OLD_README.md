@@ -2,7 +2,7 @@
 
 Daniel Ehrenberg
 
-[Stage 3](https://tc39.es/process-document/)
+[Stage 4](https://tc39.es/process-document/)
 
 Keeping state and behavior private to a class lets library authors present a clear, stable interface, while changing their code over time behind the scenes. The [class fields](https://github.com/tc39/proposal-class-fields) proposal provides private fields for classes and instances, and this proposal builds on that by adding private methods and accessors (getter/setters) to JavaScript. With this proposal, any class element can be private.
 
