@@ -183,20 +183,12 @@ emu-example pre {
       ClassElementName[Yield, Await] : PrivateIdentifier
   </emu-grammar>
   <emu-alg>
-    1. Let _bindingName_ be StringValue of |PrivateIdentifier|.
+    1. Let _privateIdentifier_ be StringValue of |PrivateIdentifier|.
     1. Let _scope_ be the running execution context's PrivateEnvironment.
     1. Let _scopeEnvRec_ be _scope_'s EnvironmentRecord.
-    1. <del>Let _field_ be NewPrivateName(_bindingName_).</del>
-    1. <del>Perform ! _scopeEnvRec_.InitializeBinding(_bindingName_, _field_).</del>
-    1. <ins>Assert: _scopeEnvRec_ has a binding for _bindingName_.</ins>
-    1. <ins>If _scopeEnvRec_'s binding for _bindingName_ is uninitialized,</ins>
-      1. <ins>Let _field_ be NewPrivateName(_bindingName_).</ins>
-      1. <ins>Perform ! _scopeEnvRec_.InitializeBinding(_bindingName_, _field_).</ins>
-    1. <ins>Else,</ins>
-      1. <ins>Let _field_ be _scopeEnvRec_.GetBindingValue(_bindingName_).</ins>
-      1. <ins>NOTE: The only case where this may occur is in getter/setter pairs; other duplicates are prohibited as a Syntax Error.</ins>
-    1. <ins>Assert: _field_.[[Description]] is _bindingName_.</ins>
-    1. Return _field_.
+    1. Let _name_ be _scopeEnvRec_.GetBindingValue(_bindingName_).
+    1. Assert: _name_.[[Description]] is _privateIdentifier_.
+    1. Return _name_.
   </emu-alg>
   <emu-note type=editor>Each time a class declaration executes, distinct internal Private Names are created. This means, that they cannot directly access each other's private state if a method of one is called with the other as a receiver.</emu-note>
 
@@ -287,6 +279,8 @@ emu-example pre {
       1. If |ClassBody_opt| is present, then
         1. For each element _dn_ of the PrivateBoundIdentifiers of |ClassBody_opt|,
           1. Perform _classPrivateEnvRec_.CreateImmutableBinding(_dn_, *true*).
+          1. Let _privateName_ be NewPrivateName(_dn_).
+          1. Perform ! _classPrivateEnvRec_.InitializeBinding(_dn_, _dn_).
       1. If |ClassHeritage_opt| is not present, then
         1. Let _protoParent_ be the intrinsic object %ObjectPrototype%.
         1. Let _constructorParent_ be the intrinsic object %FunctionPrototype%.
